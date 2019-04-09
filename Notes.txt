@@ -1,0 +1,16 @@
+I want an application that has to-do list functionality, that I can also use to track and visualise how much time I spend on specific tasks. 
+
+I find myself using sticky notes as my 'To-Do' list. I also use sticky notes to track how much 'time' i spend on each task, and add everything in the end to know how much time i've spent so far.
+
+I don't want to spend the end of each week doing math to find how much time i've spent on certain tasks.
+
+I also don't want to use sticky notes as my to-do list because once it's deleted from the note, it's gone. 
+
+I want a to-do list that has calendar-esque functionality so I can plan out my day and week as well. But I don't want to bog down my outlook calendar. 
+
+In the end, I want a lightweight/simplistic version of:
+-Calendar functionality of Outlook
+-To-do features similar to Trello
+-Ability to add timeframes/easy UI, and time tracking as Azure DevOps
+-Speed/simplicity of Sticky Notes
+
