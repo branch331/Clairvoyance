@@ -8,5 +8,15 @@ namespace Clairvoyance
 {
     public class TaskItemModel
     {
+        public TaskItemModel(string taskName)
+        {
+            TaskName = taskName;
+        }
+
+        public string TaskName
+        {
+            get;
+            set;
+        }
     }
 }

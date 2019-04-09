@@ -20,9 +20,13 @@ namespace Clairvoyance
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private WeeklyAgendaViewModel weeklyAgendaVM = new WeeklyAgendaViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = weeklyAgendaVM;
         }
     }
 }

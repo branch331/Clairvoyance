@@ -18,5 +18,16 @@ namespace Clairvoyance
             get;
             set;
         }
+
+        public List<TaskItemModel> TaskList
+        {
+            get;
+            set;
+        }
+
+        public void addTask(string taskName)
+        {
+            TaskList.Append(new TaskItemModel(taskName));
+        }
     }
 }

@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Clairvoyance
 {
-    public class WeeklyAgendaViewModel
+    public class WeeklyAgendaViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private IEnumerable<DayPlannerModel> fullWorkWeek = new List<DayPlannerModel>();
+
         public WeeklyAgendaViewModel()
         {
 
@@ -19,7 +24,7 @@ namespace Clairvoyance
             set;
         }
 
-        public List<DayPlannerModel> DaysToDisplayList
+        public List<DayPlannerModel> DaysToDisplay
         {
             get;
             set;
@@ -59,6 +64,20 @@ namespace Clairvoyance
             fullWeekList.Add(new DayPlannerModel("Sun"));
 
             return fullWeekList;
+        }
+
+        public void addTaskToDay(string taskName, string day)
+        {
+            int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == day);
+            DaysToDisplay[dayIndex].addTask(taskName);
+        }
+
+        protected virtual void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }
