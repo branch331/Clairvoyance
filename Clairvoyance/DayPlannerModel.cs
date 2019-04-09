@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Clairvoyance
 {
-    class DayPlannerModel
+    public class DayPlannerModel
     {
+        public DayPlannerModel(string dayOfWeek)
+        {
+            NameOfDay = dayOfWeek;
+        }
+
+        public string NameOfDay
+        {
+            get;
+            set;
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clairvoyance
 {
-    class StatisticsViewModel
+    public class StatisticsViewModel
     {
     }
 }

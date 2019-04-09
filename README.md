@@ -1,2 +1,2 @@
 # Clairvoyance
-Lightweight desktop agenda with task statistics
+Lightweight desktop agenda with task statistics.

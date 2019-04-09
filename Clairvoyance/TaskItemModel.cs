@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clairvoyance
 {
-    class TaskItemModel
+    public class TaskItemModel
     {
     }
 }
