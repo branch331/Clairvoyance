@@ -16,40 +16,42 @@ namespace ClairvoyanceTests
         {
             testAgendaVMWorkWeek = new WeeklyAgendaViewModel();
             testAgendaVMWorkWeek.isWorkWeek = true;
+            testAgendaVMWorkWeek.updateDaysToDisplay();
 
             testAgendaVMFullWeek = new WeeklyAgendaViewModel();
             testAgendaVMFullWeek.isWorkWeek = false;
+            testAgendaVMFullWeek.updateDaysToDisplay();
         }
 
         [TestMethod]
         public void workWeekTestCount()
         {
-            Assert.IsTrue(testAgendaVMWorkWeek.generateDaysToDisplayList().Count == 5);
+            Assert.IsTrue(testAgendaVMWorkWeek.DaysToDisplay.Count == 5);
         }
 
         [TestMethod]
         public void fullWeekTestCount()
         {
-            Assert.IsTrue(testAgendaVMFullWeek.generateDaysToDisplayList().Count == 7);
+            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay.Count == 7);
         }
 
         [TestMethod]
         public void workWeekTestFirstObject()
         {
-            Assert.IsTrue(testAgendaVMWorkWeek.generateDaysToDisplayList()[0].NameOfDay == "Mon");
+            Assert.IsTrue(testAgendaVMWorkWeek.DaysToDisplay[0].NameOfDay == "Mon");
         }
 
         [TestMethod]
         public void fullWeekTestFirstObject()
         {
-            Assert.IsTrue(testAgendaVMFullWeek.generateDaysToDisplayList()[0].NameOfDay == "Mon");
+            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[0].NameOfDay == "Mon");
         }
 
         [TestMethod]
         public void workWeekTestLastObject()
         {
             List<DayPlannerModel> workWeekList = new List<DayPlannerModel>();
-            workWeekList = testAgendaVMWorkWeek.generateDaysToDisplayList();
+            workWeekList = testAgendaVMWorkWeek.DaysToDisplay;
 
             Assert.IsTrue(workWeekList[workWeekList.Count - 1].NameOfDay == "Fri");
         }
@@ -58,7 +60,7 @@ namespace ClairvoyanceTests
         public void fullWeekTestLastObject()
         {
             List<DayPlannerModel> fullWeekList = new List<DayPlannerModel>();
-            fullWeekList = testAgendaVMFullWeek.generateDaysToDisplayList();
+            fullWeekList = testAgendaVMFullWeek.DaysToDisplay;
 
             Assert.IsTrue(fullWeekList[fullWeekList.Count - 1].NameOfDay == "Sun");
         }
@@ -66,7 +68,6 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void addTaskTest()
         {
-            testAgendaVMFullWeek.initializeDaysToDisplayList();
             testAgendaVMFullWeek.addTaskToDay("Test Task", "Tues");
             Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList[0].TaskName == "Test Task");
         }

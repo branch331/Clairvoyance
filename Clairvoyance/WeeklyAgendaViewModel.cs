@@ -10,13 +10,16 @@ namespace Clairvoyance
     public class WeeklyAgendaViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public bool isWorkWeek; //Change to private
+        public bool isWorkWeek;
+        public List<DayPlannerModel> daysToDisplay;
 
-        private IEnumerable<DayPlannerModel> fullWorkWeek = new List<DayPlannerModel>();
+        private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
 
         public WeeklyAgendaViewModel()
         {
-            isWorkWeek = false;
+            IsWorkWeek = true;
+            fullWeek = generateFullWeekList();
+            updateDaysToDisplay();
         }
 
         public bool IsWorkWeek
@@ -34,35 +37,15 @@ namespace Clairvoyance
 
         public List<DayPlannerModel> DaysToDisplay
         {
-            get;
-            set;
-        }
-
-        public void initializeDaysToDisplayList()
-        {
-            DaysToDisplay = generateDaysToDisplayList();
-        }
-
-        public List<DayPlannerModel> generateDaysToDisplayList()
-        {
-            if (IsWorkWeek)
+            get { return daysToDisplay; }
+            set
             {
-                return generateWorkWeekList();
+                if (daysToDisplay != value)
+                {
+                    daysToDisplay = value;
+                    NotifyPropertyChanged("DaysToDisplay");
+                }
             }
-
-            return generateFullWeekList();
-        }
-
-        private List<DayPlannerModel> generateWorkWeekList()
-        {
-            List<DayPlannerModel> workWeekList = new List<DayPlannerModel>();
-            workWeekList.Add(new DayPlannerModel("Mon"));
-            workWeekList.Add(new DayPlannerModel("Tues"));
-            workWeekList.Add(new DayPlannerModel("Wed"));
-            workWeekList.Add(new DayPlannerModel("Thurs"));
-            workWeekList.Add(new DayPlannerModel("Fri"));
-
-            return workWeekList;
         }
 
         private List<DayPlannerModel> generateFullWeekList()
@@ -83,6 +66,31 @@ namespace Clairvoyance
         {
             int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == day);
             DaysToDisplay[dayIndex].addTask(taskName);
+        }
+
+        public void updateDaysToDisplay()
+        {
+            if (IsWorkWeek)
+            {
+                daysToDisplay = returnWorkWeek();
+            }
+            else
+            {
+                daysToDisplay = fullWeek;
+            }
+
+            NotifyPropertyChanged("DaysToDisplay");
+        }
+
+        public List<DayPlannerModel> returnWorkWeek()
+        {
+            List<DayPlannerModel> workWeek = new List<DayPlannerModel>();
+            for (int i = 0; i < 5; i++)
+            {
+                workWeek.Add(fullWeek[i]);
+            }
+
+            return workWeek;
         }
 
         protected virtual void NotifyPropertyChanged(string propertyName)
