@@ -11,6 +11,7 @@ namespace Clairvoyance
         public DayPlannerModel(string dayOfWeek)
         {
             NameOfDay = dayOfWeek;
+            TaskList = new List<TaskItemModel>();
         }
 
         public string NameOfDay
@@ -27,7 +28,7 @@ namespace Clairvoyance
 
         public void addTask(string taskName)
         {
-            TaskList.Append(new TaskItemModel(taskName));
+            TaskList.Add(new TaskItemModel(taskName));
         }
     }
 }

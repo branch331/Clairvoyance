@@ -10,18 +10,26 @@ namespace Clairvoyance
     public class WeeklyAgendaViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public bool isWorkWeek; //Change to private
 
         private IEnumerable<DayPlannerModel> fullWorkWeek = new List<DayPlannerModel>();
 
         public WeeklyAgendaViewModel()
         {
-
+            isWorkWeek = false;
         }
 
-        public bool isWorkWeek
+        public bool IsWorkWeek
         {
-            get;
-            set;
+            get { return isWorkWeek; }
+            set
+            {
+                if (isWorkWeek != value)
+                {
+                    isWorkWeek = value;
+                    NotifyPropertyChanged("IsWorkWeek");
+                }
+            }
         }
 
         public List<DayPlannerModel> DaysToDisplay
@@ -30,9 +38,14 @@ namespace Clairvoyance
             set;
         }
 
+        public void initializeDaysToDisplayList()
+        {
+            DaysToDisplay = generateDaysToDisplayList();
+        }
+
         public List<DayPlannerModel> generateDaysToDisplayList()
         {
-            if (isWorkWeek)
+            if (IsWorkWeek)
             {
                 return generateWorkWeekList();
             }

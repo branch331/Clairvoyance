@@ -66,6 +66,7 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void addTaskTest()
         {
+            testAgendaVMFullWeek.initializeDaysToDisplayList();
             testAgendaVMFullWeek.addTaskToDay("Test Task", "Tues");
             Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList[0].TaskName == "Test Task");
         }
