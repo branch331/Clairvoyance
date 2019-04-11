@@ -4,13 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Clairvoyance
 {
     public class WeeklyAgendaViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         public bool isWorkWeek;
+        public string taskItemName;
+        public string taskItemCategory;
+        public string taskItemDescription;
+        public string taskItemStartTime;
+        public string taskItemEndTime;
+
         public List<DayPlannerModel> daysToDisplay;
 
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
@@ -31,6 +39,66 @@ namespace Clairvoyance
                 {
                     isWorkWeek = value;
                     NotifyPropertyChanged("IsWorkWeek");
+                }
+            }
+        }
+
+        public string TaskItemName
+        {
+            get { return taskItemName; }
+            set
+            {
+                if( taskItemName != value)
+                {
+                    taskItemName = value;
+                }
+            }
+        }
+
+        public string TaskItemCategory
+        {
+            get { return taskItemCategory; }
+            set
+            {
+                if (taskItemCategory != value)
+                {
+                    taskItemCategory = value;
+                }
+            }
+        }
+
+        public string TaskItemDescription
+        {
+            get { return taskItemDescription; }
+            set
+            {
+                if (taskItemDescription != value)
+                {
+                    taskItemDescription = value;
+                }
+            }
+        }
+
+        public string TaskItemStartTime
+        {
+            get { return taskItemStartTime; }
+            set
+            {
+                if (taskItemStartTime != value)
+                {
+                    taskItemStartTime = value;
+                }
+            }
+        }
+
+        public string TaskItemEndTime
+        {
+            get { return taskItemEndTime; }
+            set
+            {
+                if (taskItemEndTime != value)
+                {
+                    taskItemEndTime = value;
                 }
             }
         }
@@ -62,10 +130,17 @@ namespace Clairvoyance
             return fullWeekList;
         }
 
-        public void addTaskToDay(string taskName, string day)
+        public void addTaskToDay(string day)
         {
-            int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == day);
-            DaysToDisplay[dayIndex].addTask(taskName);
+            if (DaysToDisplay.Count == 0)
+            {
+                throw new System.InvalidOperationException("DaysToDisplay has not been initialized.");
+            }
+            else
+            {
+                int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == day);
+                DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemDescription, taskItemStartTime, taskItemEndTime);
+            }
         }
 
         public void updateDaysToDisplay()

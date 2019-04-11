@@ -14,6 +14,14 @@ In the end, I want a lightweight/simplistic version of:
 -Ability to add timeframes/easy UI, and time tracking as Azure DevOps
 -Speed/simplicity of Sticky Notes
 
+[Must-do]
+Display days on UI
+Add "day" input field on UI >> Submit task to day
+Display tasks in days
+Checkbox should trigger DaysToDisplay to show work week or full week
+Store days/task data somewhere
 
-
-Add exception to WeeklyAgendaViewModel.addTaskToDay
+[Optional]
+Add 'Enter' command to text boxes?
+TaskItemModel: Make sure input string is valid time
+Make DateTime conversion in TaskItemModel PM?

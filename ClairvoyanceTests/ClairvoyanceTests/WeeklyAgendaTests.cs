@@ -14,11 +14,26 @@ namespace ClairvoyanceTests
         [TestInitialize]
         public void setUpTestViewModels()
         {
-            testAgendaVMWorkWeek = new WeeklyAgendaViewModel();
+            testAgendaVMWorkWeek = new WeeklyAgendaViewModel()
+            {
+                TaskItemName = "Test Task",
+                TaskItemCategory = "Test Cat",
+                TaskItemDescription = "Test Desc",
+                TaskItemStartTime = "4:30",
+                TaskItemEndTime = "5:30"
+            };
+
             testAgendaVMWorkWeek.isWorkWeek = true;
             testAgendaVMWorkWeek.updateDaysToDisplay();
 
-            testAgendaVMFullWeek = new WeeklyAgendaViewModel();
+            testAgendaVMFullWeek = new WeeklyAgendaViewModel()
+            {
+                TaskItemName = "Test Task",
+                TaskItemCategory = "Test Cat",
+                TaskItemDescription = "Test Desc",
+                TaskItemStartTime = "4:30",
+                TaskItemEndTime = "5:30"
+            };
             testAgendaVMFullWeek.isWorkWeek = false;
             testAgendaVMFullWeek.updateDaysToDisplay();
         }
@@ -68,8 +83,17 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void addTaskTest()
         {
-            testAgendaVMFullWeek.addTaskToDay("Test Task", "Tues");
+            testAgendaVMFullWeek.addTaskToDay("Tues");
             Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList[0].TaskName == "Test Task");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException),
+            "DaysToDisplay has not been initialized.")]
+        public void addTaskDaysToDisplayNullTest()
+        {
+            testAgendaVMFullWeek.DaysToDisplay = new List<DayPlannerModel>();
+            testAgendaVMFullWeek.addTaskToDay("Tues");
         }
     }
 }
