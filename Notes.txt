@@ -15,10 +15,10 @@ In the end, I want a lightweight/simplistic version of:
 -Speed/simplicity of Sticky Notes
 
 [Must-do]
-Display days on UI
+Display days on UI - just bind daystodisplay to datagrid
 [DONE] Add "day" input field on UI >> Submit task to day
 Display tasks in days
-Checkbox should trigger DaysToDisplay to display work week or full week
+[DONE] Checkbox should trigger DaysToDisplay to display work week or full week
 Store days/task data somewhere
 
 [Optional]
