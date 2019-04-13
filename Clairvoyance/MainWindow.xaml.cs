@@ -39,7 +39,7 @@ namespace Clairvoyance
                 weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskDescription + "\n" +
                 weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskStartDateTime + "\n" +
                 weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskEndDateTime + "\n" +
-                weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskTimeInterval);
+                weeklyAgendaVM.DaysToDisplay[0].TaskList[0].TaskTimeInterval);
         }
     }
 }

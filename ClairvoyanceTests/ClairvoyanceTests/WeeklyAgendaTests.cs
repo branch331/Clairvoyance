@@ -83,8 +83,36 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void addTaskTest()
         {
-            testAgendaVMFullWeek.addTaskToDay("Tues");
+            testAgendaVMFullWeek.TaskItemDay = "Tues";
+            testAgendaVMFullWeek.addTaskToDay();
             Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList[0].TaskName == "Test Task");
+        }
+
+        [TestMethod]
+        public void addMultipleTaskSameDayTest()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Tues";
+            for (int i = 0; i < 5; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count == 5);
+        }
+
+        [TestMethod]
+        public void addMultipleTaskDifferentDaysTest()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Tues";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            testAgendaVMFullWeek.TaskItemDay = "Thurs";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count == 3 && testAgendaVMFullWeek.DaysToDisplay[3].TaskList.Count == 3);
         }
 
         [TestMethod]
@@ -93,7 +121,8 @@ namespace ClairvoyanceTests
         public void addTaskDaysToDisplayNullTest()
         {
             testAgendaVMFullWeek.DaysToDisplay = new List<DayPlannerModel>();
-            testAgendaVMFullWeek.addTaskToDay("Tues");
+            testAgendaVMFullWeek.TaskItemDay = "Tues";
+            testAgendaVMFullWeek.addTaskToDay();
         }
     }
 }

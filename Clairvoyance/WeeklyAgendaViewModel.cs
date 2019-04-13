@@ -186,6 +186,11 @@ namespace Clairvoyance
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+
+                if (propertyName == "IsWorkWeek")
+                {
+                    updateDaysToDisplay();
+                }
             }
         }
     }

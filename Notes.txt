@@ -16,9 +16,9 @@ In the end, I want a lightweight/simplistic version of:
 
 [Must-do]
 Display days on UI
-Add "day" input field on UI >> Submit task to day
+[DONE] Add "day" input field on UI >> Submit task to day
 Display tasks in days
-Checkbox should trigger DaysToDisplay to show work week or full week
+Checkbox should trigger DaysToDisplay to display work week or full week
 Store days/task data somewhere
 
 [Optional]
