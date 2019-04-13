@@ -12,18 +12,34 @@
             <RowDefinition Height="325*"/>
         </Grid.RowDefinitions>
 
-        <CheckBox Content="Work Week?" FontSize="16" IsChecked="{Binding IsWorkWeek}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="112,56,0,0" Height="24" Width="109"/>
+        <CheckBox Content="Work Week?" FontSize="16" IsChecked="{Binding IsWorkWeek}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0" Height="24" Width="109"/>
 
         <TextBlock HorizontalAlignment="Left" Height="24" Margin="615,37,0,0" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
 
         <TextBlock HorizontalAlignment="Left" Height="24" Margin="552,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" RenderTransformOrigin="0.822,-1.146"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
         <TextBox HorizontalAlignment="Left" Height="24" Margin="610,61,0,0" TextWrapping="Wrap" Text="{Binding TaskItemName}"  VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="544,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Text="Category" Grid.RowSpan="2"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="610,90,0,0" TextWrapping="Wrap" Text="{Binding TaskItemCategory}" VerticalAlignment="Top" Width="173" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="554,93,0,0" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top" Width="61" Grid.RowSpan="2"/>
+        <ComboBox SelectedValuePath="Content" HorizontalAlignment="Left" Height="24" Margin="610,91,0,0" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValue="{Binding TaskItemDay}">
+            <ComboBoxItem>Mon</ComboBoxItem>
+            <ComboBoxItem>Tues</ComboBoxItem>
+            <ComboBoxItem>Wed</ComboBoxItem>
+            <ComboBoxItem>Thurs</ComboBoxItem>
+            <ComboBoxItem>Fri</ComboBoxItem>
+            <ComboBoxItem>Sat</ComboBoxItem>
+            <ComboBoxItem>Sun</ComboBoxItem>
+        </ComboBox>
+        <!-- <TextBox HorizontalAlignment="Left" Height="24" Margin="341,89,0,0" TextWrapping="Wrap" Text="{Binding TaskItemDay}" VerticalAlignment="Top" Width="172" Grid.RowSpan="2"/> -->
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="544,24.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Grid.Row="1"><Run Text="Description"/><LineBreak/><Run/></TextBlock>
-        <RichTextBox HorizontalAlignment="Left" Height="38" Margin="610,23.5,0,0" VerticalAlignment="Top" Width="173" Grid.Row="1">
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="545,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Text="Category" Grid.Row="1"/>
+        <ComboBox SelectedValuePath="Content" HorizontalAlignment="Left" Height="24" Margin="611,24,0,0" VerticalAlignment="Top" Width="173" Grid.Row="1" SelectedValue="{Binding TaskItemCategory}">
+            <ComboBoxItem>cg</ComboBoxItem>
+            <ComboBoxItem>ng</ComboBoxItem>
+        </ComboBox>
+        <!-- <TextBox HorizontalAlignment="Left" Height="24" Margin="341,26,0,0" TextWrapping="Wrap" Text="{Binding TaskItemCategory}" VerticalAlignment="Top" Width="173" Grid.Row="1"/> -->
+
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="545,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Grid.Row="1"><Run Text="Description"/><LineBreak/><Run/></TextBlock>
+        <RichTextBox HorizontalAlignment="Left" Height="38" Margin="611,55,0,0" VerticalAlignment="Top" Width="173" Grid.Row="1">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="{Binding TaskItemDescription}"/>
@@ -31,16 +47,16 @@
             </FlowDocument>
         </RichTextBox>
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="549,66.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Grid.Row="1"><Run Text="Times"/><LineBreak/><Run/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemStartTime}" VerticalAlignment="Top" Width="90" Margin="610,66.5,0,0" Grid.Row="1"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="705,66.5,0,0" TextWrapping="Wrap" Text="{Binding TaskItemEndTime}" VerticalAlignment="Top" Width="78" Grid.Row="1">
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="550,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Grid.Row="1"><Run Text="Times"/><LineBreak/><Run/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemStartTime}" VerticalAlignment="Top" Width="90" Margin="611,99,0,0" Grid.Row="1"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="706,99,0,0" TextWrapping="Wrap" Text="{Binding TaskItemEndTime}" VerticalAlignment="Top" Width="78" Grid.Row="1">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding CreateNewTaskItem}" Key="Return" />
                 <KeyBinding Command="{Binding CreateNewTaskItem}" Key="Enter" />
             </TextBox.InputBindings>
         </TextBox>
 
-        <Button Content="Submit" HorizontalAlignment="Left" Height="22" Margin="674,111.5,0,0" VerticalAlignment="Top" Width="54" Click="Submit_Task_Click" Grid.Row="1"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Height="22" Margin="675,144,0,0" VerticalAlignment="Top" Width="54" Click="Submit_Task_Click" Grid.Row="1"/>
 
     </Grid>
 </Window>

@@ -30,14 +30,16 @@ namespace Clairvoyance
 
         private void Submit_Task_Click(object sender, RoutedEventArgs e)
         {
-            weeklyAgendaVM.addTaskToDay("Mon");
+            weeklyAgendaVM.addTaskToDay();
+
+            var index = weeklyAgendaVM.DaysToDisplay.FindIndex(x => x.NameOfDay == weeklyAgendaVM.TaskItemDay); 
             System.Windows.MessageBox.Show(
-                weeklyAgendaVM.DaysToDisplay[0].TaskList[0].TaskName + "\n" +
-                weeklyAgendaVM.DaysToDisplay[0].TaskList[0].TaskCategory + "\n" +
-                weeklyAgendaVM.DaysToDisplay[0].TaskList[0].TaskDescription + "\n" +
-                weeklyAgendaVM.DaysToDisplay[0].TaskList[0].TaskStartDateTime + "\n" +
-                weeklyAgendaVM.DaysToDisplay[0].TaskList[0].TaskEndDateTime + "\n" +
-                weeklyAgendaVM.DaysToDisplay[0].TaskList[0].TaskTimeInterval);
+                weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskName + "\n" +
+                weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskCategory + "\n" +
+                weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskDescription + "\n" +
+                weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskStartDateTime + "\n" +
+                weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskEndDateTime + "\n" +
+                weeklyAgendaVM.DaysToDisplay[index].TaskList[0].TaskTimeInterval);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Clairvoyance
 
         public bool isWorkWeek;
         public string taskItemName;
+        public string taskItemDay;
         public string taskItemCategory;
         public string taskItemDescription;
         public string taskItemStartTime;
@@ -51,6 +52,18 @@ namespace Clairvoyance
                 if( taskItemName != value)
                 {
                     taskItemName = value;
+                }
+            }
+        }
+
+        public string TaskItemDay
+        {
+            get { return taskItemDay; }
+            set
+            {
+                if (taskItemDay != value)
+                {
+                    taskItemDay = value;
                 }
             }
         }
@@ -130,7 +143,7 @@ namespace Clairvoyance
             return fullWeekList;
         }
 
-        public void addTaskToDay(string day)
+        public void addTaskToDay()
         {
             if (DaysToDisplay.Count == 0)
             {
@@ -138,7 +151,7 @@ namespace Clairvoyance
             }
             else
             {
-                int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == day);
+                int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
                 DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemDescription, taskItemStartTime, taskItemEndTime);
             }
         }
