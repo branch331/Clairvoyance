@@ -24,10 +24,36 @@
         <DataGrid Grid.Row="1" 
                   Grid.Column="0"
                   IsReadOnly="True"
-                  ItemsSource="{Binding DaysToDisplay}">
+                  ItemsSource="{Binding DaysToDisplay}"
+                  HeadersVisibility="None"
+                  RowHeight="{Binding DayRowHeight}"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
+            <DataGrid.Resources>
+                <Style x:Key="DataGridRotated" TargetType="Control">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <RotateTransform Angle="-90"/>
+                                <ScaleTransform ScaleX="1" ScaleY="-1"/>
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+                </Style>
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridRotated}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.LayoutTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="90"/>
+                    <MatrixTransform Matrix="-1, 0, 0, 1, 0, 0"/>
+                </TransformGroup>
+            </DataGrid.LayoutTransform>
+            
         </DataGrid>
-        
+
+
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,28,9.667,-0.333">
 
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>

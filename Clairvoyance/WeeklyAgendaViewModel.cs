@@ -19,6 +19,10 @@ namespace Clairvoyance
         public string taskItemDescription;
         public string taskItemStartTime;
         public string taskItemEndTime;
+        public double dayRowHeight;
+
+        private const double DAYHEIGHTWORKWEEK = 105;
+        private const double DAYHEIGHTFULLWEEK = 75;
 
         public List<DayPlannerModel> daysToDisplay;
 
@@ -29,6 +33,7 @@ namespace Clairvoyance
             IsWorkWeek = true;
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
+            updateRowHeight();
         }
 
         public bool IsWorkWeek
@@ -129,6 +134,19 @@ namespace Clairvoyance
             }
         }
 
+        public double DayRowHeight
+        {
+            get { return dayRowHeight; }
+            set
+            {
+                if (dayRowHeight != value)
+                {
+                    dayRowHeight = value;
+                    NotifyPropertyChanged("DayRowHeight");
+                }
+            }
+        }
+
         private List<DayPlannerModel> generateFullWeekList()
         {
             List<DayPlannerModel> fullWeekList = new List<DayPlannerModel>();
@@ -170,6 +188,20 @@ namespace Clairvoyance
             NotifyPropertyChanged("DaysToDisplay");
         }
 
+        public void updateRowHeight()
+        {
+            if (IsWorkWeek)
+            {
+                dayRowHeight = DAYHEIGHTWORKWEEK;
+            }
+            else
+            {
+                dayRowHeight = DAYHEIGHTFULLWEEK;
+            }
+
+            NotifyPropertyChanged("DayRowHeight");
+        }
+
         public List<DayPlannerModel> returnWorkWeek()
         {
             List<DayPlannerModel> workWeek = new List<DayPlannerModel>();
@@ -190,6 +222,7 @@ namespace Clairvoyance
                 if (propertyName == "IsWorkWeek")
                 {
                     updateDaysToDisplay();
+                    updateRowHeight();
                 }
             }
         }

@@ -15,16 +15,17 @@ In the end, I want a lightweight/simplistic version of:
 -Speed/simplicity of Sticky Notes
 
 [Must-do]
-Display days on UI - just bind daystodisplay to datagrid; need to display as cols instead of rows
+[DONE] Display days on UI - have days/tasks fill entire datagrid
 [DONE] Add "day" input field on UI >> Submit task to day
 Display tasks in days
 [DONE] Checkbox should trigger DaysToDisplay to display work week or full week
 Store days/task data somewhere
 Statistics
 
-https://stackoverflow.com/questions/13954344/display-a-horizontal-table-vertically-in-a-datagrid-wpf
+https://archive.codeplex.com/?p=rotatedwpfdatagrid
 
 [Optional]
 Add 'Enter' command to text boxes?
 TaskItemModel: Make sure input string is valid time
 Make DateTime conversion in TaskItemModel PM?
+ICommand instead of code behind? Not sure if this is more 'best practice'
