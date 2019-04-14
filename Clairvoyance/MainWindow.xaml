@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clairvoyance"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1000">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -21,12 +21,45 @@
 
         <CheckBox Grid.Row="0" Grid.Column="0" Content="Work Week?" FontSize="16" IsChecked="{Binding IsWorkWeek}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0" Height="24" Width="109"/>
 
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Mon" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Tues" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Wed" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="Thurs" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="Fri" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="5" Text="Sat" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="Sun" FontSize="12" HorizontalAlignment="Center"/>
+
+            <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding MonTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding TuesTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding WedTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding ThursTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="4" ItemsSource="{Binding FriTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding SatTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="6" ItemsSource="{Binding SunTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+        </Grid>
+        <!--
         <DataGrid Grid.Row="1" 
                   Grid.Column="0"
                   IsReadOnly="True"
                   ItemsSource="{Binding DaysToDisplay}"
+                  RowHeight="{Binding DayRowHeight}" 
                   HeadersVisibility="None"
-                  RowHeight="{Binding DayRowHeight}"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
             <DataGrid.Resources>
@@ -52,27 +85,20 @@
             </DataGrid.LayoutTransform>
             
         </DataGrid>
-
-
+        -->
+    
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,28,9.667,-0.333">
-
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top"/>
-
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Category" VerticalAlignment="Top"/>
-
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top"/>
-
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Margin="0 10 0 0"/>
-
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="0.333,0,0.333,-0.333">
             <TextBlock HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
-
             <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="{Binding TaskItemName}"  VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
-
+            
             <ComboBox SelectedValuePath="Content" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValue="{Binding TaskItemDay}">
                 <ComboBoxItem>Mon</ComboBoxItem>
                 <ComboBoxItem>Tues</ComboBoxItem>

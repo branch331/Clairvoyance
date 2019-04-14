@@ -20,7 +20,10 @@ In the end, I want a lightweight/simplistic version of:
 Display tasks in days
 [DONE] Checkbox should trigger DaysToDisplay to display work week or full week
 Store days/task data somewhere
-Statistics
+Category - generate and add items to list; populate drop-down
+Please fix updateTaskListStrings; add logic to determine which task string list needs updates
+Add unit tests for updateTaskListStrings
+Statistics - could even put a display on the bottom right that populates based on the 'category' list
 
 https://archive.codeplex.com/?p=rotatedwpfdatagrid
 
@@ -29,3 +32,5 @@ Add 'Enter' command to text boxes?
 TaskItemModel: Make sure input string is valid time
 Make DateTime conversion in TaskItemModel PM?
 ICommand instead of code behind? Not sure if this is more 'best practice'
+Remove Description field overall, since it takes up space and might not be helpful
+After 'Submit', erase all fields and place focus on the first entry

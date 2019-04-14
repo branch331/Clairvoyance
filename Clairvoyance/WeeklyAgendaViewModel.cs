@@ -24,13 +24,21 @@ namespace Clairvoyance
         private const double DAYHEIGHTWORKWEEK = 105;
         private const double DAYHEIGHTFULLWEEK = 75;
 
+        public List<string> monTaskListString;
+        public List<string> tuesTaskListString;
+        public List<string> wedTaskListString;
+        public List<string> thursTaskListString;
+        public List<string> friTaskListString;
+        public List<string> satTaskListString;
+        public List<string> sunTaskListString;
+
         public List<DayPlannerModel> daysToDisplay;
 
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
 
         public WeeklyAgendaViewModel()
         {
-            IsWorkWeek = true;
+            IsWorkWeek = false;
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
             updateRowHeight();
@@ -134,6 +142,97 @@ namespace Clairvoyance
             }
         }
 
+        public List<string> MonTaskListString
+        {
+            get { return monTaskListString; }
+            set
+            {
+                if (monTaskListString != value)
+                {
+                    monTaskListString = value;
+                    NotifyPropertyChanged("MonTaskListString");
+                }
+            }
+        }
+
+        public List<string> TuesTaskListString
+        {
+            get { return tuesTaskListString; }
+            set
+            {
+                if (tuesTaskListString != value)
+                {
+                    tuesTaskListString = value;
+                    NotifyPropertyChanged("TuesTaskListString");
+                }
+            }
+        }
+
+        public List<string> WedTaskListString
+        {
+            get { return wedTaskListString; }
+            set
+            {
+                if (wedTaskListString != value)
+                {
+                    wedTaskListString = value;
+                    NotifyPropertyChanged("WedTaskListString");
+                }
+            }
+        }
+
+        public List<string> ThursTaskListString
+        {
+            get { return thursTaskListString; }
+            set
+            {
+                if (thursTaskListString != value)
+                {
+                    thursTaskListString = value;
+                    NotifyPropertyChanged("ThursTaskListString");
+                }
+            }
+        }
+
+        public List<string> FriTaskListString
+        {
+            get { return friTaskListString; }
+            set
+            {
+                if (friTaskListString != value)
+                {
+                    friTaskListString = value;
+                    NotifyPropertyChanged("FriTaskListString");
+                }
+            }
+        }
+
+        public List<string> SatTaskListString
+        {
+            get { return satTaskListString; }
+            set
+            {
+                if (satTaskListString != value)
+                {
+                    satTaskListString = value;
+                    NotifyPropertyChanged("SatTaskListString");
+                }
+            }
+        }
+
+        public List<string> SunTaskListString
+        {
+            get { return sunTaskListString; }
+            set
+            {
+                if (sunTaskListString != value)
+                {
+                    sunTaskListString = value;
+                    NotifyPropertyChanged("SunTaskListString");
+                }
+            }
+        }
+
         public double DayRowHeight
         {
             get { return dayRowHeight; }
@@ -171,6 +270,7 @@ namespace Clairvoyance
             {
                 int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
                 DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemDescription, taskItemStartTime, taskItemEndTime);
+                updateTaskListStrings();
             }
         }
 
@@ -186,6 +286,39 @@ namespace Clairvoyance
             }
 
             NotifyPropertyChanged("DaysToDisplay");
+        }
+
+        public void updateTaskListStrings()
+        {
+            monTaskListString = (convertTaskListToStrings(DaysToDisplay[0].TaskList));
+            tuesTaskListString = (convertTaskListToStrings(DaysToDisplay[1].TaskList));
+            wedTaskListString = (convertTaskListToStrings(DaysToDisplay[2].TaskList));
+            thursTaskListString = (convertTaskListToStrings(DaysToDisplay[3].TaskList));
+            friTaskListString = (convertTaskListToStrings(DaysToDisplay[4].TaskList));
+            satTaskListString = (convertTaskListToStrings(DaysToDisplay[5].TaskList));
+            sunTaskListString = (convertTaskListToStrings(DaysToDisplay[6].TaskList));
+
+            NotifyPropertyChanged("MonTaskListString");
+            NotifyPropertyChanged("TuesTaskListString");
+            NotifyPropertyChanged("WedTaskListString");
+            NotifyPropertyChanged("ThursTaskListString");
+            NotifyPropertyChanged("FriTaskListString");
+            NotifyPropertyChanged("SatTaskListString");
+            NotifyPropertyChanged("SunTaskListString");
+        }
+
+        public List<string> convertTaskListToStrings(List<TaskItemModel> taskList)
+        {
+            string taskString;
+            List<string> taskStringList = new List<string>();
+
+            foreach (TaskItemModel task in taskList)
+            {
+                taskString = String.Format("{0}\n{1}\n{2}\n{3}\n{4}", task.TaskName, task.TaskCategory, task.TaskDescription, task.TaskStartDateTime.TimeOfDay, task.TaskEndDateTime.TimeOfDay);
+                taskStringList.Add(taskString);
+            }
+
+            return taskStringList;
         }
 
         public void updateRowHeight()
