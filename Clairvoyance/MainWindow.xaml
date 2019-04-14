@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Clairvoyance"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -20,8 +21,11 @@
 
         <CheckBox Grid.Row="0" Grid.Column="0" Content="Work Week?" FontSize="16" IsChecked="{Binding IsWorkWeek}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0" Height="24" Width="109"/>
 
-        <DataGrid Grid.Row="1" Grid.Column="0">
-            
+        <DataGrid Grid.Row="1" 
+                  Grid.Column="0"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding DaysToDisplay}">
+
         </DataGrid>
         
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,28,9.667,-0.333">
