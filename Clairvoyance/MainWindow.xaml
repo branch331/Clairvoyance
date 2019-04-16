@@ -126,6 +126,7 @@
             <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemEndTime}" VerticalAlignment="Top" Width="70"/>
 
             <Button Content="Submit" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="54" Margin="0 10 0 0" Click="Submit_Task_Click" />
+            <Button Content="Category" Command="{Binding CategorySubmitCommand}"/>
 
         </StackPanel>
 

@@ -31,8 +31,6 @@ namespace Clairvoyance
         private void Submit_Task_Click(object sender, RoutedEventArgs e)
         {
             weeklyAgendaVM.addTaskToDay();
-
-            var index = weeklyAgendaVM.DaysToDisplay.FindIndex(x => x.NameOfDay == weeklyAgendaVM.TaskItemDay);
         }
     }
 }

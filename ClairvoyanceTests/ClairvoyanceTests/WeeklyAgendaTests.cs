@@ -124,5 +124,82 @@ namespace ClairvoyanceTests
             testAgendaVMFullWeek.TaskItemDay = "Tues";
             testAgendaVMFullWeek.addTaskToDay();
         }
+
+        [TestMethod]
+        public void addTaskListStringMon()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Mon";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.monTaskListString.Count == 3);
+        }
+
+        [TestMethod]
+        public void addTaskListStringTues()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Tues";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.tuesTaskListString.Count == 3);
+        }
+
+        [TestMethod]
+        public void addTaskListStringWed()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Wed";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.wedTaskListString.Count == 3);
+        }
+
+        [TestMethod]
+        public void addTaskListStringThurs()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Thurs";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.thursTaskListString.Count == 3);
+        }
+
+        [TestMethod]
+        public void addTaskListStringFri()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Fri";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.friTaskListString.Count == 3);
+        }
+
+        [TestMethod]
+        public void addTaskListStringSat()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Sat";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.satTaskListString.Count == 3);
+        }
+
+        [TestMethod]
+        public void addTaskListStringSun()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Sun";
+            for (int i = 0; i < 3; i++)
+            {
+                testAgendaVMFullWeek.addTaskToDay();
+            }
+            Assert.IsTrue(testAgendaVMFullWeek.sunTaskListString.Count == 3);
+        }
     }
 }

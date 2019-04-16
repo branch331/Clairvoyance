@@ -11,7 +11,8 @@ namespace Clairvoyance
     public class WeeklyAgendaViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
+        private ICommand categorySubmitCommand;
+        
         public bool isWorkWeek;
         public string taskItemName;
         public string taskItemDay;
@@ -19,7 +20,6 @@ namespace Clairvoyance
         public string taskItemDescription;
         public string taskItemStartTime;
         public string taskItemEndTime;
-        public double dayRowHeight;
 
         private const double DAYHEIGHTWORKWEEK = 105;
         private const double DAYHEIGHTFULLWEEK = 75;
@@ -33,7 +33,7 @@ namespace Clairvoyance
         public List<string> sunTaskListString;
 
         public List<DayPlannerModel> daysToDisplay;
-
+        public List<string> categoryList;
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
 
         public WeeklyAgendaViewModel()
@@ -41,7 +41,7 @@ namespace Clairvoyance
             IsWorkWeek = false;
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
-            updateRowHeight();
+            categorySubmitCommand = new RelayCommand(o => { System.Windows.MessageBox.Show("test"); }, o => true);
         }
 
         public bool IsWorkWeek
@@ -233,15 +233,24 @@ namespace Clairvoyance
             }
         }
 
-        public double DayRowHeight
+        public ICommand CategorySubmitCommand
         {
-            get { return dayRowHeight; }
+            get { return categorySubmitCommand; }
             set
             {
-                if (dayRowHeight != value)
+                categorySubmitCommand = value;
+            }
+        }
+
+        public List<string> CategoryList
+        {
+            get { return categoryList; }
+            set
+            {
+                if (categoryList != value)
                 {
-                    dayRowHeight = value;
-                    NotifyPropertyChanged("DayRowHeight");
+                    categoryList = value;
+                    NotifyPropertyChanged("CategoryList");
                 }
             }
         }
@@ -270,7 +279,7 @@ namespace Clairvoyance
             {
                 int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
                 DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemDescription, taskItemStartTime, taskItemEndTime);
-                updateTaskListStrings();
+                updateTaskListStrings(dayIndex);
             }
         }
 
@@ -288,23 +297,39 @@ namespace Clairvoyance
             NotifyPropertyChanged("DaysToDisplay");
         }
 
-        public void updateTaskListStrings()
+        public void updateTaskListStrings(int dayIndex)
         {
-            monTaskListString = (convertTaskListToStrings(DaysToDisplay[0].TaskList));
-            tuesTaskListString = (convertTaskListToStrings(DaysToDisplay[1].TaskList));
-            wedTaskListString = (convertTaskListToStrings(DaysToDisplay[2].TaskList));
-            thursTaskListString = (convertTaskListToStrings(DaysToDisplay[3].TaskList));
-            friTaskListString = (convertTaskListToStrings(DaysToDisplay[4].TaskList));
-            satTaskListString = (convertTaskListToStrings(DaysToDisplay[5].TaskList));
-            sunTaskListString = (convertTaskListToStrings(DaysToDisplay[6].TaskList));
-
-            NotifyPropertyChanged("MonTaskListString");
-            NotifyPropertyChanged("TuesTaskListString");
-            NotifyPropertyChanged("WedTaskListString");
-            NotifyPropertyChanged("ThursTaskListString");
-            NotifyPropertyChanged("FriTaskListString");
-            NotifyPropertyChanged("SatTaskListString");
-            NotifyPropertyChanged("SunTaskListString");
+            switch (dayIndex)
+            {
+                case 0:
+                    monTaskListString = (convertTaskListToStrings(DaysToDisplay[0].TaskList));
+                    NotifyPropertyChanged("MonTaskListString");
+                    break;
+                case 1:
+                    tuesTaskListString = (convertTaskListToStrings(DaysToDisplay[1].TaskList));
+                    NotifyPropertyChanged("TuesTaskListString");
+                    break;
+                case 2:
+                    wedTaskListString = (convertTaskListToStrings(DaysToDisplay[2].TaskList));
+                    NotifyPropertyChanged("WedTaskListString");
+                    break;
+                case 3:
+                    thursTaskListString = (convertTaskListToStrings(DaysToDisplay[3].TaskList));
+                    NotifyPropertyChanged("ThursTaskListString");
+                    break;
+                case 4:
+                    friTaskListString = (convertTaskListToStrings(DaysToDisplay[4].TaskList));
+                    NotifyPropertyChanged("FriTaskListString");
+                    break;
+                case 5:
+                    satTaskListString = (convertTaskListToStrings(DaysToDisplay[5].TaskList));
+                    NotifyPropertyChanged("SatTaskListString");
+                    break;
+                case 6:
+                    sunTaskListString = (convertTaskListToStrings(DaysToDisplay[6].TaskList));
+                    NotifyPropertyChanged("SunTaskListString");
+                    break;
+            }
         }
 
         public List<string> convertTaskListToStrings(List<TaskItemModel> taskList)
@@ -319,20 +344,6 @@ namespace Clairvoyance
             }
 
             return taskStringList;
-        }
-
-        public void updateRowHeight()
-        {
-            if (IsWorkWeek)
-            {
-                dayRowHeight = DAYHEIGHTWORKWEEK;
-            }
-            else
-            {
-                dayRowHeight = DAYHEIGHTFULLWEEK;
-            }
-
-            NotifyPropertyChanged("DayRowHeight");
         }
 
         public List<DayPlannerModel> returnWorkWeek()
@@ -355,7 +366,6 @@ namespace Clairvoyance
                 if (propertyName == "IsWorkWeek")
                 {
                     updateDaysToDisplay();
-                    updateRowHeight();
                 }
             }
         }
