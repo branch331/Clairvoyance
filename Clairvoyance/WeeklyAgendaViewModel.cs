@@ -18,7 +18,6 @@ namespace Clairvoyance
         public string taskItemName;
         public string taskItemDay;
         public string taskItemCategory;
-        public string taskItemDescription;
         public string taskItemStartTime;
         public string taskItemEndTime;
         private string categoryToAdd;
@@ -92,18 +91,6 @@ namespace Clairvoyance
                 if (taskItemCategory != value)
                 {
                     taskItemCategory = value;
-                }
-            }
-        }
-
-        public string TaskItemDescription
-        {
-            get { return taskItemDescription; }
-            set
-            {
-                if (taskItemDescription != value)
-                {
-                    taskItemDescription = value;
                 }
             }
         }
@@ -303,7 +290,7 @@ namespace Clairvoyance
             else
             {
                 int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
-                DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemDescription, taskItemStartTime, taskItemEndTime);
+                DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
                 updateTaskListStrings(dayIndex);
             }
         }
@@ -370,7 +357,7 @@ namespace Clairvoyance
 
             foreach (TaskItemModel task in taskList)
             {
-                taskString = String.Format("{0}\n{1}\n{2}\n{3}\n{4}", task.TaskName, task.TaskCategory, task.TaskDescription, task.TaskStartDateTime.TimeOfDay, task.TaskEndDateTime.TimeOfDay);
+                taskString = string.Format("{0}\n{1}\n{2}\n{3}", task.TaskName, task.TaskCategory, task.TaskStartDateTime.TimeOfDay, task.TaskEndDateTime.TimeOfDay);
                 taskStringList.Add(taskString);
             }
 

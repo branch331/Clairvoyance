@@ -13,7 +13,7 @@ namespace ClairvoyanceTests
         [TestInitialize]
         public void setUpTaskItemObject()
         {
-            taskItemObject = new TaskItemModel("TestName", "TestCategory", "TestDescription", "4:30", "5:30");
+            taskItemObject = new TaskItemModel("TestName", "TestCategory", "4:30", "5:30");
         }
 
         [TestMethod]
@@ -26,12 +26,6 @@ namespace ClairvoyanceTests
         public void TestTaskCategory()
         {
             Assert.IsTrue(taskItemObject.TaskCategory == "TestCategory");
-        }
-
-        [TestMethod]
-        public void TestTaskDescription()
-        {
-            Assert.IsTrue(taskItemObject.TaskDescription == "TestDescription");
         }
 
         [TestMethod]
@@ -52,7 +46,7 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void TestTaskIntegerTimeInputs()
         {
-            TaskItemModel newTaskItemObject = new TaskItemModel("", "", "", "5", "9");
+            TaskItemModel newTaskItemObject = new TaskItemModel("", "", "5", "9");
             Assert.IsTrue(newTaskItemObject.TaskTimeInterval.Hours == 4);
         }
     }

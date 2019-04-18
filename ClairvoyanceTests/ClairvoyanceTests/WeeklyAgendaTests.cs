@@ -18,7 +18,6 @@ namespace ClairvoyanceTests
             {
                 TaskItemName = "Test Task",
                 TaskItemCategory = "Test Cat",
-                TaskItemDescription = "Test Desc",
                 TaskItemStartTime = "4:30",
                 TaskItemEndTime = "5:30"
             };
@@ -30,7 +29,6 @@ namespace ClairvoyanceTests
             {
                 TaskItemName = "Test Task",
                 TaskItemCategory = "Test Cat",
-                TaskItemDescription = "Test Desc",
                 TaskItemStartTime = "4:30",
                 TaskItemEndTime = "5:30"
             };

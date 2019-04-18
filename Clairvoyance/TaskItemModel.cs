@@ -8,11 +8,10 @@ namespace Clairvoyance
 {
     public class TaskItemModel
     {
-        public TaskItemModel(string taskName, string taskCategory, string taskDescription, string startTime, string endTime)
+        public TaskItemModel(string taskName, string taskCategory, string startTime, string endTime)
         {
             TaskName = taskName;
             TaskCategory = taskCategory;
-            TaskDescription = taskDescription;
 
             if (!startTime.Contains(":"))
             {
@@ -36,12 +35,6 @@ namespace Clairvoyance
         }
 
         public string TaskCategory
-        {
-            get;
-            set;
-        }
-
-        public string TaskDescription
         {
             get;
             set;

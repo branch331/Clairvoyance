@@ -53,53 +53,19 @@
             <ListBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding SatTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
             <ListBox Grid.Row="1" Grid.Column="6" ItemsSource="{Binding SunTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
         </Grid>
-        <!--
-        <DataGrid Grid.Row="1" 
-                  Grid.Column="0"
-                  IsReadOnly="True"
-                  ItemsSource="{Binding DaysToDisplay}"
-                  RowHeight="{Binding DayRowHeight}" 
-                  HeadersVisibility="None"
-                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
-            <DataGrid.Resources>
-                <Style x:Key="DataGridRotated" TargetType="Control">
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <TransformGroup>
-                                <RotateTransform Angle="-90"/>
-                                <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                            </TransformGroup>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
-                </Style>
-                <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridRotated}"/>
-            </DataGrid.Resources>
-
-            <DataGrid.LayoutTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="90"/>
-                    <MatrixTransform Matrix="-1, 0, 0, 1, 0, 0"/>
-                </TransformGroup>
-            </DataGrid.LayoutTransform>
-            
-        </DataGrid>
-        -->
-    
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,28,9.667,-0.333">
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Category" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Margin="0 10 0 0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="0.333,0,0.333,-0.333">
             <TextBlock HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
             <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="{Binding TaskItemName}"  VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
-            
-            <ComboBox SelectedValuePath="Content" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValue="{Binding TaskItemDay}">
+
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValuePath="Content" SelectedValue="{Binding TaskItemDay}">
                 <ComboBoxItem>Mon</ComboBoxItem>
                 <ComboBoxItem>Tues</ComboBoxItem>
                 <ComboBoxItem>Wed</ComboBoxItem>
@@ -109,15 +75,7 @@
                 <ComboBoxItem>Sun</ComboBoxItem>
             </ComboBox>
 
-            <ComboBox SelectedValuePath="Content" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}"/>
-
-            <RichTextBox HorizontalAlignment="Left" Height="38" VerticalAlignment="Top" Width="173" Grid.Row="1">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding TaskItemDescription}"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}"/>
 
             <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemStartTime}" VerticalAlignment="Top" Width="70"/>
             <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemEndTime}" VerticalAlignment="Top" Width="70"/>

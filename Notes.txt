@@ -24,8 +24,7 @@ Category - generate and add items to list; populate drop-down
 [DONE-ish] Please fix updateTaskListStrings; add logic to decide which task string list to update
 [DONE] Add unit tests for updateTaskListStrings
 Statistics - could even put a display on the bottom right that populates based on the 'category' list
-Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit category command
-Category is empty string when added to calendar
+[DONE] Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit category command
 
 https://archive.codeplex.com/?p=rotatedwpfdatagrid
 
