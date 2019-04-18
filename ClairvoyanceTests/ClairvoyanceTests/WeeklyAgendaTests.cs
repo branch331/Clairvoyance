@@ -126,7 +126,7 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringMon()
+        public void addTaskListStringMonTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Mon";
             for (int i = 0; i < 3; i++)
@@ -137,7 +137,7 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringTues()
+        public void addTaskListStringTuesTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Tues";
             for (int i = 0; i < 3; i++)
@@ -148,7 +148,7 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringWed()
+        public void addTaskListStringWedTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Wed";
             for (int i = 0; i < 3; i++)
@@ -159,7 +159,7 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringThurs()
+        public void addTaskListStringThursTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Thurs";
             for (int i = 0; i < 3; i++)
@@ -170,7 +170,7 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringFri()
+        public void addTaskListStringFriTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Fri";
             for (int i = 0; i < 3; i++)
@@ -181,7 +181,7 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringSat()
+        public void addTaskListStringSatTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Sat";
             for (int i = 0; i < 3; i++)
@@ -192,7 +192,7 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringSun()
+        public void addTaskListStringSunTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Sun";
             for (int i = 0; i < 3; i++)
@@ -200,6 +200,24 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
             Assert.IsTrue(testAgendaVMFullWeek.sunTaskListString.Count == 3);
+        }
+
+        [TestMethod]
+        public void addNewCategoryTest()
+        {
+            testAgendaVMFullWeek.CategoryToAdd = "test1";
+            testAgendaVMFullWeek.addNewCategoryToList();
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[0] == "test1");
+        }
+
+        [TestMethod]
+        public void addNewCategoriesTest()
+        {
+            testAgendaVMFullWeek.CategoryToAdd = "test1";
+            testAgendaVMFullWeek.addNewCategoryToList();
+            testAgendaVMFullWeek.addNewCategoryToList();
+            testAgendaVMFullWeek.addNewCategoryToList();
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList.Count == 3);
         }
     }
 }

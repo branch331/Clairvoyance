@@ -27,10 +27,5 @@ namespace Clairvoyance
             InitializeComponent();
             this.DataContext = weeklyAgendaVM;
         }
-
-        private void Submit_Task_Click(object sender, RoutedEventArgs e)
-        {
-            weeklyAgendaVM.addTaskToDay();
-        }
     }
 }

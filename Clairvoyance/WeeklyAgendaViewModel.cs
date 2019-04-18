@@ -12,6 +12,7 @@ namespace Clairvoyance
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand categorySubmitCommand;
+        private ICommand taskSubmitCommand;
         
         public bool isWorkWeek;
         public string taskItemName;
@@ -20,6 +21,7 @@ namespace Clairvoyance
         public string taskItemDescription;
         public string taskItemStartTime;
         public string taskItemEndTime;
+        private string categoryToAdd;
 
         private const double DAYHEIGHTWORKWEEK = 105;
         private const double DAYHEIGHTFULLWEEK = 75;
@@ -33,7 +35,7 @@ namespace Clairvoyance
         public List<string> sunTaskListString;
 
         public List<DayPlannerModel> daysToDisplay;
-        public List<string> categoryList;
+        public List<string> categoryList = new List<string>();
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
 
         public WeeklyAgendaViewModel()
@@ -41,7 +43,8 @@ namespace Clairvoyance
             IsWorkWeek = false;
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
-            categorySubmitCommand = new RelayCommand(o => { System.Windows.MessageBox.Show("test"); }, o => true);
+            categorySubmitCommand = new RelayCommand(o => { addNewCategoryToList(); }, o => true);
+            taskSubmitCommand = new RelayCommand(o => { addTaskToDay(); }, o => true);
         }
 
         public bool IsWorkWeek
@@ -242,6 +245,15 @@ namespace Clairvoyance
             }
         }
 
+        public ICommand TaskSubmitCommand
+        {
+            get { return taskSubmitCommand; }
+            set
+            {
+                taskSubmitCommand = value;
+            }
+        }
+
         public List<string> CategoryList
         {
             get { return categoryList; }
@@ -251,6 +263,19 @@ namespace Clairvoyance
                 {
                     categoryList = value;
                     NotifyPropertyChanged("CategoryList");
+                }
+            }
+        }
+
+        public string CategoryToAdd
+        {
+            get { return categoryToAdd; }
+            set
+            {
+                if (categoryToAdd != value)
+                {
+                    categoryToAdd = value;
+                    NotifyPropertyChanged("CategoryToAdd");
                 }
             }
         }
@@ -281,6 +306,12 @@ namespace Clairvoyance
                 DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemDescription, taskItemStartTime, taskItemEndTime);
                 updateTaskListStrings(dayIndex);
             }
+        }
+
+        public void addNewCategoryToList()
+        {
+            categoryList.Add(categoryToAdd);
+            NotifyPropertyChanged("CategoryList");
         }
 
         public void updateDaysToDisplay()
