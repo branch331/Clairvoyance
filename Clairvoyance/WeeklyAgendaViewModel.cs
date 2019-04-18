@@ -35,6 +35,7 @@ namespace Clairvoyance
 
         public List<DayPlannerModel> daysToDisplay;
         public List<string> categoryList = new List<string>();
+        public List<WeeklyTotals> weeklyTotalsInHours = new List<WeeklyTotals>();
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
 
         public WeeklyAgendaViewModel()
@@ -223,6 +224,18 @@ namespace Clairvoyance
             }
         }
 
+        public List<WeeklyTotals> WeeklyTotalsInHours
+        {
+            get { return weeklyTotalsInHours; }
+            set
+            {
+                if (weeklyTotalsInHours != value)
+                {
+                    weeklyTotalsInHours = value;
+                }
+            }
+        }
+
         public ICommand CategorySubmitCommand
         {
             get { return categorySubmitCommand; }
@@ -292,6 +305,7 @@ namespace Clairvoyance
                 int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
                 DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
                 updateTaskListStrings(dayIndex);
+                updateWeeklyTotals();
             }
         }
 
@@ -348,6 +362,26 @@ namespace Clairvoyance
                     NotifyPropertyChanged("SunTaskListString");
                     break;
             }
+        }
+
+        public void updateWeeklyTotals()
+        {
+            int differenceBetweenLists = CategoryList.Count - weeklyTotalsInHours.Count;
+
+            for (int i = 0; i < differenceBetweenLists; i++)
+            {
+                weeklyTotalsInHours.Add(new WeeklyTotals(CategoryList[CategoryList.Count - (differenceBetweenLists - i)], 0));
+            }
+
+            int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
+            int weeklyTotalsIndex = weeklyTotalsInHours.FindIndex(x => x.Category == taskItemCategory);
+            var recentlyUpdatedTaskList = DaysToDisplay[dayIndex].TaskList;
+
+            double hoursToAdd = recentlyUpdatedTaskList[recentlyUpdatedTaskList.Count - 1].TaskTimeInterval.Hours;
+
+            weeklyTotalsInHours[weeklyTotalsIndex].TotalHours += hoursToAdd;
+
+            NotifyPropertyChanged("WeeklyTotalsInHours");
         }
 
         public List<string> convertTaskListToStrings(List<TaskItemModel> taskList)

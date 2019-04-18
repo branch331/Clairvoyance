@@ -61,6 +61,7 @@
     <Compile Include="TaskEditorViewModel.cs" />
     <Compile Include="TaskItemModel.cs" />
     <Compile Include="WeeklyAgendaViewModel.cs" />
+    <Compile Include="WeeklyTotals.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

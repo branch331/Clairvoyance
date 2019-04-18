@@ -84,6 +84,16 @@
             <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding CategoryToAdd}" VerticalAlignment="Top" Width="70"/>
             <Button Content="Category" Command="{Binding CategorySubmitCommand}"/>
 
+            <DataGrid Height="257" 
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding WeeklyTotalsInHours}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}"/>
+                    <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
         </StackPanel>
 
     </Grid>

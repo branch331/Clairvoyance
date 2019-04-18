@@ -20,11 +20,12 @@ In the end, I want a lightweight/simplistic version of:
 [DONE] Display tasks in days
 [DONE] Checkbox should trigger DaysToDisplay to display work week or full week
 Store days/task data somewhere
-Category - generate and add items to list; populate drop-down
+[DONE] Category - generate and add items to list; populate drop-down
 [DONE-ish] Please fix updateTaskListStrings; add logic to decide which task string list to update
 [DONE] Add unit tests for updateTaskListStrings
 Statistics - could even put a display on the bottom right that populates based on the 'category' list
 [DONE] Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit category command
+check for duplicate categories in category list
 
 https://archive.codeplex.com/?p=rotatedwpfdatagrid
 
@@ -32,8 +33,8 @@ https://archive.codeplex.com/?p=rotatedwpfdatagrid
 Add 'Enter' command to text boxes?
 TaskItemModel: Make sure input string is valid time
 Make DateTime conversion in TaskItemModel PM?
-ICommand instead of code behind? Not sure if this is more 'best practice'
-Remove Description field overall, since it takes up space and might not be helpful
+[DONE] ICommand instead of code behind? Not sure if this is more 'best practice'
+[DONE] Remove Description field overall, since it takes up space and might not be helpful
 After 'Submit', erase all fields and place focus on the first entry
 Edit existing tasks
 Tasks should display as time blocks

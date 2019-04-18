@@ -33,6 +33,7 @@ namespace ClairvoyanceTests
                 TaskItemEndTime = "5:30"
             };
             testAgendaVMFullWeek.isWorkWeek = false;
+            testAgendaVMFullWeek.CategoryList.Add("Test Cat");
             testAgendaVMFullWeek.updateDaysToDisplay();
         }
 
@@ -205,7 +206,8 @@ namespace ClairvoyanceTests
         {
             testAgendaVMFullWeek.CategoryToAdd = "test1";
             testAgendaVMFullWeek.addNewCategoryToList();
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[0] == "test1");
+
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[1] == "test1");
         }
 
         [TestMethod]
@@ -215,7 +217,30 @@ namespace ClairvoyanceTests
             testAgendaVMFullWeek.addNewCategoryToList();
             testAgendaVMFullWeek.addNewCategoryToList();
             testAgendaVMFullWeek.addNewCategoryToList();
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList.Count == 3);
+
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList.Count == 4);
+        }
+
+        [TestMethod]
+        public void updateWeeklyHoursTest()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Fri";
+            testAgendaVMFullWeek.addTaskToDay();
+
+            Assert.IsTrue(testAgendaVMFullWeek.WeeklyTotalsInHours[0].TotalHours == 1);
+        }
+
+        [TestMethod]
+        public void updateWeeklyHoursTwoCategoriesTest()
+        {
+            testAgendaVMFullWeek.TaskItemDay = "Fri";
+            testAgendaVMFullWeek.addTaskToDay();
+
+            testAgendaVMFullWeek.CategoryList.Add("Cat B");
+            testAgendaVMFullWeek.TaskItemCategory = "Cat B";
+            testAgendaVMFullWeek.addTaskToDay();
+
+            Assert.IsTrue(testAgendaVMFullWeek.WeeklyTotalsInHours[0].TotalHours == 1 && testAgendaVMFullWeek.WeeklyTotalsInHours[1].TotalHours == 1);
         }
     }
 }
