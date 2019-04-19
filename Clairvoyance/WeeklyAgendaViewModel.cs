@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace Clairvoyance
 {
@@ -35,7 +37,7 @@ namespace Clairvoyance
 
         public List<DayPlannerModel> daysToDisplay;
         public List<string> categoryList = new List<string>();
-        public List<WeeklyTotals> weeklyTotalsInHours = new List<WeeklyTotals>();
+        public ObservableCollection<WeeklyTotals> weeklyTotalsInHours = new ObservableCollection<WeeklyTotals>();
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
 
         public WeeklyAgendaViewModel()
@@ -45,8 +47,34 @@ namespace Clairvoyance
             updateDaysToDisplay();
             categorySubmitCommand = new RelayCommand(o => { addNewCategoryToList(); }, o => true);
             taskSubmitCommand = new RelayCommand(o => { addTaskToDay(); }, o => true);
+            //weeklyTotalsInHours.CollectionChanged += ContentCollectionChanged;
         }
 
+        /*
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach(WeeklyTotals item in e.OldItems)
+                {
+                    item.PropertyChanged -= WeeklyTotalsPropertyChanged;
+                }
+            }
+
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (WeeklyTotals item in e.NewItems)
+                {
+                    item.PropertyChanged += WeeklyTotalsPropertyChanged;
+                }
+            }
+        }
+        
+        public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+
+        }
+        */
         public bool IsWorkWeek
         {
             get { return isWorkWeek; }
@@ -224,16 +252,9 @@ namespace Clairvoyance
             }
         }
 
-        public List<WeeklyTotals> WeeklyTotalsInHours
+        public ObservableCollection<WeeklyTotals> WeeklyTotalsInHours
         {
             get { return weeklyTotalsInHours; }
-            set
-            {
-                if (weeklyTotalsInHours != value)
-                {
-                    weeklyTotalsInHours = value;
-                }
-            }
         }
 
         public ICommand CategorySubmitCommand
@@ -374,12 +395,11 @@ namespace Clairvoyance
             }
 
             int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
-            int weeklyTotalsIndex = weeklyTotalsInHours.FindIndex(x => x.Category == taskItemCategory);
-            var recentlyUpdatedTaskList = DaysToDisplay[dayIndex].TaskList;
 
+            var recentlyUpdatedTaskList = DaysToDisplay[dayIndex].TaskList;
             double hoursToAdd = recentlyUpdatedTaskList[recentlyUpdatedTaskList.Count - 1].TaskTimeInterval.Hours;
 
-            weeklyTotalsInHours[weeklyTotalsIndex].TotalHours += hoursToAdd;
+            weeklyTotalsInHours.Where(x => x.Category == taskItemCategory).FirstOrDefault().TotalHours += hoursToAdd;
 
             NotifyPropertyChanged("WeeklyTotalsInHours");
         }

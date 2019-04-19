@@ -26,6 +26,8 @@ Store days/task data somewhere
 Statistics - could even put a display on the bottom right that populates based on the 'category' list
 [DONE] Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit category command
 check for duplicate categories in category list
+Data bindings don't show up on datagrid for statistics; try converting double >> string [NOPE]? Find why datagrid doesn't populate
+refactor updateWeeklyTotals
 
 https://archive.codeplex.com/?p=rotatedwpfdatagrid
 
