@@ -295,13 +295,11 @@ namespace Clairvoyance
             }
             else if (!inputTimesWithinRange())
             {
-                throw new System.ArgumentException("Input times must be ints from 1-12.");
-                //System.Windows.MessageBox.Show("Input times must be ints from 1-12.");
+                throw new System.ArgumentException("Input times must be from 1-12.");
             }
             else if (anyTaskFieldEmpty())
             {
                 throw new System.ArgumentException("One or more task fields null or empty.");
-                //System.Windows.MessageBox.Show("One or more task fields null or empty.");
             }
             else
             {
@@ -316,6 +314,7 @@ namespace Clairvoyance
         public bool anyTaskFieldEmpty()
         {
             if (string.IsNullOrWhiteSpace(taskItemName) || 
+                string.IsNullOrWhiteSpace(taskItemDay) ||
                 string.IsNullOrWhiteSpace(taskItemCategory) ||
                 string.IsNullOrWhiteSpace(taskItemStartTime) ||
                 string.IsNullOrWhiteSpace(taskItemEndTime))
@@ -328,12 +327,38 @@ namespace Clairvoyance
 
         public bool inputTimesWithinRange()
         {
+            string startTimeString;
+            string endTimeString;
+            DateTime dateTimeMin = Convert.ToDateTime("1:00");
+            DateTime dateTimeMax = Convert.ToDateTime("12:00");
+
+            if (string.IsNullOrWhiteSpace(taskItemStartTime) || string.IsNullOrWhiteSpace(taskItemEndTime))
+            {
+                return false;
+            }
+
+            if (!taskItemStartTime.Contains(":"))
+            {
+                startTimeString = taskItemStartTime + ":00"; 
+            }
+            else
+            {
+                startTimeString = taskItemStartTime;
+            }
+
+            if (!taskItemEndTime.Contains(":"))
+            {
+                endTimeString = taskItemEndTime + ":00";
+            }
+            else
+            {
+                endTimeString = taskItemEndTime;
+            }
+
             try
             {
-                DateTime startTime = Convert.ToDateTime(taskItemStartTime);
-                DateTime endTime = Convert.ToDateTime(taskItemEndTime);
-                DateTime dateTimeMin = Convert.ToDateTime("1:00");
-                DateTime dateTimeMax = Convert.ToDateTime("12:00");
+                DateTime startTime = Convert.ToDateTime(startTimeString);
+                DateTime endTime = Convert.ToDateTime(endTimeString);
 
                 if (startTime >= dateTimeMin && startTime <= dateTimeMax && endTime >= dateTimeMin && endTime <= dateTimeMax)
                 {

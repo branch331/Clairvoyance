@@ -220,22 +220,5 @@ namespace ClairvoyanceTests
 
             Assert.IsTrue(testAgendaVMFullWeek.WeeklyTotalsInHours[0].TotalHours == 1 && testAgendaVMFullWeek.WeeklyTotalsInHours[1].TotalHours == 1);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
-            "One or more task fields null or empty.")]
-        public void addNullCategoryTest()
-        {
-            WeeklyAgendaViewModel testAgendaVM = new WeeklyAgendaViewModel()
-            {
-                TaskItemName = "Test Task",
-                TaskItemDay = "Mon",
-                TaskItemCategory = null,
-                TaskItemStartTime = "4:30",
-                TaskItemEndTime = "5:30"
-            };
-
-            testAgendaVM.addTaskToDay();
-        }
     }
 }
