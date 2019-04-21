@@ -19,8 +19,6 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <CheckBox Grid.Row="0" Grid.Column="0" Content="Work Week?" FontSize="16" IsChecked="{Binding IsWorkWeek}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0" Height="24" Width="109"/>
-
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.05*"/>
@@ -63,7 +61,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="0.333,0,0.333,-0.333">
             <TextBlock HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
-            <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="{Binding TaskItemName}"  VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
+            <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap"  Text="{Binding TaskItemName}" VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
 
             <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValuePath="Content" SelectedValue="{Binding TaskItemDay}">
                 <ComboBoxItem>Mon</ComboBoxItem>
@@ -77,8 +75,21 @@
 
             <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}"/>
 
-            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemStartTime}" VerticalAlignment="Top" Width="70"/>
-            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemEndTime}" VerticalAlignment="Top" Width="70"/>
+            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="70">
+                <Binding Path="TaskItemStartTime">
+                    <Binding.ValidationRules>
+                        <local:TimeRangeRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+                
+            </TextBox>
+            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="70">
+                <Binding Path="TaskItemEndTime">
+                    <Binding.ValidationRules>
+                        <local:TimeRangeRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
 
             <Button Content="Submit" Command="{Binding TaskSubmitCommand}" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="54" Margin="0 10 0 0"/>
             <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding CategoryToAdd}" VerticalAlignment="Top" Width="70"/>

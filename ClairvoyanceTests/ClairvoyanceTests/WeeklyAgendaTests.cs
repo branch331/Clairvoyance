@@ -8,23 +8,11 @@ namespace ClairvoyanceTests
     [TestClass]
     public class WeeklyAgendaTests
     {
-        WeeklyAgendaViewModel testAgendaVMWorkWeek;
         WeeklyAgendaViewModel testAgendaVMFullWeek;
 
         [TestInitialize]
         public void setUpTestViewModels()
         {
-            testAgendaVMWorkWeek = new WeeklyAgendaViewModel()
-            {
-                TaskItemName = "Test Task",
-                TaskItemCategory = "Test Cat",
-                TaskItemStartTime = "4:30",
-                TaskItemEndTime = "5:30"
-            };
-
-            testAgendaVMWorkWeek.isWorkWeek = true;
-            testAgendaVMWorkWeek.updateDaysToDisplay();
-
             testAgendaVMFullWeek = new WeeklyAgendaViewModel()
             {
                 TaskItemName = "Test Task",
@@ -32,15 +20,8 @@ namespace ClairvoyanceTests
                 TaskItemStartTime = "4:30",
                 TaskItemEndTime = "5:30"
             };
-            testAgendaVMFullWeek.isWorkWeek = false;
             testAgendaVMFullWeek.CategoryList.Add("Test Cat");
             testAgendaVMFullWeek.updateDaysToDisplay();
-        }
-
-        [TestMethod]
-        public void workWeekTestCount()
-        {
-            Assert.IsTrue(testAgendaVMWorkWeek.DaysToDisplay.Count == 5);
         }
 
         [TestMethod]
@@ -50,24 +31,9 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void workWeekTestFirstObject()
-        {
-            Assert.IsTrue(testAgendaVMWorkWeek.DaysToDisplay[0].NameOfDay == "Mon");
-        }
-
-        [TestMethod]
         public void fullWeekTestFirstObject()
         {
             Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[0].NameOfDay == "Mon");
-        }
-
-        [TestMethod]
-        public void workWeekTestLastObject()
-        {
-            List<DayPlannerModel> workWeekList = new List<DayPlannerModel>();
-            workWeekList = testAgendaVMWorkWeek.DaysToDisplay;
-
-            Assert.IsTrue(workWeekList[workWeekList.Count - 1].NameOfDay == "Fri");
         }
 
         [TestMethod]
@@ -215,10 +181,22 @@ namespace ClairvoyanceTests
         {
             testAgendaVMFullWeek.CategoryToAdd = "test1";
             testAgendaVMFullWeek.addNewCategoryToList();
+            testAgendaVMFullWeek.CategoryToAdd = "test2";
             testAgendaVMFullWeek.addNewCategoryToList();
+            testAgendaVMFullWeek.CategoryToAdd = "test3";
             testAgendaVMFullWeek.addNewCategoryToList();
 
             Assert.IsTrue(testAgendaVMFullWeek.CategoryList.Count == 4);
+        }
+
+        [TestMethod]
+        public void addNewCategoriesDuplicateTest()
+        {
+            testAgendaVMFullWeek.CategoryToAdd = "test1";
+            testAgendaVMFullWeek.addNewCategoryToList();
+            testAgendaVMFullWeek.addNewCategoryToList();
+
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList.Count == 2);
         }
 
         [TestMethod]
@@ -241,6 +219,23 @@ namespace ClairvoyanceTests
             testAgendaVMFullWeek.addTaskToDay();
 
             Assert.IsTrue(testAgendaVMFullWeek.WeeklyTotalsInHours[0].TotalHours == 1 && testAgendaVMFullWeek.WeeklyTotalsInHours[1].TotalHours == 1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+            "One or more task fields null or empty.")]
+        public void addNullCategoryTest()
+        {
+            WeeklyAgendaViewModel testAgendaVM = new WeeklyAgendaViewModel()
+            {
+                TaskItemName = "Test Task",
+                TaskItemDay = "Mon",
+                TaskItemCategory = null,
+                TaskItemStartTime = "4:30",
+                TaskItemEndTime = "5:30"
+            };
+
+            testAgendaVM.addTaskToDay();
         }
     }
 }

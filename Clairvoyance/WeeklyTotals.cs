@@ -43,7 +43,7 @@ namespace Clairvoyance
                 }
             }
         }
-
+        
         protected virtual void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

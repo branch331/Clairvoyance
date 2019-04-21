@@ -19,19 +19,23 @@ In the end, I want a lightweight/simplistic version of:
 [DONE] Add "day" input field on UI >> Submit task to day
 [DONE] Display tasks in days
 [DONE] Checkbox should trigger DaysToDisplay to display work week or full week
-Store days/task data somewhere
+Store days/task data in db 
+Store hourly totals by WEEK, and by OVERALL (week ID)
 [DONE] Category - generate and add items to list; populate drop-down
 [DONE-ish] Please fix updateTaskListStrings; add logic to decide which task string list to update
 [DONE] Add unit tests for updateTaskListStrings
-Statistics - could even put a display on the bottom right that populates based on the 'category' list
-[DONE] Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit category command
-check for duplicate categories in category list
-Data bindings don't show up on datagrid for statistics; try converting double >> string [NOPE]? Find why datagrid doesn't populate
-refactor updateWeeklyTotals
+[DONE] Statistics - could even put a display on the bottom right that populates based on the 'category' list
+[DONE] Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit [DONE] category command
+[DONE] check for duplicate categories in category list
+Verify that inputs are not null/empty, for category or tasks
+[Deferred b/c doesn't seem to work w/ objects] Can we actually implement this observable collection properties thing? Add Inotifypropertychanged events to each item, but don't explicitly do it in the model lol. Try using the subclass instead of observable collection:
+https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-when-item-in-it-changes-even-with-inotifyprop
 
-https://archive.codeplex.com/?p=rotatedwpfdatagrid
+*Add unit tests for null task entries, null time entries, out-of-range times
+Add validation for category list
 
 [Optional]
+Edit/Remove tasks
 Add 'Enter' command to text boxes?
 TaskItemModel: Make sure input string is valid time
 Make DateTime conversion in TaskItemModel PM?
@@ -40,3 +44,17 @@ Make DateTime conversion in TaskItemModel PM?
 After 'Submit', erase all fields and place focus on the first entry
 Edit existing tasks
 Tasks should display as time blocks
+
+DATABASE (Relational):
+Table 1:
+[Primary] Task ID | Task Name | Task Duration | [Foreign] Cat ID | [Foreign] Day ID | [Foreign] Week ID 
+
+Table 2:
+Day ID | Day
+
+Table 3:
+Cat ID | Category 
+
+Table 3:
+Week ID | Week dates
+

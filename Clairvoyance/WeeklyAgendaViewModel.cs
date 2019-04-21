@@ -16,16 +16,12 @@ namespace Clairvoyance
         private ICommand categorySubmitCommand;
         private ICommand taskSubmitCommand;
         
-        public bool isWorkWeek;
         public string taskItemName;
         public string taskItemDay;
         public string taskItemCategory;
         public string taskItemStartTime;
         public string taskItemEndTime;
         private string categoryToAdd;
-
-        private const double DAYHEIGHTWORKWEEK = 105;
-        private const double DAYHEIGHTFULLWEEK = 75;
 
         public List<string> monTaskListString;
         public List<string> tuesTaskListString;
@@ -36,56 +32,28 @@ namespace Clairvoyance
         public List<string> sunTaskListString;
 
         public List<DayPlannerModel> daysToDisplay;
-        public List<string> categoryList = new List<string>();
-        public ObservableCollection<WeeklyTotals> weeklyTotalsInHours = new ObservableCollection<WeeklyTotals>();
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
+        public ObservableCollection<string> categoryList = new ObservableCollection<string>();
+        public ObservableCollection<WeeklyTotals> weeklyTotalsInHours = new ObservableCollection<WeeklyTotals>();
 
         public WeeklyAgendaViewModel()
         {
-            IsWorkWeek = false;
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
             categorySubmitCommand = new RelayCommand(o => { addNewCategoryToList(); }, o => true);
-            taskSubmitCommand = new RelayCommand(o => { addTaskToDay(); }, o => true);
-            //weeklyTotalsInHours.CollectionChanged += ContentCollectionChanged;
-        }
-
-        /*
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
+            try
             {
-                foreach(WeeklyTotals item in e.OldItems)
-                {
-                    item.PropertyChanged -= WeeklyTotalsPropertyChanged;
-                }
+                taskSubmitCommand = new RelayCommand(o => { addTaskToDay(); }, o => true);
             }
-
-            else if (e.Action == NotifyCollectionChangedAction.Add)
+            catch (System.ArgumentException e)
             {
-                foreach (WeeklyTotals item in e.NewItems)
-                {
-                    item.PropertyChanged += WeeklyTotalsPropertyChanged;
-                }
+                System.Windows.MessageBox.Show(e.Message);
             }
         }
-        
+
         public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
 
-        }
-        */
-        public bool IsWorkWeek
-        {
-            get { return isWorkWeek; }
-            set
-            {
-                if (isWorkWeek != value)
-                {
-                    isWorkWeek = value;
-                    NotifyPropertyChanged("IsWorkWeek");
-                }
-            }
         }
 
         public string TaskItemName
@@ -96,6 +64,7 @@ namespace Clairvoyance
                 if( taskItemName != value)
                 {
                     taskItemName = value;
+                    NotifyPropertyChanged("TaskItemName");
                 }
             }
         }
@@ -108,6 +77,7 @@ namespace Clairvoyance
                 if (taskItemDay != value)
                 {
                     taskItemDay = value;
+                    NotifyPropertyChanged("TaskItemDay");
                 }
             }
         }
@@ -120,6 +90,7 @@ namespace Clairvoyance
                 if (taskItemCategory != value)
                 {
                     taskItemCategory = value;
+                    NotifyPropertyChanged("TaskItemCategory");
                 }
             }
         }
@@ -132,6 +103,7 @@ namespace Clairvoyance
                 if (taskItemStartTime != value)
                 {
                     taskItemStartTime = value;
+                    NotifyPropertyChanged("TaskItemStartTime");
                 }
             }
         }
@@ -144,6 +116,7 @@ namespace Clairvoyance
                 if (taskItemEndTime != value)
                 {
                     taskItemEndTime = value;
+                    NotifyPropertyChanged("TaskItemEndTime");
                 }
             }
         }
@@ -275,7 +248,7 @@ namespace Clairvoyance
             }
         }
 
-        public List<string> CategoryList
+        public ObservableCollection<string> CategoryList
         {
             get { return categoryList; }
             set
@@ -283,7 +256,6 @@ namespace Clairvoyance
                 if (categoryList != value)
                 {
                     categoryList = value;
-                    NotifyPropertyChanged("CategoryList");
                 }
             }
         }
@@ -321,31 +293,72 @@ namespace Clairvoyance
             {
                 throw new System.InvalidOperationException("DaysToDisplay has not been initialized.");
             }
+            else if (!inputTimesWithinRange())
+            {
+                throw new System.ArgumentException("Input times must be ints from 1-12.");
+                //System.Windows.MessageBox.Show("Input times must be ints from 1-12.");
+            }
+            else if (anyTaskFieldEmpty())
+            {
+                throw new System.ArgumentException("One or more task fields null or empty.");
+                //System.Windows.MessageBox.Show("One or more task fields null or empty.");
+            }
             else
             {
                 int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
+
                 DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
                 updateTaskListStrings(dayIndex);
                 updateWeeklyTotals();
             }
         }
 
+        public bool anyTaskFieldEmpty()
+        {
+            if (string.IsNullOrWhiteSpace(taskItemName) || 
+                string.IsNullOrWhiteSpace(taskItemCategory) ||
+                string.IsNullOrWhiteSpace(taskItemStartTime) ||
+                string.IsNullOrWhiteSpace(taskItemEndTime))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool inputTimesWithinRange()
+        {
+            try
+            {
+                DateTime startTime = Convert.ToDateTime(taskItemStartTime);
+                DateTime endTime = Convert.ToDateTime(taskItemEndTime);
+                DateTime dateTimeMin = Convert.ToDateTime("1:00");
+                DateTime dateTimeMax = Convert.ToDateTime("12:00");
+
+                if (startTime >= dateTimeMin && startTime <= dateTimeMax && endTime >= dateTimeMin && endTime <= dateTimeMax)
+                {
+                    return true;
+                }
+            }
+            catch (System.FormatException)
+            {
+                return false;
+            }
+
+            return false;
+        }
+
         public void addNewCategoryToList()
         {
-            categoryList.Add(categoryToAdd);
-            NotifyPropertyChanged("CategoryList");
+            if (!categoryList.Contains(categoryToAdd))
+            {
+                categoryList.Add(categoryToAdd);
+            }
         }
 
         public void updateDaysToDisplay()
         {
-            if (IsWorkWeek)
-            {
-                daysToDisplay = returnWorkWeek();
-            }
-            else
-            {
-                daysToDisplay = fullWeek;
-            }
+            daysToDisplay = fullWeek;
 
             NotifyPropertyChanged("DaysToDisplay");
         }
@@ -388,20 +401,19 @@ namespace Clairvoyance
         public void updateWeeklyTotals()
         {
             int differenceBetweenLists = CategoryList.Count - weeklyTotalsInHours.Count;
+            int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
+            var recentlyUpdatedTaskList = DaysToDisplay[dayIndex].TaskList;
+            double hoursToAdd = recentlyUpdatedTaskList[recentlyUpdatedTaskList.Count - 1].TaskTimeInterval.Hours;
 
             for (int i = 0; i < differenceBetweenLists; i++)
             {
                 weeklyTotalsInHours.Add(new WeeklyTotals(CategoryList[CategoryList.Count - (differenceBetweenLists - i)], 0));
             }
 
-            int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
-
-            var recentlyUpdatedTaskList = DaysToDisplay[dayIndex].TaskList;
-            double hoursToAdd = recentlyUpdatedTaskList[recentlyUpdatedTaskList.Count - 1].TaskTimeInterval.Hours;
-
-            weeklyTotalsInHours.Where(x => x.Category == taskItemCategory).FirstOrDefault().TotalHours += hoursToAdd;
-
-            NotifyPropertyChanged("WeeklyTotalsInHours");
+            weeklyTotalsInHours
+                .Where(x => x.Category == taskItemCategory)
+                .FirstOrDefault()
+                .TotalHours += hoursToAdd;
         }
 
         public List<string> convertTaskListToStrings(List<TaskItemModel> taskList)
@@ -418,27 +430,11 @@ namespace Clairvoyance
             return taskStringList;
         }
 
-        public List<DayPlannerModel> returnWorkWeek()
-        {
-            List<DayPlannerModel> workWeek = new List<DayPlannerModel>();
-            for (int i = 0; i < 5; i++)
-            {
-                workWeek.Add(fullWeek[i]);
-            }
-
-            return workWeek;
-        }
-
         protected virtual void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-
-                if (propertyName == "IsWorkWeek")
-                {
-                    updateDaysToDisplay();
-                }
             }
         }
     }
