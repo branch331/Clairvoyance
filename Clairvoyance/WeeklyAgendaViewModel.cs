@@ -40,15 +40,29 @@ namespace Clairvoyance
         {
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
-            categorySubmitCommand = new RelayCommand(o => { addNewCategoryToList(); }, o => true);
-            try
+            categorySubmitCommand = new RelayCommand(o => 
             {
-                taskSubmitCommand = new RelayCommand(o => { addTaskToDay(); }, o => true);
-            }
-            catch (System.ArgumentException e)
+                try
+                {
+                    addNewCategoryToList();
+                }
+                catch (System.ArgumentException e)
+                {
+                    System.Windows.MessageBox.Show(e.Message);
+                }
+            }, o => true);
+
+            taskSubmitCommand = new RelayCommand(o => 
             {
-                System.Windows.MessageBox.Show(e.Message);
-            }
+                try
+                {
+                    addTaskToDay();
+                }
+                catch (System.ArgumentException e)
+                {
+                    System.Windows.MessageBox.Show(e.Message);
+                }
+            }, o => true);
         }
 
         public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -375,6 +389,11 @@ namespace Clairvoyance
 
         public void addNewCategoryToList()
         {
+            if (string.IsNullOrWhiteSpace(categoryToAdd))
+            {
+                throw new System.ArgumentException("Category field must be a non-null value.");
+            }
+
             if (!categoryList.Contains(categoryToAdd))
             {
                 categoryList.Add(categoryToAdd);

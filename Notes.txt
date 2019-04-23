@@ -19,20 +19,20 @@ In the end, I want a lightweight/simplistic version of:
 [DONE] Add "day" input field on UI >> Submit task to day
 [DONE] Display tasks in days
 [DONE] Checkbox should trigger DaysToDisplay to display work week or full week
-Store days/task data in db 
-Store hourly totals by WEEK ID, and by OVERALL (week ID)
+*Store days/task data in db 
+*Store hourly totals by WEEK ID, and by OVERALL (week ID)
 [DONE] Category - generate and add items to list; populate drop-down
 [DONE-ish] Please fix updateTaskListStrings; add logic to decide which task string list to update
 [DONE] Add unit tests for updateTaskListStrings
 [DONE] Statistics - could even put a display on the bottom right that populates based on the 'category' list
 [DONE] Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit [DONE] category command
 [DONE] check for duplicate categories in category list
-Verify that inputs are not null/empty, for category or tasks
+[DONE] Verify that inputs are not null/empty, for category or tasks
 [Deferred b/c doesn't seem to work w/ objects] Can we actually implement this observable collection properties thing? Add Inotifypropertychanged events to each item, but don't explicitly do it in the model lol. Try using the subclass instead of observable collection:
 https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-when-item-in-it-changes-even-with-inotifyprop
 [DONE]Add unit tests for null task entries, null time entries, out-of-range times
 Add validation for category list
-fix bug: crash after proper task added >> add task w "out of range" endtime
+[DONE] fix bug: crash after proper task added >> add task w "out of range" endtime. This also happens w/ null category so.. maybe it's just overall improper error handling? Yeah it's overall (happens w/ name too)
 
 [Optional]
 Edit/Remove tasks
