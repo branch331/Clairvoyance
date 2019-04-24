@@ -8,6 +8,12 @@ namespace Clairvoyance
 {
     public class WeekModel
     {
+        public WeekModel (DateTime mondayDate, DateTime sundayDate)
+        {
+            MondayDate = mondayDate;
+            SundayDate = sundayDate;
+        }
+
         public int Id { get; set; }
         public DateTime MondayDate { get; set; }
         public DateTime SundayDate { get; set; }

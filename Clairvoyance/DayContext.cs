@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
-namespace Clairvoyance
+namespace Clairvoyance 
 {
-    public class TaskContext : DbContext
+    class DayContext : DbContext
     {
-        public TaskContext() { }
-        public DbSet<TaskItemModel> tasks { get; set; }
+        public DayContext() { }
+        public DbSet<DayModel> days { get; set; }
     }
 }

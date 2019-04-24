@@ -8,8 +8,12 @@ namespace Clairvoyance
 {
     public class DayModel
     {
-        public int Id { get; set; }
+        public DayModel(string day)
+        {
+            Day = day;
+        }
 
+        public int Id { get; set; }
         public string Day { get; set; }
     }
 }

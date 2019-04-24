@@ -7,9 +7,9 @@ using System.Data.Entity;
 
 namespace Clairvoyance
 {
-    public class TaskContext : DbContext
+    class CategoryContext : DbContext
     {
-        public TaskContext() { }
-        public DbSet<TaskItemModel> tasks { get; set; }
+        public CategoryContext() { }
+        public DbSet<CategoryModel> categories { get; set; }
     }
 }

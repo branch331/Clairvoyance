@@ -40,11 +40,13 @@ namespace Clairvoyance
         {
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
+            populateCategoryListFromDb();
+
             categorySubmitCommand = new RelayCommand(o => 
             {
                 try
                 {
-                    addNewCategoryToList();
+                    addNewCategoryToDb();
                 }
                 catch (System.ArgumentException e)
                 {
@@ -63,17 +65,6 @@ namespace Clairvoyance
                     System.Windows.MessageBox.Show(e.Message);
                 }
             }, o => true);
-
-            //TEST
-            /*
-            TaskItemModel testTask = new TaskItemModel("test", "testcat", "1:00", "5:00");
-            using (var ctx = new TaskContext())
-            {
-                ctx.tasks.Add(testTask);
-                ctx.SaveChanges();
-            }
-            */
-            //TEST
         }
 
         public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -409,6 +400,40 @@ namespace Clairvoyance
             {
                 categoryList.Add(categoryToAdd);
             }
+        }
+
+        public void addNewCategoryToDb()
+        {
+            if (string.IsNullOrWhiteSpace(categoryToAdd))
+            {
+                throw new System.ArgumentException("Category field must be a non-null value.");
+            }
+
+            using (CategoryContext categoryCtx = new CategoryContext())
+            {
+                if (!categoryCtx.categories.Any(item => item.Category == categoryToAdd))
+                {
+                    categoryCtx.categories.Add(new CategoryModel(categoryToAdd));
+                    categoryCtx.SaveChanges();
+
+                    categoryList.Add(categoryToAdd);
+                }
+            }
+        }
+
+        public void populateCategoryListFromDb()
+        {
+            ObservableCollection<string> categoryStrings = new ObservableCollection<string>();
+
+            using (CategoryContext categoryCtx = new CategoryContext())
+            {
+                foreach (var item in categoryCtx.categories)
+                {
+                    categoryStrings.Add(item.Category);
+                }
+            }
+
+            categoryList = categoryStrings;
         }
 
         public void updateDaysToDisplay()

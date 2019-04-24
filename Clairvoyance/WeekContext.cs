@@ -7,9 +7,9 @@ using System.Data.Entity;
 
 namespace Clairvoyance
 {
-    public class TaskContext : DbContext
+    class WeekContext : DbContext
     {
-        public TaskContext() { }
-        public DbSet<TaskItemModel> tasks { get; set; }
+        public WeekContext() { }
+        public DbSet<WeekContext> weeks { get; set; }
     }
 }
