@@ -31,7 +31,7 @@ In the end, I want a lightweight/simplistic version of:
 [Deferred b/c doesn't seem to work w/ objects] Can we actually implement this observable collection properties thing? Add Inotifypropertychanged events to each item, but don't explicitly do it in the model lol. Try using the subclass instead of observable collection:
 https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-when-item-in-it-changes-even-with-inotifyprop
 [DONE]Add unit tests for null task entries, null time entries, out-of-range times
-Add validation for category list
+[DONE] Add validation for category list
 [DONE] fix bug: crash after proper task added >> add task w "out of range" endtime. This also happens w/ null category so.. maybe it's just overall improper error handling? Yeah it's overall (happens w/ name too)
 
 [Optional]
