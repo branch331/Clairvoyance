@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Clairvoyance
 {
@@ -26,9 +27,9 @@ namespace Clairvoyance
             set;
         }
 
-        public void addTask(string taskName, string taskCategory, string taskDescription, string startTime, string endTime)
+        public void addTask(string taskName, string taskCategory, string startTime, string endTime)
         {
-            TaskList.Add(new TaskItemModel(taskName, taskCategory, taskDescription, startTime, endTime));
+            TaskList.Add(new TaskItemModel(taskName, taskCategory, startTime, endTime));
         }
     }
 }

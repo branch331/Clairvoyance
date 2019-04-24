@@ -13,3 +13,4 @@ C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.csproj.CoreCompileInputs.cache
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.exe
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.pdb
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\GeneratedInternalTypeHelper.g.cs

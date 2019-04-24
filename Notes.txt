@@ -15,13 +15,46 @@ In the end, I want a lightweight/simplistic version of:
 -Speed/simplicity of Sticky Notes
 
 [Must-do]
-Display days on UI
-Add "day" input field on UI >> Submit task to day
-Display tasks in days
-Checkbox should trigger DaysToDisplay to show work week or full week
-Store days/task data somewhere
+[DONE] Display days on UI - have days/tasks fill entire datagrid
+[DONE] Add "day" input field on UI >> Submit task to day
+[DONE] Display tasks in days
+[DONE] Checkbox should trigger DaysToDisplay to display work week or full week
+*Store days/task data in db 
+*Store hourly totals by WEEK ID, and by OVERALL (week ID)
+[DONE] Category - generate and add items to list; populate drop-down
+[DONE-ish] Please fix updateTaskListStrings; add logic to decide which task string list to update
+[DONE] Add unit tests for updateTaskListStrings
+[DONE] Statistics - could even put a display on the bottom right that populates based on the 'category' list
+[DONE] Study ICommand/RelayCommand. Implement command for 'Submit' button. Add logic for submit [DONE] category command
+[DONE] check for duplicate categories in category list
+[DONE] Verify that inputs are not null/empty, for category or tasks
+[Deferred b/c doesn't seem to work w/ objects] Can we actually implement this observable collection properties thing? Add Inotifypropertychanged events to each item, but don't explicitly do it in the model lol. Try using the subclass instead of observable collection:
+https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-when-item-in-it-changes-even-with-inotifyprop
+[DONE]Add unit tests for null task entries, null time entries, out-of-range times
+[DONE] Add validation for category list
+[DONE] fix bug: crash after proper task added >> add task w "out of range" endtime. This also happens w/ null category so.. maybe it's just overall improper error handling? Yeah it's overall (happens w/ name too)
 
 [Optional]
+Edit/Remove tasks
 Add 'Enter' command to text boxes?
 TaskItemModel: Make sure input string is valid time
 Make DateTime conversion in TaskItemModel PM?
+[DONE] ICommand instead of code behind? Not sure if this is more 'best practice'
+[DONE] Remove Description field overall, since it takes up space and might not be helpful
+After 'Submit', erase all fields and place focus on the first entry
+Edit existing tasks
+Tasks should display as time blocks
+
+DATABASE (Relational):
+Table 1:
+[Primary] Task ID | Task Name | Task Duration | [Foreign] Cat ID | [Foreign] Day ID | [Foreign] Week ID 
+
+Table 2:
+Day ID | Day
+
+Table 3:
+Cat ID | Category 
+
+Table 3:
+Week ID | Week dates
+

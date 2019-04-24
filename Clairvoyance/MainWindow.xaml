@@ -5,42 +5,96 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clairvoyance"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1000">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="96*"/>
-            <RowDefinition Height="325*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <CheckBox Content="Work Week?" FontSize="16" IsChecked="{Binding IsWorkWeek}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="112,56,0,0" Height="24" Width="109"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="615,37,0,0" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="552,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" RenderTransformOrigin="0.822,-1.146"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="610,61,0,0" TextWrapping="Wrap" Text="{Binding TaskItemName}"  VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="544,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Text="Category" Grid.RowSpan="2"/>
-        <TextBox HorizontalAlignment="Left" Height="24" Margin="610,90,0,0" TextWrapping="Wrap" Text="{Binding TaskItemCategory}" VerticalAlignment="Top" Width="173" Grid.RowSpan="2"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Mon" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Tues" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Wed" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="Thurs" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="Fri" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="5" Text="Sat" FontSize="12" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="Sun" FontSize="12" HorizontalAlignment="Center"/>
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="544,24.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Grid.Row="1"><Run Text="Description"/><LineBreak/><Run/></TextBlock>
-        <RichTextBox HorizontalAlignment="Left" Height="38" Margin="610,23.5,0,0" VerticalAlignment="Top" Width="173" Grid.Row="1">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="{Binding TaskItemDescription}"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+            <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding MonTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding TuesTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding WedTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding ThursTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="4" ItemsSource="{Binding FriTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding SatTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            <ListBox Grid.Row="1" Grid.Column="6" ItemsSource="{Binding SunTaskListString}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+        </Grid>
 
-        <TextBlock HorizontalAlignment="Left" Height="24" Margin="549,66.5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61" Grid.Row="1"><Run Text="Times"/><LineBreak/><Run/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding TaskItemStartTime}" VerticalAlignment="Top" Width="90" Margin="610,66.5,0,0" Grid.Row="1"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="705,66.5,0,0" TextWrapping="Wrap" Text="{Binding TaskItemEndTime}" VerticalAlignment="Top" Width="78" Grid.Row="1">
-            <TextBox.InputBindings>
-                <KeyBinding Command="{Binding CreateNewTaskItem}" Key="Return" />
-                <KeyBinding Command="{Binding CreateNewTaskItem}" Key="Enter" />
-            </TextBox.InputBindings>
-        </TextBox>
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,28,9.667,-0.333">
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Category" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Margin="0 10 0 0"/>
+        </StackPanel>
 
-        <Button Content="Submit" HorizontalAlignment="Left" Height="22" Margin="674,111.5,0,0" VerticalAlignment="Top" Width="54" Click="Submit_Task_Click" Grid.Row="1"/>
+        <StackPanel Grid.Row="1" Grid.Column="2" Margin="0.333,0,0.333,-0.333">
+            <TextBlock HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
+            <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap"  Text="{Binding TaskItemName}" VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
+
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValuePath="Content" SelectedValue="{Binding TaskItemDay}">
+                <ComboBoxItem>Mon</ComboBoxItem>
+                <ComboBoxItem>Tues</ComboBoxItem>
+                <ComboBoxItem>Wed</ComboBoxItem>
+                <ComboBoxItem>Thurs</ComboBoxItem>
+                <ComboBoxItem>Fri</ComboBoxItem>
+                <ComboBoxItem>Sat</ComboBoxItem>
+                <ComboBoxItem>Sun</ComboBoxItem>
+            </ComboBox>
+
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}"/>
+
+            <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding TaskItemStartTime}" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+
+
+            <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding TaskItemEndTime}" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+
+            <Button Content="Submit" Command="{Binding TaskSubmitCommand}" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="54" Margin="0 10 0 0"/>
+            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding CategoryToAdd}" VerticalAlignment="Top" Width="70"/>
+            <Button Content="Category" Command="{Binding CategorySubmitCommand}"/>
+
+            <DataGrid AutoGenerateColumns="False"
+                  Width="212" 
+                  IsReadOnly="True"
+                  ItemsSource="{Binding WeeklyTotalsInHours}" Height="256" Margin="4,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="100"/>
+                    <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25" Width="160"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
 
     </Grid>
 </Window>

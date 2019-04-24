@@ -55,10 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CategoryCommand.cs" />
+    <Compile Include="EmptyValueRule.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="StatisticsViewModel.cs" />
     <Compile Include="TaskEditorViewModel.cs" />
     <Compile Include="TaskItemModel.cs" />
+    <Compile Include="TimeRangeRule.cs" />
     <Compile Include="WeeklyAgendaViewModel.cs" />
+    <Compile Include="WeeklyTotals.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
