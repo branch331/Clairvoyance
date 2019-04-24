@@ -13,4 +13,9 @@ C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.csproj.CoreCompileInputs.cache
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.exe
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.pdb
-C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\EntityFramework.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\EntityFramework.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.csproj.CopyComplete
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.Migrations.Initial.resources

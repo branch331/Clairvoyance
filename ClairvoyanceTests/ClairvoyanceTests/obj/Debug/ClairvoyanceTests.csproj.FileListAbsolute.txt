@@ -15,3 +15,5 @@ C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\obj\Debug\ClairvoyanceTests.csproj.CopyComplete
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\obj\Debug\ClairvoyanceTests.dll
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\obj\Debug\ClairvoyanceTests.pdb
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\EntityFramework.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\EntityFramework.xml

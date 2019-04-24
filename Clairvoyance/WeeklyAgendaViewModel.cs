@@ -63,6 +63,17 @@ namespace Clairvoyance
                     System.Windows.MessageBox.Show(e.Message);
                 }
             }, o => true);
+
+            //TEST
+            /*
+            TaskItemModel testTask = new TaskItemModel("test", "testcat", "1:00", "5:00");
+            using (var ctx = new TaskContext())
+            {
+                ctx.tasks.Add(testTask);
+                ctx.SaveChanges();
+            }
+            */
+            //TEST
         }
 
         public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
