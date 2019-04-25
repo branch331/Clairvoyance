@@ -21,6 +21,8 @@ namespace Clairvoyance
         public string taskItemCategory;
         public string taskItemStartTime;
         public string taskItemEndTime;
+        public DateTime weeklyStartDate;
+        public DateTime weeklyEndDate;
         private string categoryToAdd;
 
         public List<string> monTaskListString;
@@ -41,6 +43,7 @@ namespace Clairvoyance
             fullWeek = generateFullWeekList();
             updateDaysToDisplay();
             populateCategoryListFromDb();
+            updateCurrentWeekDateTimes();
 
             categorySubmitCommand = new RelayCommand(o => 
             {
@@ -71,6 +74,32 @@ namespace Clairvoyance
         public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
 
+        }
+
+        public DateTime WeeklyStartDate
+        {
+            get { return weeklyStartDate; }
+            set
+            {
+                if (weeklyStartDate != value)
+                {
+                    weeklyStartDate = value;
+                    NotifyPropertyChanged("WeeklyStartDate");
+                }
+            }
+        }
+
+        public DateTime WeeklyEndDate
+        {
+            get { return weeklyEndDate; }
+            set
+            {
+                if (weeklyEndDate != value)
+                {
+                    weeklyEndDate = value;
+                    NotifyPropertyChanged("WeeklyEndDate");
+                }
+            }
         }
 
         public string TaskItemName
@@ -302,6 +331,61 @@ namespace Clairvoyance
             fullWeekList.Add(new DayPlannerModel("Sun"));
 
             return fullWeekList;
+        }
+
+        public void updateCurrentWeekDateTimes()
+        {
+            //DateTime currentDateTime = DateTime.Now;
+            DateTime currentDateTime = new DateTime(2019, 5, 3);
+            DateTime defaultDateTime = new DateTime(1995, 5, 15);
+            weeklyStartDate = defaultDateTime;
+            weeklyEndDate = defaultDateTime;
+
+            using (TaskContext taskCtx = new TaskContext())
+            {
+                foreach (var item in taskCtx.weeks)
+                {
+                    if (currentDateTime > item.MondayDate && currentDateTime < item.SundayDate)
+                    {
+                        weeklyStartDate = item.MondayDate;
+                        weeklyEndDate = item.SundayDate;
+                    }
+                }
+            }
+
+            if (weeklyStartDate == defaultDateTime)
+            {
+                DateTime newSundayDate;
+                DateTime newMondayDate;
+
+                int currentDayOfWeek = (int) currentDateTime.DayOfWeek; //Sunday = 0
+
+                if (currentDayOfWeek == 0)
+                {
+                    newSundayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day);
+                }
+                else
+                {
+                    newSundayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day + (7 - currentDayOfWeek));
+                }
+
+                if (currentDayOfWeek == 1)
+                {
+                    newMondayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day);
+                }
+                else
+                {
+                    newMondayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day - (currentDayOfWeek - 1));
+                }
+
+                WeekModel newWeekEntry = new WeekModel(newMondayDate, newSundayDate);
+
+                using (TaskContext taskCtx = new TaskContext())
+                {
+                    taskCtx.weeks.Add(newWeekEntry);
+                    taskCtx.SaveChanges();
+                }
+            }
         }
 
         public void addTaskToDay()

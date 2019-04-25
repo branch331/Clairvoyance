@@ -173,7 +173,9 @@ namespace ClairvoyanceTests
             testAgendaVMFullWeek.CategoryToAdd = "test1";
             testAgendaVMFullWeek.addNewCategoryToList();
 
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[1] == "test1");
+            int categoryListCount = testAgendaVMFullWeek.CategoryList.Count;
+
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[categoryListCount - 1] == "test1");
         }
 
         [TestMethod]
@@ -186,7 +188,9 @@ namespace ClairvoyanceTests
             testAgendaVMFullWeek.CategoryToAdd = "test3";
             testAgendaVMFullWeek.addNewCategoryToList();
 
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList.Count == 4);
+            int categoryListCount = testAgendaVMFullWeek.CategoryList.Count;
+
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[categoryListCount - 1] == "test3");
         }
 
         [TestMethod]
@@ -196,29 +200,9 @@ namespace ClairvoyanceTests
             testAgendaVMFullWeek.addNewCategoryToList();
             testAgendaVMFullWeek.addNewCategoryToList();
 
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList.Count == 2);
-        }
+            int categoryListCount = testAgendaVMFullWeek.CategoryList.Count;
 
-        [TestMethod]
-        public void updateWeeklyHoursTest()
-        {
-            testAgendaVMFullWeek.TaskItemDay = "Fri";
-            testAgendaVMFullWeek.addTaskToDay();
-
-            Assert.IsTrue(testAgendaVMFullWeek.WeeklyTotalsInHours[0].TotalHours == 1);
-        }
-
-        [TestMethod]
-        public void updateWeeklyHoursTwoCategoriesTest()
-        {
-            testAgendaVMFullWeek.TaskItemDay = "Fri";
-            testAgendaVMFullWeek.addTaskToDay();
-
-            testAgendaVMFullWeek.CategoryList.Add("Cat B");
-            testAgendaVMFullWeek.TaskItemCategory = "Cat B";
-            testAgendaVMFullWeek.addTaskToDay();
-
-            Assert.IsTrue(testAgendaVMFullWeek.WeeklyTotalsInHours[0].TotalHours == 1 && testAgendaVMFullWeek.WeeklyTotalsInHours[1].TotalHours == 1);
+            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[categoryListCount - 1] == "test1");
         }
     }
 }
