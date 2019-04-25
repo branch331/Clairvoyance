@@ -58,7 +58,8 @@ namespace Clairvoyance
             {
                 try
                 {
-                    addTaskToDay();
+                    //addTaskToDay();
+                    addTaskToDb();
                 }
                 catch (System.ArgumentException e)
                 {
@@ -409,12 +410,12 @@ namespace Clairvoyance
                 throw new System.ArgumentException("Category field must be a non-null value.");
             }
 
-            using (CategoryContext categoryCtx = new CategoryContext())
+            using (TaskContext taskCtx = new TaskContext())
             {
-                if (!categoryCtx.categories.Any(item => item.Category == categoryToAdd))
+                if (!taskCtx.categories.Any(item => item.Category == categoryToAdd))
                 {
-                    categoryCtx.categories.Add(new CategoryModel(categoryToAdd));
-                    categoryCtx.SaveChanges();
+                    taskCtx.categories.Add(new CategoryModel(categoryToAdd));
+                    taskCtx.SaveChanges();
 
                     categoryList.Add(categoryToAdd);
                 }
@@ -425,15 +426,94 @@ namespace Clairvoyance
         {
             ObservableCollection<string> categoryStrings = new ObservableCollection<string>();
 
-            using (CategoryContext categoryCtx = new CategoryContext())
+            using (TaskContext taskCtx = new TaskContext())
             {
-                foreach (var item in categoryCtx.categories)
+                foreach (var item in taskCtx.categories)
                 {
                     categoryStrings.Add(item.Category);
                 }
             }
 
             categoryList = categoryStrings;
+        }
+
+        public void addTaskToDb()
+        {
+            if (DaysToDisplay.Count == 0)
+            {
+                throw new System.InvalidOperationException("DaysToDisplay has not been initialized.");
+            }
+            else if (!inputTimesWithinRange())
+            {
+                throw new System.ArgumentException("Input times must be from 1-12.");
+            }
+            else if (anyTaskFieldEmpty())
+            {
+                throw new System.ArgumentException("One or more task fields null or empty.");
+            }
+            else
+            {
+                int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
+
+                using (TaskContext taskCtx = new TaskContext())
+                {
+                    //TESTING
+                    /*
+                    taskCtx.days.Add(new DayModel("Mon"));
+                    
+                    taskCtx.weeks.Add(new WeekModel(new DateTime(2019, 4, 22), new DateTime(2019, 4, 28)));
+                    taskCtx.SaveChanges();
+                    */
+                    
+                    //TESTING
+                    TaskItemModel taskItem = new TaskItemModel(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+                    taskItem.CategoryId = findCategoryId(taskItemCategory);
+                    taskItem.DayId = findDayId(taskItemDay);
+                    taskItem.WeekId = findWeekId(new DateTime(2019, 4, 22)); //TEST***
+                    taskCtx.tasks.Add(taskItem);
+                    taskCtx.SaveChanges();
+                }
+
+                DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+                updateTaskListStrings(dayIndex);
+                updateWeeklyTotals();
+            }
+        }
+
+        public int findCategoryId(string categoryToFind)
+        {
+            using (TaskContext taskCtx = new TaskContext())
+            {
+                var category = taskCtx.categories
+                    .Where(item => item.Category == categoryToFind)
+                    .FirstOrDefault();
+
+                return category.Id;
+            }
+        }
+
+        public int findDayId(string dayToFind)
+        {
+            using (TaskContext taskCtx = new TaskContext())
+            {
+                var day = taskCtx.days
+                    .Where(item => item.Day == dayToFind)
+                    .FirstOrDefault();
+
+                return day.Id;
+            }
+        }
+
+        public int findWeekId(DateTime mondayDateTime)
+        {
+            using (TaskContext taskCtx = new TaskContext())
+            {
+                var week = taskCtx.weeks
+                    .Where(item => item.MondayDate == mondayDateTime)
+                    .FirstOrDefault();
+
+                return week.Id;
+            }
         }
 
         public void updateDaysToDisplay()

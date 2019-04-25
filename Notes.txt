@@ -33,8 +33,19 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 [DONE]Add unit tests for null task entries, null time entries, out-of-range times
 [DONE] Add validation for category list
 [DONE] fix bug: crash after proper task added >> add task w "out of range" endtime. This also happens w/ null category so.. maybe it's just overall improper error handling? Yeah it's overall (happens w/ name too)
+
+-Database Specific-
+*Start w/ clean slate in week and days table
+Fix unit tests. Separate out the 'add to database' portions so you can pass unit tests.
+Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and
+pre-populate based on that?
+Populate task list from db
+
+-Databases Phase II-
+[Probably with separate window]
 Delete tasks
 Delete categories
+View different weeks/populate weekly total
 
 Looks like EF created databases in Microsoft SQL Server (C:\Program Files\Microsoft SQL Server\MSSQL10.SQLEXPRESS\MSSQL\DATA) instead of the local SQL db... how to change? the local ones from asp.net core mvc are added in C:\Users\brand... and have what look like GUIDs in them.
 

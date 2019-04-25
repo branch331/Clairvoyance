@@ -11,5 +11,8 @@ namespace Clairvoyance
     {
         public TaskContext() { }
         public DbSet<TaskItemModel> tasks { get; set; }
+        public DbSet<DayModel> days { get; set; }
+        public DbSet<CategoryModel> categories { get; set; }
+        public DbSet<WeekModel> weeks { get; set; }
     }
 }
