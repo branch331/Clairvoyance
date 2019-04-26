@@ -35,6 +35,7 @@ namespace Clairvoyance
 
         public List<DayPlannerModel> daysToDisplay;
         private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
+        public ObservableCollection<string> daysOfWeekList = new ObservableCollection<string>();
         public ObservableCollection<string> categoryList = new ObservableCollection<string>();
         public ObservableCollection<WeeklyTotals> weeklyTotalsInHours = new ObservableCollection<WeeklyTotals>();
 
@@ -44,6 +45,8 @@ namespace Clairvoyance
             MaxDaysInMonthDict = initializeMaxDaysInMonthDict(); 
             updateDaysToDisplay();
             populateCategoryListFromDb();
+            populateWeekDayDb();
+            populateDaysOfWeekFromDb();
             updateCurrentWeekDateTimes();
 
             categorySubmitCommand = new RelayCommand(o => 
@@ -341,6 +344,19 @@ namespace Clairvoyance
             }
         }
 
+        public ObservableCollection<string> DaysOfWeekList
+        {
+            get { return daysOfWeekList; }
+            set
+            {
+                if (daysOfWeekList != value)
+                {
+                    daysOfWeekList = value;
+                    NotifyPropertyChanged("DaysOfWeekList");
+                }
+            }
+        }
+
         public Dictionary<int, int> MaxDaysInMonthDict
         {
             get;
@@ -359,6 +375,36 @@ namespace Clairvoyance
             fullWeekList.Add(new DayPlannerModel("Sun"));
 
             return fullWeekList;
+        }
+
+        public void populateWeekDayDb()
+        {
+            using (TaskContext taskCtx = new TaskContext())
+            {
+                if (taskCtx.days.Count() == 0)
+                {
+                    taskCtx.days.Add(new DayModel("Mon"));
+                    taskCtx.days.Add(new DayModel("Tues"));
+                    taskCtx.days.Add(new DayModel("Wed"));
+                    taskCtx.days.Add(new DayModel("Thurs"));
+                    taskCtx.days.Add(new DayModel("Fri"));
+                    taskCtx.days.Add(new DayModel("Sat"));
+                    taskCtx.days.Add(new DayModel("Sun"));
+
+                    taskCtx.SaveChanges();
+                }
+            }
+        }
+
+        public void populateDaysOfWeekFromDb()
+        {
+            using (TaskContext taskCtx = new TaskContext())
+            {
+                foreach (DayModel item in taskCtx.days)
+                {
+                    daysOfWeekList.Add(item.Day);
+                }
+            }
         }
 
         public void updateCurrentWeekDateTimes()
@@ -422,10 +468,10 @@ namespace Clairvoyance
                     newMondayDate = new DateTime(currentDateTime.Year, newMondayMonth, newMondayDay);
                 }
 
-                WeekModel newWeekEntry = new WeekModel(newMondayDate, newSundayDate);
-
                 weeklyStartDate = newMondayDate;
                 weeklyEndDate = newSundayDate;
+
+                WeekModel newWeekEntry = new WeekModel(newMondayDate, newSundayDate);
 
                 using (TaskContext taskCtx = new TaskContext())
                 {
@@ -588,19 +634,10 @@ namespace Clairvoyance
 
                 using (TaskContext taskCtx = new TaskContext())
                 {
-                    //TESTING
-                    /*
-                    taskCtx.days.Add(new DayModel("Mon"));
-                    
-                    taskCtx.weeks.Add(new WeekModel(new DateTime(2019, 4, 22), new DateTime(2019, 4, 28)));
-                    taskCtx.SaveChanges();
-                    */
-                    
-                    //TESTING
                     TaskItemModel taskItem = new TaskItemModel(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
                     taskItem.CategoryId = findCategoryId(taskItemCategory);
                     taskItem.DayId = findDayId(taskItemDay);
-                    taskItem.WeekId = findWeekId(new DateTime(2019, 4, 22)); //TEST***
+                    taskItem.WeekId = findWeekIdFromStartDate(weeklyStartDate); 
                     taskCtx.tasks.Add(taskItem);
                     taskCtx.SaveChanges();
                 }
@@ -635,7 +672,7 @@ namespace Clairvoyance
             }
         }
 
-        public int findWeekId(DateTime mondayDateTime)
+        public int findWeekIdFromStartDate(DateTime mondayDateTime)
         {
             using (TaskContext taskCtx = new TaskContext())
             {

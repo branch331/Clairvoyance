@@ -66,15 +66,7 @@
             <TextBlock HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
             <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap"  Text="{Binding TaskItemName}" VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
 
-            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValuePath="Content" SelectedValue="{Binding TaskItemDay}">
-                <ComboBoxItem>Mon</ComboBoxItem>
-                <ComboBoxItem>Tues</ComboBoxItem>
-                <ComboBoxItem>Wed</ComboBoxItem>
-                <ComboBoxItem>Thurs</ComboBoxItem>
-                <ComboBoxItem>Fri</ComboBoxItem>
-                <ComboBoxItem>Sat</ComboBoxItem>
-                <ComboBoxItem>Sun</ComboBoxItem>
-            </ComboBox>
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" ItemsSource="{Binding DaysOfWeekList}" SelectedValue="{Binding TaskItemDay}"/>
 
             <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}"/>
 

@@ -63,9 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CategoryCommand.cs" />
-    <Compile Include="CategoryContext.cs" />
     <Compile Include="CategoryModel.cs" />
-    <Compile Include="DayContext.cs" />
     <Compile Include="DayModel.cs" />
     <Compile Include="Migrations\201904242222287_Initial.cs" />
     <Compile Include="Migrations\201904242222287_Initial.Designer.cs">
@@ -79,7 +77,6 @@
     <Compile Include="TaskEditorViewModel.cs" />
     <Compile Include="TaskItemModel.cs" />
     <Compile Include="TimeRangeRule.cs" />
-    <Compile Include="WeekContext.cs" />
     <Compile Include="WeeklyAgendaViewModel.cs" />
     <Compile Include="WeeklyTotals.cs" />
     <Compile Include="WeekModel.cs" />

@@ -36,9 +36,8 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 
 -Database Specific-
 *Start w/ clean slate in week and days table
-Fix unit tests. Separate out the 'add to database' portions so you can pass unit tests.
-Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and
-pre-populate based on that?
+Fix unit tests. Create mock database for unit tests: Separate out the 'add to database' portions so you can pass unit tests.
+[DONE]Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and. Pre-populate based on that?
 Populate task list from db
 
 -Databases Phase II-
@@ -46,7 +45,6 @@ Populate task list from db
 Delete tasks
 Delete categories
 View different weeks/populate weekly total. Please refactor updateCurrentWeekDateTimes()
-Tie weekly dates to task 
 
 Looks like EF created databases in Microsoft SQL Server (C:\Program Files\Microsoft SQL Server\MSSQL10.SQLEXPRESS\MSSQL\DATA) instead of the local SQL db... how to change? the local ones from asp.net core mvc are added in C:\Users\brand... and have what look like GUIDs in them.
 
@@ -77,3 +75,6 @@ Cat ID | Category
 Table 3:
 Week ID | Week dates
 
+LEARNINGS:
+-For a database with regional keys, use the [ForeignKey("FOREIGNID")] in the original model
+-Add Dbsets for each model (primary and regional) in the same context to use them
