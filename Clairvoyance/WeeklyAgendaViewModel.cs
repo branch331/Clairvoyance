@@ -41,6 +41,7 @@ namespace Clairvoyance
         public WeeklyAgendaViewModel()
         {
             fullWeek = generateFullWeekList();
+            MaxDaysInMonthDict = initializeMaxDaysInMonthDict(); 
             updateDaysToDisplay();
             populateCategoryListFromDb();
             updateCurrentWeekDateTimes();
@@ -74,6 +75,27 @@ namespace Clairvoyance
         public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
 
+        }
+
+        public Dictionary<int, int> initializeMaxDaysInMonthDict()
+        {
+            Dictionary<int, int> moxDaysInMonthDict = new Dictionary<int, int>()
+            {
+                {1, 31},
+                {2, 28}, //Assumes non-leap year
+                {3, 31},
+                {4, 30},
+                {5, 31},
+                {6, 30},
+                {7, 31},
+                {8, 31},
+                {9, 30},
+                {10, 31},
+                {11, 30},
+                {12, 31}
+            };
+
+            return moxDaysInMonthDict;
         }
 
         public DateTime WeeklyStartDate
@@ -319,6 +341,12 @@ namespace Clairvoyance
             }
         }
 
+        public Dictionary<int, int> MaxDaysInMonthDict
+        {
+            get;
+            set;
+        }
+
         private List<DayPlannerModel> generateFullWeekList()
         {
             List<DayPlannerModel> fullWeekList = new List<DayPlannerModel>();
@@ -335,8 +363,7 @@ namespace Clairvoyance
 
         public void updateCurrentWeekDateTimes()
         {
-            //DateTime currentDateTime = DateTime.Now;
-            DateTime currentDateTime = new DateTime(2019, 5, 3);
+            DateTime currentDateTime = DateTime.Now;
             DateTime defaultDateTime = new DateTime(1995, 5, 15);
             weeklyStartDate = defaultDateTime;
             weeklyEndDate = defaultDateTime;
@@ -360,25 +387,45 @@ namespace Clairvoyance
 
                 int currentDayOfWeek = (int) currentDateTime.DayOfWeek; //Sunday = 0
 
+                int newSundayDay = currentDateTime.Day + (7 - currentDayOfWeek);
+                int newSundayMonth = currentDateTime.Month;
+
+                int newMondayDay = currentDateTime.Day - (currentDayOfWeek - 1);
+                int newMondayMonth = currentDateTime.Month;
+
                 if (currentDayOfWeek == 0)
                 {
-                    newSundayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day);
+                    newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, currentDateTime.Day);
                 }
                 else
                 {
-                    newSundayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day + (7 - currentDayOfWeek));
+                    if (newSundayDay > MaxDaysInMonthDict[newSundayMonth])
+                    {
+                        newSundayDay -= MaxDaysInMonthDict[newSundayMonth];
+                    }
+
+                    newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, newSundayDay);
                 }
 
                 if (currentDayOfWeek == 1)
                 {
-                    newMondayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day);
+                    newMondayDate = new DateTime(currentDateTime.Year, newMondayMonth, newMondayDay);
                 }
                 else
                 {
-                    newMondayDate = new DateTime(currentDateTime.Year, currentDateTime.Month, currentDateTime.Day - (currentDayOfWeek - 1));
+                    if (newMondayDay < 0)
+                    {
+                        newMondayMonth -= 1;
+                        newMondayDay += MaxDaysInMonthDict[newMondayMonth];
+                    }
+
+                    newMondayDate = new DateTime(currentDateTime.Year, newMondayMonth, newMondayDay);
                 }
 
                 WeekModel newWeekEntry = new WeekModel(newMondayDate, newSundayDate);
+
+                weeklyStartDate = newMondayDate;
+                weeklyEndDate = newSundayDate;
 
                 using (TaskContext taskCtx = new TaskContext())
                 {

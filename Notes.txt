@@ -46,7 +46,7 @@ Populate task list from db
 Delete tasks
 Delete categories
 View different weeks/populate weekly total. Please refactor updateCurrentWeekDateTimes()
-**BUG: When setting newMondayDate, day may become negative and throw an error.
+Tie weekly dates to task 
 
 Looks like EF created databases in Microsoft SQL Server (C:\Program Files\Microsoft SQL Server\MSSQL10.SQLEXPRESS\MSSQL\DATA) instead of the local SQL db... how to change? the local ones from asp.net core mvc are added in C:\Users\brand... and have what look like GUIDs in them.
 
