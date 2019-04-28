@@ -33,6 +33,7 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 [DONE]Add unit tests for null task entries, null time entries, out-of-range times
 [DONE] Add validation for category list
 [DONE] fix bug: crash after proper task added >> add task w "out of range" endtime. This also happens w/ null category so.. maybe it's just overall improper error handling? Yeah it's overall (happens w/ name too)
+Revamp architecture to remove business logic outside of VM
 
 -Database Specific-
 *Start w/ clean slate in week and days table
