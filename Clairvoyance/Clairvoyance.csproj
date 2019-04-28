@@ -35,7 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +63,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CategoryCommand.cs" />
+    <Compile Include="CategoryModel.cs" />
+    <Compile Include="DayModel.cs" />
+    <Compile Include="Migrations\201904242222287_Initial.cs" />
+    <Compile Include="Migrations\201904242222287_Initial.Designer.cs">
+      <DependentUpon>201904242222287_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="TaskContext.cs" />
     <Compile Include="EmptyValueRule.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="StatisticsViewModel.cs" />
@@ -64,6 +79,7 @@
     <Compile Include="TimeRangeRule.cs" />
     <Compile Include="WeeklyAgendaViewModel.cs" />
     <Compile Include="WeeklyTotals.cs" />
+    <Compile Include="WeekModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,10 +108,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201904242222287_Initial.resx">
+      <DependentUpon>201904242222287_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

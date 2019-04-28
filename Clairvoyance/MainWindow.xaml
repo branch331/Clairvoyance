@@ -19,6 +19,9 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding WeeklyStartDate}" FontSize="12" HorizontalAlignment="Center" Width="236" Margin="213,0,213,51.333"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding WeeklyEndDate}" FontSize="12" HorizontalAlignment="Center" Width="250" Margin="206,49,206,0.333"/>
+
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.05*"/>
@@ -63,15 +66,7 @@
             <TextBlock HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
             <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap"  Text="{Binding TaskItemName}" VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
 
-            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" SelectedValuePath="Content" SelectedValue="{Binding TaskItemDay}">
-                <ComboBoxItem>Mon</ComboBoxItem>
-                <ComboBoxItem>Tues</ComboBoxItem>
-                <ComboBoxItem>Wed</ComboBoxItem>
-                <ComboBoxItem>Thurs</ComboBoxItem>
-                <ComboBoxItem>Fri</ComboBoxItem>
-                <ComboBoxItem>Sat</ComboBoxItem>
-                <ComboBoxItem>Sun</ComboBoxItem>
-            </ComboBox>
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" ItemsSource="{Binding DaysOfWeekList}" SelectedValue="{Binding TaskItemDay}"/>
 
             <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}"/>
 
