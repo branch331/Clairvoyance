@@ -7,8 +7,11 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Clairvoyance.Data;
+using Clairvoyance.Helpers;
+using Clairvoyance.Model;
 
-namespace Clairvoyance
+namespace Clairvoyance.ViewModel
 {
     public class WeeklyAgendaViewModel : INotifyPropertyChanged
     {
@@ -33,11 +36,13 @@ namespace Clairvoyance
         public List<string> satTaskListString;
         public List<string> sunTaskListString;
 
-        public List<DayPlannerModel> daysToDisplay;
-        private List<DayPlannerModel> fullWeek = new List<DayPlannerModel>();
+        public List<DayPlanner> daysToDisplay;
+        private List<DayPlanner> fullWeek = new List<DayPlanner>();
         public ObservableCollection<string> daysOfWeekList = new ObservableCollection<string>();
         public ObservableCollection<string> categoryList = new ObservableCollection<string>();
         public ObservableCollection<WeeklyTotals> weeklyTotalsInHours = new ObservableCollection<WeeklyTotals>();
+
+        public TaskDatabaseLayer taskDbLayer = new TaskDatabaseLayer();
 
         public WeeklyAgendaViewModel()
         {
@@ -65,7 +70,6 @@ namespace Clairvoyance
             {
                 try
                 {
-                    //addTaskToDay();
                     addTaskToDb();
                 }
                 catch (System.ArgumentException e)
@@ -82,7 +86,7 @@ namespace Clairvoyance
 
         public Dictionary<int, int> initializeMaxDaysInMonthDict()
         {
-            Dictionary<int, int> moxDaysInMonthDict = new Dictionary<int, int>()
+            Dictionary<int, int> maxDaysInMonthDict = new Dictionary<int, int>()
             {
                 {1, 31},
                 {2, 28}, //Assumes non-leap year
@@ -98,7 +102,7 @@ namespace Clairvoyance
                 {12, 31}
             };
 
-            return moxDaysInMonthDict;
+            return maxDaysInMonthDict;
         }
 
         public DateTime WeeklyStartDate
@@ -192,7 +196,7 @@ namespace Clairvoyance
             }
         }
 
-        public List<DayPlannerModel> DaysToDisplay
+        public List<DayPlanner> DaysToDisplay
         {
             get { return daysToDisplay; }
             set
@@ -363,16 +367,16 @@ namespace Clairvoyance
             set;
         }
 
-        private List<DayPlannerModel> generateFullWeekList()
+        private List<DayPlanner> generateFullWeekList()
         {
-            List<DayPlannerModel> fullWeekList = new List<DayPlannerModel>();
-            fullWeekList.Add(new DayPlannerModel("Mon"));
-            fullWeekList.Add(new DayPlannerModel("Tues"));
-            fullWeekList.Add(new DayPlannerModel("Wed"));
-            fullWeekList.Add(new DayPlannerModel("Thurs"));
-            fullWeekList.Add(new DayPlannerModel("Fri"));
-            fullWeekList.Add(new DayPlannerModel("Sat"));
-            fullWeekList.Add(new DayPlannerModel("Sun"));
+            List<DayPlanner> fullWeekList = new List<DayPlanner>();
+            fullWeekList.Add(new DayPlanner("Mon"));
+            fullWeekList.Add(new DayPlanner("Tues"));
+            fullWeekList.Add(new DayPlanner("Wed"));
+            fullWeekList.Add(new DayPlanner("Thurs"));
+            fullWeekList.Add(new DayPlanner("Fri"));
+            fullWeekList.Add(new DayPlanner("Sat"));
+            fullWeekList.Add(new DayPlanner("Sun"));
 
             return fullWeekList;
         }
@@ -383,15 +387,7 @@ namespace Clairvoyance
             {
                 if (taskCtx.days.Count() == 0)
                 {
-                    taskCtx.days.Add(new DayModel("Mon"));
-                    taskCtx.days.Add(new DayModel("Tues"));
-                    taskCtx.days.Add(new DayModel("Wed"));
-                    taskCtx.days.Add(new DayModel("Thurs"));
-                    taskCtx.days.Add(new DayModel("Fri"));
-                    taskCtx.days.Add(new DayModel("Sat"));
-                    taskCtx.days.Add(new DayModel("Sun"));
-
-                    taskCtx.SaveChanges();
+                    taskDbLayer.initializeWeekdays();
                 }
             }
         }
@@ -400,9 +396,9 @@ namespace Clairvoyance
         {
             using (TaskContext taskCtx = new TaskContext())
             {
-                foreach (DayModel item in taskCtx.days)
+                foreach (Day item in taskCtx.days)
                 {
-                    daysOfWeekList.Add(item.Day);
+                    daysOfWeekList.Add(item.DayName);
                 }
             }
         }
@@ -410,23 +406,16 @@ namespace Clairvoyance
         public void updateCurrentWeekDateTimes()
         {
             DateTime currentDateTime = DateTime.Now;
-            DateTime defaultDateTime = new DateTime(1995, 5, 15);
-            weeklyStartDate = defaultDateTime;
-            weeklyEndDate = defaultDateTime;
 
-            using (TaskContext taskCtx = new TaskContext())
+            //If there is no range in which the input dateTime exists, returns null
+            Tuple<DateTime, DateTime> weekRange = taskDbLayer.getWeekRangeFromDate(currentDateTime);
+
+            if (weekRange != null)
             {
-                foreach (var item in taskCtx.weeks)
-                {
-                    if (currentDateTime > item.MondayDate && currentDateTime < item.SundayDate)
-                    {
-                        weeklyStartDate = item.MondayDate;
-                        weeklyEndDate = item.SundayDate;
-                    }
-                }
+                weeklyStartDate = weekRange.Item1;
+                weeklyEndDate = weekRange.Item2;
             }
-
-            if (weeklyStartDate == defaultDateTime)
+            else
             {
                 DateTime newSundayDate;
                 DateTime newMondayDate;
@@ -442,6 +431,7 @@ namespace Clairvoyance
                 if (currentDayOfWeek == 0)
                 {
                     newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, currentDateTime.Day);
+                    newMondayDay = currentDateTime.Day - 6;
                 }
                 else
                 {
@@ -471,7 +461,7 @@ namespace Clairvoyance
                 weeklyStartDate = newMondayDate;
                 weeklyEndDate = newSundayDate;
 
-                WeekModel newWeekEntry = new WeekModel(newMondayDate, newSundayDate);
+                Week newWeekEntry = new Week(newMondayDate, newSundayDate);
 
                 using (TaskContext taskCtx = new TaskContext())
                 {
@@ -567,19 +557,6 @@ namespace Clairvoyance
             return false;
         }
 
-        public void addNewCategoryToList()
-        {
-            if (string.IsNullOrWhiteSpace(categoryToAdd))
-            {
-                throw new System.ArgumentException("Category field must be a non-null value.");
-            }
-
-            if (!categoryList.Contains(categoryToAdd))
-            {
-                categoryList.Add(categoryToAdd);
-            }
-        }
-
         public void addNewCategoryToDb()
         {
             if (string.IsNullOrWhiteSpace(categoryToAdd))
@@ -587,34 +564,30 @@ namespace Clairvoyance
                 throw new System.ArgumentException("Category field must be a non-null value.");
             }
 
-            using (TaskContext taskCtx = new TaskContext())
-            {
-                if (!taskCtx.categories.Any(item => item.Category == categoryToAdd))
-                {
-                    taskCtx.categories.Add(new CategoryModel(categoryToAdd));
-                    taskCtx.SaveChanges();
-
-                    categoryList.Add(categoryToAdd);
-                }
-            }
+            taskDbLayer.addNewCategory(categoryToAdd);
+            categoryList.Add(categoryToAdd);
         }
 
         public void populateCategoryListFromDb()
         {
-            ObservableCollection<string> categoryStrings = new ObservableCollection<string>();
-
-            using (TaskContext taskCtx = new TaskContext())
-            {
-                foreach (var item in taskCtx.categories)
-                {
-                    categoryStrings.Add(item.Category);
-                }
-            }
-
-            categoryList = categoryStrings;
+            categoryList = taskDbLayer.getExistingCategoryList();
         }
 
         public void addTaskToDb()
+        {
+            validateNewTask();
+
+            int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
+
+            TaskItem taskItem = new Model.TaskItem(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+            taskDbLayer.addTaskItem(taskItem, taskItemDay, weeklyStartDate);
+
+            DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+            updateTaskListStrings(dayIndex);
+            updateWeeklyTotals();
+        }
+
+        public void validateNewTask()
         {
             if (DaysToDisplay.Count == 0)
             {
@@ -627,60 +600,6 @@ namespace Clairvoyance
             else if (anyTaskFieldEmpty())
             {
                 throw new System.ArgumentException("One or more task fields null or empty.");
-            }
-            else
-            {
-                int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
-
-                using (TaskContext taskCtx = new TaskContext())
-                {
-                    TaskItemModel taskItem = new TaskItemModel(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
-                    taskItem.CategoryId = findCategoryId(taskItemCategory);
-                    taskItem.DayId = findDayId(taskItemDay);
-                    taskItem.WeekId = findWeekIdFromStartDate(weeklyStartDate); 
-                    taskCtx.tasks.Add(taskItem);
-                    taskCtx.SaveChanges();
-                }
-
-                DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
-                updateTaskListStrings(dayIndex);
-                updateWeeklyTotals();
-            }
-        }
-
-        public int findCategoryId(string categoryToFind)
-        {
-            using (TaskContext taskCtx = new TaskContext())
-            {
-                var category = taskCtx.categories
-                    .Where(item => item.Category == categoryToFind)
-                    .FirstOrDefault();
-
-                return category.Id;
-            }
-        }
-
-        public int findDayId(string dayToFind)
-        {
-            using (TaskContext taskCtx = new TaskContext())
-            {
-                var day = taskCtx.days
-                    .Where(item => item.Day == dayToFind)
-                    .FirstOrDefault();
-
-                return day.Id;
-            }
-        }
-
-        public int findWeekIdFromStartDate(DateTime mondayDateTime)
-        {
-            using (TaskContext taskCtx = new TaskContext())
-            {
-                var week = taskCtx.weeks
-                    .Where(item => item.MondayDate == mondayDateTime)
-                    .FirstOrDefault();
-
-                return week.Id;
             }
         }
 
@@ -744,12 +663,12 @@ namespace Clairvoyance
                 .TotalHours += hoursToAdd;
         }
 
-        public List<string> convertTaskListToStrings(List<TaskItemModel> taskList)
+        public List<string> convertTaskListToStrings(List<Model.TaskItem> taskList)
         {
             string taskString;
             List<string> taskStringList = new List<string>();
 
-            foreach (TaskItemModel task in taskList)
+            foreach (Model.TaskItem task in taskList)
             {
                 taskString = string.Format("{0}\n{1}\n{2}\n{3}", task.TaskName, task.TaskCategory, task.TaskStartDateTime.TimeOfDay, task.TaskEndDateTime.TimeOfDay);
                 taskStringList.Add(taskString);

@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Clairvoyance;
+using Clairvoyance.Model;
 
 namespace ClairvoyanceTests
 {
     [TestClass]
     public class TaskItemTests
     {
-        TaskItemModel taskItemObject;
+        TaskItem taskItemObject;
 
         [TestInitialize]
         public void setUpTaskItemObject()
         {
-            taskItemObject = new TaskItemModel("TestName", "TestCategory", "4:30", "5:30");
+            taskItemObject = new TaskItem("TestName", "TestCategory", "4:30", "5:30");
         }
 
         [TestMethod]
@@ -46,7 +47,7 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void TestTaskIntegerTimeInputs()
         {
-            TaskItemModel newTaskItemObject = new TaskItemModel("", "", "5", "9");
+            TaskItem newTaskItemObject = new TaskItem("", "", "5", "9");
             Assert.IsTrue(newTaskItemObject.TaskTimeInterval.Hours == 4);
         }
     }

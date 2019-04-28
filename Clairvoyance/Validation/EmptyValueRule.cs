@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Clairvoyance
+namespace Clairvoyance.Validation
 {
     /// <summary>
     /// Validation rule to check and deny empty/null values.

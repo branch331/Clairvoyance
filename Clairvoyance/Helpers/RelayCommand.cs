@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Clairvoyance
+namespace Clairvoyance.Helpers
 {
     class RelayCommand : ICommand
     {

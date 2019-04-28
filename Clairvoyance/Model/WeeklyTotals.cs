@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace Clairvoyance
+namespace Clairvoyance.Model
 {
     public class WeeklyTotals : INotifyPropertyChanged
     {

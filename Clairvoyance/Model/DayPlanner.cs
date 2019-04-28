@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
-namespace Clairvoyance
+namespace Clairvoyance.Model
 {
-    public class DayPlannerModel
+    public class DayPlanner
     {
-        public DayPlannerModel(string dayOfWeek)
+        public DayPlanner(string dayOfWeek)
         {
             NameOfDay = dayOfWeek;
-            TaskList = new List<TaskItemModel>();
+            TaskList = new List<TaskItem>();
         }
 
         public string NameOfDay
@@ -21,7 +21,7 @@ namespace Clairvoyance
             set;
         }
 
-        public List<TaskItemModel> TaskList
+        public List<TaskItem> TaskList
         {
             get;
             set;
@@ -29,7 +29,7 @@ namespace Clairvoyance
 
         public void addTask(string taskName, string taskCategory, string startTime, string endTime)
         {
-            TaskList.Add(new TaskItemModel(taskName, taskCategory, startTime, endTime));
+            TaskList.Add(new TaskItem(taskName, taskCategory, startTime, endTime));
         }
     }
 }

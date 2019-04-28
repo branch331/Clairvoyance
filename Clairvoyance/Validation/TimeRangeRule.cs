@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Globalization;
 
-namespace Clairvoyance
+namespace Clairvoyance.Validation
 {
     public class TimeRangeRule : ValidationRule
     {

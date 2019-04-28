@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clairvoyance
+namespace Clairvoyance.Model
 {
-    public class WeekModel
+    public class Week
     {
-        public WeekModel()
+        public Week()
         {
 
         }
 
-        public WeekModel (DateTime mondayDate, DateTime sundayDate)
+        public Week (DateTime mondayDate, DateTime sundayDate)
         {
             MondayDate = mondayDate;
             SundayDate = sundayDate;

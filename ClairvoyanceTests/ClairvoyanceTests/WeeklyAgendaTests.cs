@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Clairvoyance;
+using Clairvoyance.ViewModel;
+using Clairvoyance.Model;
 
 namespace ClairvoyanceTests
 {
@@ -39,7 +41,7 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void fullWeekTestLastObject()
         {
-            List<DayPlannerModel> fullWeekList = new List<DayPlannerModel>();
+            List<DayPlanner> fullWeekList = new List<DayPlanner>();
             fullWeekList = testAgendaVMFullWeek.DaysToDisplay;
 
             Assert.IsTrue(fullWeekList[fullWeekList.Count - 1].NameOfDay == "Sun");
@@ -85,7 +87,7 @@ namespace ClairvoyanceTests
             "DaysToDisplay has not been initialized.")]
         public void addTaskDaysToDisplayNullTest()
         {
-            testAgendaVMFullWeek.DaysToDisplay = new List<DayPlannerModel>();
+            testAgendaVMFullWeek.DaysToDisplay = new List<DayPlanner>();
             testAgendaVMFullWeek.TaskItemDay = "Tues";
             testAgendaVMFullWeek.addTaskToDay();
         }
@@ -165,44 +167,6 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
             Assert.IsTrue(testAgendaVMFullWeek.sunTaskListString.Count == 3);
-        }
-
-        [TestMethod]
-        public void addNewCategoryTest()
-        {
-            testAgendaVMFullWeek.CategoryToAdd = "test1";
-            testAgendaVMFullWeek.addNewCategoryToList();
-
-            int categoryListCount = testAgendaVMFullWeek.CategoryList.Count;
-
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[categoryListCount - 1] == "test1");
-        }
-
-        [TestMethod]
-        public void addNewCategoriesTest()
-        {
-            testAgendaVMFullWeek.CategoryToAdd = "test1";
-            testAgendaVMFullWeek.addNewCategoryToList();
-            testAgendaVMFullWeek.CategoryToAdd = "test2";
-            testAgendaVMFullWeek.addNewCategoryToList();
-            testAgendaVMFullWeek.CategoryToAdd = "test3";
-            testAgendaVMFullWeek.addNewCategoryToList();
-
-            int categoryListCount = testAgendaVMFullWeek.CategoryList.Count;
-
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[categoryListCount - 1] == "test3");
-        }
-
-        [TestMethod]
-        public void addNewCategoriesDuplicateTest()
-        {
-            testAgendaVMFullWeek.CategoryToAdd = "test1";
-            testAgendaVMFullWeek.addNewCategoryToList();
-            testAgendaVMFullWeek.addNewCategoryToList();
-
-            int categoryListCount = testAgendaVMFullWeek.CategoryList.Count;
-
-            Assert.IsTrue(testAgendaVMFullWeek.CategoryList[categoryListCount - 1] == "test1");
         }
     }
 }

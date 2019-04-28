@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Clairvoyance;
+using Clairvoyance.ViewModel;
 
 namespace ClairvoyanceTests
 {
@@ -190,7 +190,7 @@ namespace ClairvoyanceTests
             };
 
             testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.addNewCategoryToList();
+            testAgendaVM.CategoryList.Add("Cat");
 
             testAgendaVM.addTaskToDay();
             Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
@@ -209,7 +209,7 @@ namespace ClairvoyanceTests
             };
 
             testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.addNewCategoryToList();
+            testAgendaVM.CategoryList.Add("Cat");
 
             testAgendaVM.addTaskToDay();
             Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
@@ -279,7 +279,7 @@ namespace ClairvoyanceTests
             };
 
             testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.addNewCategoryToList();
+            testAgendaVM.CategoryList.Add("Cat");
 
             testAgendaVM.addTaskToDay();
             Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
@@ -298,7 +298,7 @@ namespace ClairvoyanceTests
             };
 
             testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.addNewCategoryToList();
+            testAgendaVM.CategoryList.Add("Cat");
 
             testAgendaVM.addTaskToDay();
             Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");

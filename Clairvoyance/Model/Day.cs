@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clairvoyance
+namespace Clairvoyance.Model
 {
-    public class CategoryModel
+    public class Day
     {
-        private CategoryModel()
+        private Day()
         {
 
         }
 
-        public CategoryModel(string category)
+        public Day(string dayName)
         {
-            Category = category;
+            DayName = dayName;
         }
 
         public int Id { get; set; }
-        public string Category { get; set; }
+        public string DayName { get; set; }
     }
 }

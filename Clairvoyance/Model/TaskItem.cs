@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Clairvoyance
+namespace Clairvoyance.Model
 {
-    public class TaskItemModel
+    public class TaskItem
     {
-        public TaskItemModel(string taskName, string taskCategory, string startTime, string endTime)
+        public TaskItem(string taskName, string taskCategory, string startTime, string endTime)
         {
             TaskName = taskName;
             TaskCategory = taskCategory;
@@ -38,13 +38,13 @@ namespace Clairvoyance
         public int WeekId { get; set; }
 
         [ForeignKey("CategoryId")]
-        public CategoryModel CategoryModel { get; set; }
+        public Category Category { get; set; }
 
         [ForeignKey("DayId")]
-        public DayModel DayModel { get; set; }
+        public Day Day { get; set; }
 
         [ForeignKey("WeekId")]
-        public WeekModel WeekModel { get; set; }
+        public Week Week { get; set; }
 
         public DateTime TaskStartDateTime { get; set; }
         public DateTime TaskEndDateTime { get; set; }

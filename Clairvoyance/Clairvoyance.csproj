@@ -62,25 +62,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CategoryCommand.cs" />
-    <Compile Include="CategoryModel.cs" />
-    <Compile Include="DayModel.cs" />
+    <Compile Include="Data\TaskDatabaseLayer.cs" />
+    <Compile Include="Helpers\CategoryCommand.cs" />
+    <Compile Include="Migrations\201904282146552_Architecture-Revamp.cs" />
+    <Compile Include="Migrations\201904282146552_Architecture-Revamp.Designer.cs">
+      <DependentUpon>201904282146552_Architecture-Revamp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Day.cs" />
     <Compile Include="Migrations\201904242222287_Initial.cs" />
     <Compile Include="Migrations\201904242222287_Initial.Designer.cs">
       <DependentUpon>201904242222287_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="TaskContext.cs" />
-    <Compile Include="EmptyValueRule.cs" />
-    <Compile Include="RelayCommand.cs" />
-    <Compile Include="StatisticsViewModel.cs" />
-    <Compile Include="TaskEditorViewModel.cs" />
-    <Compile Include="TaskItemModel.cs" />
-    <Compile Include="TimeRangeRule.cs" />
-    <Compile Include="WeeklyAgendaViewModel.cs" />
-    <Compile Include="WeeklyTotals.cs" />
-    <Compile Include="WeekModel.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Data\TaskContext.cs" />
+    <Compile Include="Validation\EmptyValueRule.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="ViewModel\TaskEditorViewModel.cs" />
+    <Compile Include="Model\TaskItem.cs" />
+    <Compile Include="Validation\TimeRangeRule.cs" />
+    <Compile Include="ViewModel\WeeklyAgendaViewModel.cs" />
+    <Compile Include="Model\WeeklyTotals.cs" />
+    <Compile Include="Model\Week.cs" />
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -88,8 +92,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DayPlannerModel.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Model\DayPlanner.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -110,6 +114,9 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201904242222287_Initial.resx">
       <DependentUpon>201904242222287_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904282146552_Architecture-Revamp.resx">
+      <DependentUpon>201904282146552_Architecture-Revamp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
