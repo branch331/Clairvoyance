@@ -38,6 +38,28 @@ namespace Clairvoyance.Data
             }
         }
 
+        public void deleteCategory(string categoryToDelete)
+        {
+            var categoryEntityToDelete = taskCtx.categories
+                .Where(item => item.CategoryName == categoryToDelete)
+                .FirstOrDefault();
+
+            if (categoryEntityToDelete != null)
+            {
+                taskCtx.categories.Remove(categoryEntityToDelete);
+                taskCtx.SaveChanges();
+            }
+        }
+
+        public int findCategoryId(string categoryToFind)
+        {
+            var category = taskCtx.categories
+                .Where(item => item.CategoryName == categoryToFind)
+                .FirstOrDefault();
+
+            return category.Id;
+        }
+
         public void addTaskItem(TaskItem taskItem, string taskItemDay, DateTime mondayDateTime)
         {
             taskItem.CategoryId = findCategoryId(taskItem.TaskCategory);
@@ -47,16 +69,29 @@ namespace Clairvoyance.Data
             taskCtx.SaveChanges();
         }
 
-        public int findCategoryId(string categoryToFind)
+        public void deleteTaskItem(TaskItem taskItemToDelete)
         {
-            using (TaskContext taskCtx = new TaskContext())
-            {
-                var category = taskCtx.categories
-                    .Where(item => item.CategoryName == categoryToFind)
-                    .FirstOrDefault();
+            var taskEntityToDelete = taskCtx.tasks
+                .Where(item => item.Id == taskItemToDelete.Id)
+                .FirstOrDefault();
 
-                return category.Id;
+            if (taskEntityToDelete != null)
+            {
+                taskCtx.tasks.Remove(taskEntityToDelete);
+                taskCtx.SaveChanges();
             }
+        }
+
+        public ObservableCollection<string> getListOfWeekdays()
+        {
+            ObservableCollection<string> listOfWeekdays = new ObservableCollection<string>();
+
+            foreach (Day item in taskCtx.days)
+            {
+                listOfWeekdays.Add(item.DayName);
+            }
+
+            return listOfWeekdays;
         }
 
         public int findDayId(string dayToFind)
@@ -96,7 +131,13 @@ namespace Clairvoyance.Data
             taskCtx.SaveChanges();
         }
 
-        //If there is no range in which the input dateTime exists, returns null
+        public void addNewWeekRange(Week newWeekRange)
+        {
+            taskCtx.weeks.Add(newWeekRange);
+            taskCtx.SaveChanges();
+        }
+
+        //If there is no range in which the input dateTime exists, returns null.
         public Tuple<DateTime, DateTime> getWeekRangeFromDate(DateTime dateTime)
         {
             DateTime defaultDateTime = new DateTime(1995, 5, 15);

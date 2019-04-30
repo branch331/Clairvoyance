@@ -70,7 +70,7 @@ namespace Clairvoyance.ViewModel
             {
                 try
                 {
-                    addTaskToDb();
+                    addTaskToDay();
                 }
                 catch (System.ArgumentException e)
                 {
@@ -394,20 +394,14 @@ namespace Clairvoyance.ViewModel
 
         public void populateDaysOfWeekFromDb()
         {
-            using (TaskContext taskCtx = new TaskContext())
-            {
-                foreach (Day item in taskCtx.days)
-                {
-                    daysOfWeekList.Add(item.DayName);
-                }
-            }
+            daysOfWeekList = taskDbLayer.getListOfWeekdays();
         }
 
         public void updateCurrentWeekDateTimes()
         {
             DateTime currentDateTime = DateTime.Now;
 
-            //If there is no range in which the input dateTime exists, returns null
+            //If there is no range in which the input dateTime exists, returns null.
             Tuple<DateTime, DateTime> weekRange = taskDbLayer.getWeekRangeFromDate(currentDateTime);
 
             if (weekRange != null)
@@ -417,82 +411,80 @@ namespace Clairvoyance.ViewModel
             }
             else
             {
-                DateTime newSundayDate;
-                DateTime newMondayDate;
-
-                int currentDayOfWeek = (int) currentDateTime.DayOfWeek; //Sunday = 0
-
-                int newSundayDay = currentDateTime.Day + (7 - currentDayOfWeek);
-                int newSundayMonth = currentDateTime.Month;
-
-                int newMondayDay = currentDateTime.Day - (currentDayOfWeek - 1);
-                int newMondayMonth = currentDateTime.Month;
-
-                if (currentDayOfWeek == 0)
-                {
-                    newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, currentDateTime.Day);
-                    newMondayDay = currentDateTime.Day - 6;
-                }
-                else
-                {
-                    if (newSundayDay > MaxDaysInMonthDict[newSundayMonth])
-                    {
-                        newSundayDay -= MaxDaysInMonthDict[newSundayMonth];
-                    }
-
-                    newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, newSundayDay);
-                }
-
-                if (currentDayOfWeek == 1)
-                {
-                    newMondayDate = new DateTime(currentDateTime.Year, newMondayMonth, newMondayDay);
-                }
-                else
-                {
-                    if (newMondayDay < 0)
-                    {
-                        newMondayMonth -= 1;
-                        newMondayDay += MaxDaysInMonthDict[newMondayMonth];
-                    }
-
-                    newMondayDate = new DateTime(currentDateTime.Year, newMondayMonth, newMondayDay);
-                }
-
-                weeklyStartDate = newMondayDate;
-                weeklyEndDate = newSundayDate;
-
-                Week newWeekEntry = new Week(newMondayDate, newSundayDate);
-
-                using (TaskContext taskCtx = new TaskContext())
-                {
-                    taskCtx.weeks.Add(newWeekEntry);
-                    taskCtx.SaveChanges();
-                }
+                setNewWeekRange(currentDateTime);
             }
+        }
+
+        public void setNewWeekRange(DateTime currentDateTime)
+        {
+            DateTime newSundayDate;
+            DateTime newMondayDate;
+
+            int currentDayOfWeek = (int) currentDateTime.DayOfWeek; //Sunday = 0
+
+            int newSundayDay = currentDateTime.Day + (7 - currentDayOfWeek);
+            int newSundayMonth = currentDateTime.Month;
+
+            int newMondayDay = currentDateTime.Day - (currentDayOfWeek - 1);
+            int newMondayMonth = currentDateTime.Month;
+
+
+
+            if (currentDayOfWeek == 0)
+            {
+                newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, currentDateTime.Day);
+                newMondayDay = currentDateTime.Day - 6;
+            }
+            else
+            {
+                if (newSundayDay > MaxDaysInMonthDict[newSundayMonth])
+                {
+                    newSundayDay -= MaxDaysInMonthDict[newSundayMonth];
+                }
+
+                newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, newSundayDay);
+            }
+
+            if (currentDayOfWeek == 1)
+            {
+                newMondayDate = new DateTime(currentDateTime.Year, newMondayMonth, newMondayDay);
+            }
+            else
+            {
+                if (newMondayDay < 0)
+                {
+                    newMondayMonth -= 1;
+                    newMondayDay += MaxDaysInMonthDict[newMondayMonth];
+                }
+
+                newMondayDate = new DateTime(currentDateTime.Year, newMondayMonth, newMondayDay);
+            }
+
+            weeklyStartDate = newMondayDate;
+            weeklyEndDate = newSundayDate;
+
+            Week newWeekEntry = new Week(newMondayDate, newSundayDate);
+            taskDbLayer.addNewWeekRange(newWeekEntry);
         }
 
         public void addTaskToDay()
         {
-            if (DaysToDisplay.Count == 0)
-            {
-                throw new System.InvalidOperationException("DaysToDisplay has not been initialized.");
-            }
-            else if (!inputTimesWithinRange())
-            {
-                throw new System.ArgumentException("Input times must be from 1-12.");
-            }
-            else if (anyTaskFieldEmpty())
-            {
-                throw new System.ArgumentException("One or more task fields null or empty.");
-            }
-            else
-            {
-                int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
+            validateNewTask();
 
-                DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
-                updateTaskListStrings(dayIndex);
-                updateWeeklyTotals();
-            }
+            int dayIndex = DaysToDisplay
+                .FindIndex(x => x.NameOfDay == taskItemDay);
+
+            DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+            updateTaskListStrings(dayIndex);
+            updateWeeklyTotals();
+
+            addTaskToDb();
+        }
+
+        public void addTaskToDb()
+        {
+            TaskItem taskItem = new Model.TaskItem(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+            taskDbLayer.addTaskItem(taskItem, taskItemDay, weeklyStartDate);
         }
 
         public bool anyTaskFieldEmpty()
@@ -571,20 +563,6 @@ namespace Clairvoyance.ViewModel
         public void populateCategoryListFromDb()
         {
             categoryList = taskDbLayer.getExistingCategoryList();
-        }
-
-        public void addTaskToDb()
-        {
-            validateNewTask();
-
-            int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
-
-            TaskItem taskItem = new Model.TaskItem(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
-            taskDbLayer.addTaskItem(taskItem, taskItemDay, weeklyStartDate);
-
-            DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
-            updateTaskListStrings(dayIndex);
-            updateWeeklyTotals();
         }
 
         public void validateNewTask()
