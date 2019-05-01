@@ -22,5 +22,7 @@ namespace Clairvoyance.Model
         public int Id { get; set; }
         public DateTime MondayDate { get; set; }
         public DateTime SundayDate { get; set; }
+
+
     }
 }

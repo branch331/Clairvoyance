@@ -20,3 +20,12 @@ C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\ClairvoyanceTests.dll.config
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\Castle.Core.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\Moq.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\Castle.Core.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\Moq.pdb
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\Moq.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\System.Threading.Tasks.Extensions.xml

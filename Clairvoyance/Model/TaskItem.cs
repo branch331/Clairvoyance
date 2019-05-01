@@ -4,31 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Clairvoyance.Helpers;
 
 namespace Clairvoyance.Model
 {
     public class TaskItem
     {
-        public TaskItem(string taskName, string taskCategory, string startTime, string endTime)
-        {
-            TaskName = taskName;
-            TaskCategory = taskCategory;
-
-            if (!startTime.Contains(":"))
-            {
-                startTime = appendTimeMinuteDigits(startTime);
-            }
-
-            if (!endTime.Contains(":"))
-            {
-                endTime = appendTimeMinuteDigits(endTime);
-            }
-
-            TaskStartDateTime = Convert.ToDateTime(startTime);
-            TaskEndDateTime = Convert.ToDateTime(endTime);
-            TaskTimeInterval = TaskEndDateTime - TaskStartDateTime;
-        }
-
         public int Id { get; set; }
         public string TaskName { get; set; }
         public string TaskCategory { get; set; }
@@ -49,6 +30,26 @@ namespace Clairvoyance.Model
         public DateTime TaskStartDateTime { get; set; }
         public DateTime TaskEndDateTime { get; set; }
         public TimeSpan TaskTimeInterval { get; set; }
+
+        public TaskItem(string taskName, string taskCategory, string startTime, string endTime)
+        {
+            TaskName = taskName;
+            TaskCategory = taskCategory;
+
+            if (!startTime.Contains(":"))
+            {
+                startTime = appendTimeMinuteDigits(startTime);
+            }
+
+            if (!endTime.Contains(":"))
+            {
+                endTime = appendTimeMinuteDigits(endTime);
+            }
+
+            TaskStartDateTime = Convert.ToDateTime(startTime);
+            TaskEndDateTime = Convert.ToDateTime(endTime);
+            TaskTimeInterval = TaskEndDateTime - TaskStartDateTime;
+        }
 
         public string appendTimeMinuteDigits(string originalTime)
         {

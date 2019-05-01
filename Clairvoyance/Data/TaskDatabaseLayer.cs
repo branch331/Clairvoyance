@@ -8,7 +8,7 @@ using Clairvoyance.Model;
 
 namespace Clairvoyance.Data
 {
-    public class TaskDatabaseLayer
+    public class TaskDatabaseLayer 
     {
         private TaskContext taskCtx;
 

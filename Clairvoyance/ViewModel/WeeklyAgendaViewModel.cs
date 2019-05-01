@@ -58,7 +58,7 @@ namespace Clairvoyance.ViewModel
             {
                 try
                 {
-                    addNewCategoryToDb();
+                    addNewCategoryToList();
                 }
                 catch (System.ArgumentException e)
                 {
@@ -428,8 +428,6 @@ namespace Clairvoyance.ViewModel
             int newMondayDay = currentDateTime.Day - (currentDayOfWeek - 1);
             int newMondayMonth = currentDateTime.Month;
 
-
-
             if (currentDayOfWeek == 0)
             {
                 newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, currentDateTime.Day);
@@ -549,15 +547,10 @@ namespace Clairvoyance.ViewModel
             return false;
         }
 
-        public void addNewCategoryToDb()
+        public void addNewCategoryToList()
         {
-            if (string.IsNullOrWhiteSpace(categoryToAdd))
-            {
-                throw new System.ArgumentException("Category field must be a non-null value.");
-            }
-
-            taskDbLayer.addNewCategory(categoryToAdd);
             categoryList.Add(categoryToAdd);
+            taskDbLayer.addNewCategory(categoryToAdd);
         }
 
         public void populateCategoryListFromDb()

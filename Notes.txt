@@ -36,6 +36,7 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 Revamp architecture to remove business logic outside of VM (https://code.msdn.microsoft.com/windowsdesktop/Easy-MVVM-Examples-fb8c409f)
 [DONE] Weekly error: 4/28 >> monday = 4/29 and sunday = 4/28. Also results in weekday added all the time
 finish refactoring updateCurrentWeekDateTimes
+add stub to return a 'fake' existing category to fix failed tests?
 
 -Database Specific-
 *Start w/ clean slate in week and days table
