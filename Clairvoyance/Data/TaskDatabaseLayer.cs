@@ -82,6 +82,18 @@ namespace Clairvoyance.Data
             }
         }
 
+        public ObservableCollection<TaskItem> getExistingTaskList()
+        {
+            ObservableCollection<TaskItem> taskItems = new ObservableCollection<TaskItem>();
+
+            foreach (var item in _taskCtx.tasks)
+            {
+                taskItems.Add(item);
+            }
+
+            return taskItems;
+        }
+
         public ObservableCollection<string> getListOfWeekdays()
         {
             ObservableCollection<string> listOfWeekdays = new ObservableCollection<string>();
