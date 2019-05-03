@@ -36,8 +36,9 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 Revamp architecture to remove business logic outside of VM (https://code.msdn.microsoft.com/windowsdesktop/Easy-MVVM-Examples-fb8c409f)
 [DONE] Weekly error: 4/28 >> monday = 4/29 and sunday = 4/28. Also results in weekday added all the time
 finish refactoring updateCurrentWeekDateTimes
-add stub to return a 'fake' existing category to fix failed tests? OR just do set up and tear down
+Add stub to return a 'fake' existing category to fix failed tests? OR just do set up and tear down
 to add actual db entries and remove them at the end.
+*[during unit tests] week entry keeps getting added to db 
 
 -Database Specific-
 *Start w/ clean slate in week and days table

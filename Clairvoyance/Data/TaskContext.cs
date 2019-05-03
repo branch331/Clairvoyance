@@ -8,8 +8,10 @@ using Clairvoyance.Model;
 
 namespace Clairvoyance.Data
 {
-    public class TaskContext : DbContext
+    public class TaskContext : DbContext, ITaskContext
     {
+        public DbContext Instance => this;
+
         public TaskContext() { }
         public DbSet<Model.TaskItem> tasks { get; set; }
         public DbSet<Day> days { get; set; }

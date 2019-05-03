@@ -10,9 +10,9 @@ namespace Clairvoyance.Data
 {
     public class TaskDatabaseLayer 
     {
-        private TaskContext _taskCtx;
+        private ITaskContext _taskCtx;
 
-        public TaskDatabaseLayer(TaskContext taskCtx)
+        public TaskDatabaseLayer(ITaskContext taskCtx)
         {
             _taskCtx = taskCtx;
         }

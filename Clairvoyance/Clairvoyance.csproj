@@ -62,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\ITaskContext.cs" />
     <Compile Include="Data\TaskDatabaseLayer.cs" />
     <Compile Include="Helpers\CategoryCommand.cs" />
     <Compile Include="Migrations\201904282146552_Architecture-Revamp.cs" />
