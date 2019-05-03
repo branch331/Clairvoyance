@@ -31,6 +31,11 @@ namespace Clairvoyance.Model
         public DateTime TaskEndDateTime { get; set; }
         public TimeSpan TaskTimeInterval { get; set; }
 
+        private TaskItem()
+        {
+
+        }
+
         public TaskItem(string taskName, string taskCategory, string startTime, string endTime)
         {
             TaskName = taskName;

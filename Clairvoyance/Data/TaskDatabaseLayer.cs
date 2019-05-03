@@ -10,18 +10,18 @@ namespace Clairvoyance.Data
 {
     public class TaskDatabaseLayer 
     {
-        private TaskContext taskCtx;
+        private TaskContext _taskCtx;
 
-        public TaskDatabaseLayer()
+        public TaskDatabaseLayer(TaskContext taskCtx)
         {
-            taskCtx = new TaskContext();
+            _taskCtx = taskCtx;
         }
 
         public ObservableCollection<string> getExistingCategoryList()
         {
             ObservableCollection<string> categoryStrings = new ObservableCollection<string>();
 
-            foreach (var item in taskCtx.categories)
+            foreach (var item in _taskCtx.categories)
             {
                 categoryStrings.Add(item.CategoryName);
             }
@@ -31,29 +31,29 @@ namespace Clairvoyance.Data
 
         public void addNewCategory(string categoryToAdd)
         {
-            if (!taskCtx.categories.Any(item => item.CategoryName == categoryToAdd))
+            if (!_taskCtx.categories.Any(item => item.CategoryName == categoryToAdd))
             {
-                taskCtx.categories.Add(new Category(categoryToAdd));
-                taskCtx.SaveChanges();
+                _taskCtx.categories.Add(new Category(categoryToAdd));
+                _taskCtx.SaveChanges();
             }
         }
 
         public void deleteCategory(string categoryToDelete)
         {
-            var categoryEntityToDelete = taskCtx.categories
+            var categoryEntityToDelete = _taskCtx.categories
                 .Where(item => item.CategoryName == categoryToDelete)
                 .FirstOrDefault();
 
             if (categoryEntityToDelete != null)
             {
-                taskCtx.categories.Remove(categoryEntityToDelete);
-                taskCtx.SaveChanges();
+                _taskCtx.categories.Remove(categoryEntityToDelete);
+                _taskCtx.SaveChanges();
             }
         }
 
         public int findCategoryId(string categoryToFind)
         {
-            var category = taskCtx.categories
+            var category = _taskCtx.categories
                 .Where(item => item.CategoryName == categoryToFind)
                 .FirstOrDefault();
 
@@ -65,20 +65,20 @@ namespace Clairvoyance.Data
             taskItem.CategoryId = findCategoryId(taskItem.TaskCategory);
             taskItem.DayId = findDayId(taskItemDay);
             taskItem.WeekId = findWeekIdFromStartDate(mondayDateTime);
-            taskCtx.tasks.Add(taskItem);
-            taskCtx.SaveChanges();
+            _taskCtx.tasks.Add(taskItem);
+            _taskCtx.SaveChanges();
         }
 
         public void deleteTaskItem(TaskItem taskItemToDelete)
         {
-            var taskEntityToDelete = taskCtx.tasks
+            var taskEntityToDelete = _taskCtx.tasks
                 .Where(item => item.Id == taskItemToDelete.Id)
                 .FirstOrDefault();
 
             if (taskEntityToDelete != null)
             {
-                taskCtx.tasks.Remove(taskEntityToDelete);
-                taskCtx.SaveChanges();
+                _taskCtx.tasks.Remove(taskEntityToDelete);
+                _taskCtx.SaveChanges();
             }
         }
 
@@ -86,7 +86,7 @@ namespace Clairvoyance.Data
         {
             ObservableCollection<string> listOfWeekdays = new ObservableCollection<string>();
 
-            foreach (Day item in taskCtx.days)
+            foreach (Day item in _taskCtx.days)
             {
                 listOfWeekdays.Add(item.DayName);
             }
@@ -96,9 +96,9 @@ namespace Clairvoyance.Data
 
         public int findDayId(string dayToFind)
         {
-            using (TaskContext taskCtx = new TaskContext())
+            using (TaskContext _taskCtx = new TaskContext())
             {
-                var day = taskCtx.days
+                var day = _taskCtx.days
                     .Where(item => item.DayName == dayToFind)
                     .FirstOrDefault();
 
@@ -108,9 +108,9 @@ namespace Clairvoyance.Data
 
         public int findWeekIdFromStartDate(DateTime mondayDateTime)
         {
-            using (TaskContext taskCtx = new TaskContext())
+            using (TaskContext _taskCtx = new TaskContext())
             {
-                var week = taskCtx.weeks
+                var week = _taskCtx.weeks
                     .Where(item => item.MondayDate == mondayDateTime)
                     .FirstOrDefault();
 
@@ -120,21 +120,35 @@ namespace Clairvoyance.Data
 
         public void initializeWeekdays()
         {
-            taskCtx.days.Add(new Day("Mon"));
-            taskCtx.days.Add(new Day("Tues"));
-            taskCtx.days.Add(new Day("Wed"));
-            taskCtx.days.Add(new Day("Thurs"));
-            taskCtx.days.Add(new Day("Fri"));
-            taskCtx.days.Add(new Day("Sat"));
-            taskCtx.days.Add(new Day("Sun"));
+            _taskCtx.days.Add(new Day("Mon"));
+            _taskCtx.days.Add(new Day("Tues"));
+            _taskCtx.days.Add(new Day("Wed"));
+            _taskCtx.days.Add(new Day("Thurs"));
+            _taskCtx.days.Add(new Day("Fri"));
+            _taskCtx.days.Add(new Day("Sat"));
+            _taskCtx.days.Add(new Day("Sun"));
 
-            taskCtx.SaveChanges();
+            _taskCtx.SaveChanges();
         }
 
         public void addNewWeekRange(Week newWeekRange)
         {
-            taskCtx.weeks.Add(newWeekRange);
-            taskCtx.SaveChanges();
+            _taskCtx.weeks.Add(newWeekRange);
+            _taskCtx.SaveChanges();
+        }
+
+        public void deleteWeekRange(DateTime mondayWeekDate)
+        {
+            int weekId = findWeekIdFromStartDate(mondayWeekDate);
+            var weekEntityToDelete = _taskCtx.tasks
+                .Where(item => item.Id == weekId)
+                .FirstOrDefault();
+
+            if (weekEntityToDelete != null)
+            {
+                _taskCtx.tasks.Remove(weekEntityToDelete);
+                _taskCtx.SaveChanges();
+            }
         }
 
         //If there is no range in which the input dateTime exists, returns null.
@@ -142,7 +156,7 @@ namespace Clairvoyance.Data
         {
             DateTime defaultDateTime = new DateTime(1995, 5, 15);
 
-            foreach (var item in taskCtx.weeks)
+            foreach (var item in _taskCtx.weeks)
             {
                 if (dateTime >= item.MondayDate && dateTime <= item.SundayDate.AddHours(23).AddMinutes(59).AddSeconds(59))
                 {

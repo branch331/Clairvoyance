@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Clairvoyance;
 using Clairvoyance.ViewModel;
 using Clairvoyance.Model;
+using Clairvoyance.Data;
 
 namespace ClairvoyanceTests
 {
@@ -11,17 +12,30 @@ namespace ClairvoyanceTests
     public class WeeklyAgendaTests
     {
         WeeklyAgendaViewModel testAgendaVMFullWeek;
+        private TaskDatabaseLayer taskDbLayer;
+        private TaskItem defaultTaskItem;
+        private DateTime testMondayDateTime;
+        private string defaultCategory = "defaultCategory";
 
         [TestInitialize]
         public void setUpTestViewModels()
         {
+            defaultTaskItem = new TaskItem("defaultTask", defaultCategory, "5", "8");
+            testMondayDateTime = new DateTime(1995, 5, 15);
+
+            taskDbLayer = new TaskDatabaseLayer(new TaskContext());
+            taskDbLayer.addNewWeekRange(new Week(testMondayDateTime, new DateTime(1995, 5, 20)));
+            taskDbLayer.addNewCategory(defaultCategory);
+            taskDbLayer.addTaskItem(defaultTaskItem, "Mon", testMondayDateTime);
+            
             testAgendaVMFullWeek = new WeeklyAgendaViewModel()
             {
-                TaskItemName = "Test Task",
-                TaskItemCategory = "Test Cat",
-                TaskItemStartTime = "4:30",
-                TaskItemEndTime = "5:30"
+                TaskItemName = defaultTaskItem.TaskName,
+                TaskItemCategory = defaultCategory,
+                TaskItemStartTime = defaultTaskItem.TaskStartDateTime.ToString(),
+                TaskItemEndTime = defaultTaskItem.TaskEndDateTime.ToString()
             };
+
             testAgendaVMFullWeek.CategoryList.Add("Test Cat");
             testAgendaVMFullWeek.updateDaysToDisplay();
         }
@@ -52,7 +66,9 @@ namespace ClairvoyanceTests
         {
             testAgendaVMFullWeek.TaskItemDay = "Tues";
             testAgendaVMFullWeek.addTaskToDay();
-            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList[0].TaskName == "Test Task");
+
+            int taskCount = testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count;
+            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList[taskCount - 1].TaskName == defaultTaskItem.TaskName);
         }
 
         [TestMethod]
@@ -167,6 +183,14 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
             Assert.IsTrue(testAgendaVMFullWeek.sunTaskListString.Count == 3);
+        }
+        
+        [TestCleanup]
+        public void tearDownTaskDbLayer()
+        {
+            taskDbLayer.deleteCategory("defaultCategory");
+            taskDbLayer.deleteTaskItem(defaultTaskItem);
+            taskDbLayer.deleteWeekRange(testMondayDateTime);
         }
     }
 }

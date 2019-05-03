@@ -7,18 +7,28 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Clairvoyance.Model;
 using Clairvoyance.Data;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 
 namespace ClairvoyanceTests
 {
     [TestClass]
     public class DatabaseTests
     {
-        TaskDatabaseLayer taskDbLayer;
+        private TaskDatabaseLayer taskDbLayer;
+        private TaskItem defaultTaskItem;
+        private DateTime testMondayDateTime;
+        private string defaultCategory = "defaultCategory";
 
         [TestInitialize]
         public void setUpTaskDbLayer()
         {
-            taskDbLayer = new TaskDatabaseLayer();
+            defaultTaskItem = new TaskItem("defaultTask", defaultCategory, "5", "8");
+            testMondayDateTime = new DateTime(1995, 5, 15);
+
+            taskDbLayer = new TaskDatabaseLayer(new TaskContext());
+            taskDbLayer.addNewWeekRange(new Week(testMondayDateTime, new DateTime(1995, 5, 20)));
+            taskDbLayer.addNewCategory(defaultCategory);
+            taskDbLayer.addTaskItem(defaultTaskItem, "Mon", testMondayDateTime);
         }
 
         [TestMethod]
@@ -37,6 +47,14 @@ namespace ClairvoyanceTests
             categoryList = taskDbLayer.getExistingCategoryList();
 
             Assert.IsFalse(categoryList[categoryList.Count - 1] == categoryName);
+        }
+
+        [TestCleanup]
+        public void tearDownTaskDbLayer()
+        {
+            taskDbLayer.deleteCategory("defaultCategory");
+            taskDbLayer.deleteTaskItem(defaultTaskItem);
+            taskDbLayer.deleteWeekRange(testMondayDateTime);
         }
     }
 }

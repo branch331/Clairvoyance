@@ -42,7 +42,7 @@ namespace Clairvoyance.ViewModel
         public ObservableCollection<string> categoryList = new ObservableCollection<string>();
         public ObservableCollection<WeeklyTotals> weeklyTotalsInHours = new ObservableCollection<WeeklyTotals>();
 
-        public TaskDatabaseLayer taskDbLayer = new TaskDatabaseLayer();
+        public TaskDatabaseLayer taskDbLayer = new TaskDatabaseLayer(new TaskContext());
 
         public WeeklyAgendaViewModel()
         {

@@ -1,12 +1,31 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Clairvoyance.ViewModel;
+using Clairvoyance.Data;
+using Clairvoyance.Model;
 
 namespace ClairvoyanceTests
 {
     [TestClass]
     public class ValidationTests
     {
+        private TaskDatabaseLayer taskDbLayer;
+        private TaskItem defaultTaskItem;
+        private DateTime testMondayDateTime;
+        private string defaultCategory = "defaultCategory";
+
+        [TestInitialize]
+        public void setUpTestViewModels()
+        {
+            defaultTaskItem = new TaskItem("defaultTask", defaultCategory, "5", "8");
+            testMondayDateTime = new DateTime(1995, 5, 15);
+
+            taskDbLayer = new TaskDatabaseLayer(new TaskContext());
+            taskDbLayer.addNewWeekRange(new Week(testMondayDateTime, new DateTime(1995, 5, 20)));
+            taskDbLayer.addNewCategory(defaultCategory);
+            taskDbLayer.addTaskItem(defaultTaskItem, "Mon", testMondayDateTime);
+        }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException),
         "One or more task fields null or empty.")]
@@ -184,32 +203,10 @@ namespace ClairvoyanceTests
             {
                 TaskItemName = "Test Task",
                 TaskItemDay = "Mon",
-                TaskItemCategory = "Cat",
+                TaskItemCategory = defaultCategory,
                 TaskItemStartTime = "1",
                 TaskItemEndTime = "5:30"
             };
-
-            testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.CategoryList.Add("Cat");
-
-            testAgendaVM.addTaskToDay();
-            Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
-        }
-
-        [TestMethod]
-        public void addStartTimeTwelve()
-        {
-            WeeklyAgendaViewModel testAgendaVM = new WeeklyAgendaViewModel()
-            {
-                TaskItemName = "Test Task",
-                TaskItemDay = "Mon",
-                TaskItemCategory = "Cat",
-                TaskItemStartTime = "12",
-                TaskItemEndTime = "5:30"
-            };
-
-            testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.CategoryList.Add("Cat");
 
             testAgendaVM.addTaskToDay();
             Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
@@ -266,42 +263,12 @@ namespace ClairvoyanceTests
             testAgendaVM.addTaskToDay();
         }
 
-        [TestMethod]
-        public void addEndTimeOne()
+        [TestCleanup]
+        public void tearDownTaskDbLayer()
         {
-            WeeklyAgendaViewModel testAgendaVM = new WeeklyAgendaViewModel()
-            {
-                TaskItemName = "Test Task",
-                TaskItemDay = "Mon",
-                TaskItemCategory = "Cat",
-                TaskItemStartTime = "4",
-                TaskItemEndTime = "1"
-            };
-
-            testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.CategoryList.Add("Cat");
-
-            testAgendaVM.addTaskToDay();
-            Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
-        }
-
-        [TestMethod]
-        public void addEndTimeTwelve()
-        {
-            WeeklyAgendaViewModel testAgendaVM = new WeeklyAgendaViewModel()
-            {
-                TaskItemName = "Test Task",
-                TaskItemDay = "Mon",
-                TaskItemCategory = "Cat",
-                TaskItemStartTime = "4",
-                TaskItemEndTime = "12"
-            };
-
-            testAgendaVM.CategoryToAdd = "Cat";
-            testAgendaVM.CategoryList.Add("Cat");
-
-            testAgendaVM.addTaskToDay();
-            Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
+            taskDbLayer.deleteCategory("defaultCategory");
+            taskDbLayer.deleteTaskItem(defaultTaskItem);
+            taskDbLayer.deleteWeekRange(testMondayDateTime);
         }
     }
 }
