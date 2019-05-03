@@ -8,6 +8,7 @@ using Clairvoyance.Model;
 using Clairvoyance.Data;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using Moq;
 
 namespace ClairvoyanceTests
 {
@@ -47,6 +48,24 @@ namespace ClairvoyanceTests
             categoryList = taskDbLayer.getExistingCategoryList();
 
             Assert.IsFalse(categoryList[categoryList.Count - 1] == categoryName);
+        }
+
+        [TestMethod]
+        public void TestMockAddCategory()
+        {
+            var mockContext = new Mock<ITaskContext>();
+
+            TaskDatabaseLayer mockDbLayer = new TaskDatabaseLayer(mockContext.Object);
+            var fakeCategorySet = new FakeDbSet<Category>();
+
+            fakeCategorySet.Add(new Category("Cat A"));
+            fakeCategorySet.Add(new Category("Cat B"));
+
+            mockContext.Setup(context => context.categories).Returns(fakeCategorySet);
+
+            var categoryList = mockContext.Object.categories;
+
+            Assert.IsTrue(categoryList.Count() == 2);
         }
 
         [TestCleanup]

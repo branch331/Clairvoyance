@@ -13,9 +13,9 @@ namespace Clairvoyance.Data
         public DbContext Instance => this;
 
         public TaskContext() { }
-        public DbSet<Model.TaskItem> tasks { get; set; }
-        public DbSet<Day> days { get; set; }
-        public DbSet<Category> categories { get; set; }
-        public DbSet<Week> weeks { get; set; }
+        public IDbSet<Model.TaskItem> tasks { get; set; }
+        public IDbSet<Day> days { get; set; }
+        public IDbSet<Category> categories { get; set; }
+        public IDbSet<Week> weeks { get; set; }
     }
 }

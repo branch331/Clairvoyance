@@ -10,10 +10,10 @@ namespace Clairvoyance.Data
 {
     public interface ITaskContext
     {
-        DbSet<Model.TaskItem> tasks { get; set; }
-        DbSet<Day> days { get; set; }
-        DbSet<Category> categories { get; set; }
-        DbSet<Week> weeks { get; set; }
+        IDbSet<Model.TaskItem> tasks { get; set; }
+        IDbSet<Day> days { get; set; }
+        IDbSet<Category> categories { get; set; }
+        IDbSet<Week> weeks { get; set; }
         int SaveChanges();
         void Dispose();
     }
