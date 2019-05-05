@@ -53,6 +53,8 @@ namespace Clairvoyance.ViewModel
             populateWeekDayDb();
             populateDaysOfWeekFromDb();
             updateCurrentWeekDateTimes();
+            populateTaskListFromDb();
+            initializeWeeklyTotalsFromDb();
 
             categorySubmitCommand = new RelayCommand(o => 
             {
@@ -401,7 +403,7 @@ namespace Clairvoyance.ViewModel
         {
             DateTime currentDateTime = DateTime.Now;
 
-            //If there is no range in which the input dateTime exists, returns null.
+            //If there is no range in which the input dateTime exists, retusrns null.
             Tuple<DateTime, DateTime> weekRange = taskDbLayer.getWeekRangeFromDate(currentDateTime);
 
             if (weekRange != null)
@@ -613,6 +615,87 @@ namespace Clairvoyance.ViewModel
                     sunTaskListString = (convertTaskListToStrings(DaysToDisplay[6].TaskList));
                     NotifyPropertyChanged("SunTaskListString");
                     break;
+            }
+        }
+
+        public void populateTaskListFromDb()
+        {
+            var existingTaskList = taskDbLayer.getExistingTaskList();
+            int currentWeekId = getCurrentWeekIdFromDb();
+
+            if (existingTaskList != null)
+            {
+                foreach (TaskItem item in existingTaskList)
+                {
+                    if (item.WeekId == currentWeekId)
+                    {
+                        if (item.Day.DayName == DaysToDisplay[0].NameOfDay)
+                        {
+                            DaysToDisplay[0].TaskList.Add(item);
+                            updateTaskListStrings(0);
+                        }
+                        else if (item.Day.DayName == DaysToDisplay[1].NameOfDay)
+                        {
+                            DaysToDisplay[1].TaskList.Add(item);
+                            updateTaskListStrings(1);
+                        }
+                        else if (item.Day.DayName == DaysToDisplay[2].NameOfDay)
+                        {
+                            DaysToDisplay[2].TaskList.Add(item);
+                            updateTaskListStrings(2);
+                        }
+                        else if (item.Day.DayName == DaysToDisplay[3].NameOfDay)
+                        {
+                            DaysToDisplay[3].TaskList.Add(item);
+                            updateTaskListStrings(3);
+                        }
+                        else if (item.Day.DayName == DaysToDisplay[4].NameOfDay)
+                        {
+                            DaysToDisplay[4].TaskList.Add(item);
+                            updateTaskListStrings(4);
+                        }
+                        else if (item.Day.DayName == DaysToDisplay[5].NameOfDay)
+                        {
+                            DaysToDisplay[5].TaskList.Add(item);
+                            updateTaskListStrings(5);
+                        }
+                        else if (item.Day.DayName == DaysToDisplay[6].NameOfDay)
+                        {
+                            DaysToDisplay[6].TaskList.Add(item);
+                            updateTaskListStrings(6);
+                        }
+                    }
+                }
+            }
+        }
+
+        public int getCurrentWeekIdFromDb()
+        {
+            var currentDateTime = DateTime.Now;
+            DateTime mondayDateTime = taskDbLayer.getWeekRangeFromDate(currentDateTime).Item1;
+
+            return taskDbLayer.findWeekIdFromStartDate(mondayDateTime);
+        }
+
+        public void initializeWeeklyTotalsFromDb()
+        {
+            var existingCategoryList = taskDbLayer.getExistingCategoryList();
+            var existingTaskList = taskDbLayer.getExistingTaskList();
+
+            int currentWeekId = getCurrentWeekIdFromDb();
+
+            foreach (string category in existingCategoryList)
+            {
+                int totalHours = 0;
+                foreach (TaskItem item in existingTaskList)
+                {
+                    if (item.Category.CategoryName == category && item.WeekId == currentWeekId)
+                    {
+                        totalHours += item.TaskTimeInterval.Hours;
+                    }
+                }
+
+                weeklyTotalsInHours.Add(new WeeklyTotals(category, totalHours));
             }
         }
 

@@ -33,26 +33,27 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 [DONE]Add unit tests for null task entries, null time entries, out-of-range times
 [DONE] Add validation for category list
 [DONE] fix bug: crash after proper task added >> add task w "out of range" endtime. This also happens w/ null category so.. maybe it's just overall improper error handling? Yeah it's overall (happens w/ name too)
-Revamp architecture to remove business logic outside of VM (https://code.msdn.microsoft.com/windowsdesktop/Easy-MVVM-Examples-fb8c409f)
+[DONE] Revamp architecture to remove business logic outside of VM (https://code.msdn.microsoft.com/windowsdesktop/Easy-MVVM-Examples-fb8c409f)
 [DONE] Weekly error: 4/28 >> monday = 4/29 and sunday = 4/28. Also results in weekday added all the time
-finish refactoring updateCurrentWeekDateTimes
+[DONE] finish refactoring updateCurrentWeekDateTimes
 [DONE] Add stub to return a 'fake' existing category to fix failed tests? OR just do set up and tear down
 *[DONE] week entry keeps getting added to db during unit tests
-mockdb context?
+[DONE] mockdb context?
 https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-its-dbset-properties/
 
 
 -Database Specific-
-*Start w/ clean slate in week and days table
-Fix unit tests. Create mock database for unit tests: Separate out the 'add to database' portions so you can pass unit tests.
+[DONE] Fix unit tests. Create mock database for unit tests: Separate out the 'add to database' portions so you can pass unit tests.
 [DONE]Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and. Pre-populate based on that?
-Populate task list from db; show daily totals for each category
+[DONE] Populate task list from db
+Show daily totals for each category
+[DONE] Populate weekly totals based on current week only
 
 -Databases Phase II-
 [Probably with separate window]
 Delete tasks
 Delete categories
-View different weeks/populate weekly total. Please refactor updateCurrentWeekDateTimes()
+View different weeks/populate weekly total. 
 
 Looks like EF created databases in Microsoft SQL Server (C:\Program Files\Microsoft SQL Server\MSSQL10.SQLEXPRESS\MSSQL\DATA) instead of the local SQL db... how to change? the local ones from asp.net core mvc are added in C:\Users\brand... and have what look like GUIDs in them.
 

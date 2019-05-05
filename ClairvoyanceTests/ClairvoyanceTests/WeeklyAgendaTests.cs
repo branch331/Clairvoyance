@@ -85,6 +85,9 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void addMultipleTaskDifferentDaysTest()
         {
+            int origTuesTaskCount = testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count;
+            int origThursTaskCount = testAgendaVMFullWeek.DaysToDisplay[3].TaskList.Count;
+
             testAgendaVMFullWeek.TaskItemDay = "Tues";
             for (int i = 0; i < 3; i++)
             {
@@ -95,7 +98,11 @@ namespace ClairvoyanceTests
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count == 3 && testAgendaVMFullWeek.DaysToDisplay[3].TaskList.Count == 3);
+
+            int newTuesTaskCount = testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count;
+            int newThursTaskCount = testAgendaVMFullWeek.DaysToDisplay[3].TaskList.Count;
+            Assert.IsTrue(newTuesTaskCount == origTuesTaskCount + 3);
+            Assert.IsTrue(newThursTaskCount == origThursTaskCount + 3);
         }
 
         [TestMethod]
@@ -111,78 +118,148 @@ namespace ClairvoyanceTests
         [TestMethod]
         public void addTaskListStringMonTest()
         {
+            int origTaskCount = 0;
+
+            if (testAgendaVMFullWeek.monTaskListString != null)
+            {
+                origTaskCount = testAgendaVMFullWeek.monTaskListString.Count;
+            }
+
             testAgendaVMFullWeek.TaskItemDay = "Mon";
             for (int i = 0; i < 3; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.monTaskListString.Count == 3);
+
+            int newTaskCount = testAgendaVMFullWeek.monTaskListString.Count;
+
+            Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
         public void addTaskListStringTuesTest()
         {
+            int origTaskCount = 0;
+
+            if (testAgendaVMFullWeek.tuesTaskListString != null)
+            {
+                origTaskCount = testAgendaVMFullWeek.tuesTaskListString.Count;
+            }
+
             testAgendaVMFullWeek.TaskItemDay = "Tues";
             for (int i = 0; i < 3; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.tuesTaskListString.Count == 3);
+
+            int newTaskCount = testAgendaVMFullWeek.tuesTaskListString.Count;
+
+            Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
         public void addTaskListStringWedTest()
         {
+            int origTaskCount = 0;
+
+            if (testAgendaVMFullWeek.wedTaskListString != null)
+            {
+                origTaskCount = testAgendaVMFullWeek.wedTaskListString.Count;
+            }
+
             testAgendaVMFullWeek.TaskItemDay = "Wed";
             for (int i = 0; i < 3; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.wedTaskListString.Count == 3);
+
+            int newTaskCount = testAgendaVMFullWeek.wedTaskListString.Count;
+
+            Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
         public void addTaskListStringThursTest()
         {
+            int origTaskCount = 0;
+
+            if (testAgendaVMFullWeek.thursTaskListString != null)
+            {
+                origTaskCount = testAgendaVMFullWeek.thursTaskListString.Count;
+            }
+
             testAgendaVMFullWeek.TaskItemDay = "Thurs";
             for (int i = 0; i < 3; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.thursTaskListString.Count == 3);
+
+            int newTaskCount = testAgendaVMFullWeek.thursTaskListString.Count;
+
+            Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
         public void addTaskListStringFriTest()
         {
+            int origTaskCount = 0;
+
+            if (testAgendaVMFullWeek.friTaskListString != null)
+            {
+                origTaskCount = testAgendaVMFullWeek.friTaskListString.Count;
+            }
+
             testAgendaVMFullWeek.TaskItemDay = "Fri";
             for (int i = 0; i < 3; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.friTaskListString.Count == 3);
+
+            int newTaskCount = testAgendaVMFullWeek.friTaskListString.Count;
+
+            Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
         public void addTaskListStringSatTest()
         {
+            int origTaskCount = 0;
+
+            if (testAgendaVMFullWeek.satTaskListString != null)
+            {
+                origTaskCount = testAgendaVMFullWeek.satTaskListString.Count;
+            }
+
             testAgendaVMFullWeek.TaskItemDay = "Sat";
             for (int i = 0; i < 3; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.satTaskListString.Count == 3);
+
+            int newTaskCount = testAgendaVMFullWeek.satTaskListString.Count;
+
+            Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
         public void addTaskListStringSunTest()
         {
+            int origTaskCount = 0;
+
+            if (testAgendaVMFullWeek.sunTaskListString != null)
+            {
+                origTaskCount = testAgendaVMFullWeek.sunTaskListString.Count;
+            }
+
             testAgendaVMFullWeek.TaskItemDay = "Sun";
             for (int i = 0; i < 3; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.sunTaskListString.Count == 3);
+
+            int newTaskCount = testAgendaVMFullWeek.sunTaskListString.Count;
+
+            Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
         
         [TestCleanup]

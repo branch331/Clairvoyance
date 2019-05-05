@@ -209,7 +209,9 @@ namespace ClairvoyanceTests
             };
 
             testAgendaVM.addTaskToDay();
-            Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[0].TaskName == "Test Task");
+            int taskCount = testAgendaVM.DaysToDisplay[0].TaskList.Count;
+
+            Assert.IsTrue(testAgendaVM.DaysToDisplay[0].TaskList[taskCount - 1].TaskName == "Test Task");
         }
 
         [TestMethod]
