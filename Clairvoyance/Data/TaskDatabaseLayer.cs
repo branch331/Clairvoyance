@@ -108,26 +108,20 @@ namespace Clairvoyance.Data
 
         public int findDayId(string dayToFind)
         {
-            using (TaskContext _taskCtx = new TaskContext())
-            {
-                var day = _taskCtx.days
-                    .Where(item => item.DayName == dayToFind)
-                    .FirstOrDefault();
+            var day = _taskCtx.days
+                .Where(item => item.DayName == dayToFind)
+                .FirstOrDefault();
 
-                return day.Id;
-            }
+            return day.Id;
         }
 
         public int findWeekIdFromStartDate(DateTime mondayDateTime)
         {
-            using (TaskContext _taskCtx = new TaskContext())
-            {
-                var week = _taskCtx.weeks
-                    .Where(item => item.MondayDate == mondayDateTime)
-                    .FirstOrDefault();
+            var week = _taskCtx.weeks
+                .Where(item => item.MondayDate == mondayDateTime)
+                .FirstOrDefault();
 
-                return week.Id;
-            }
+            return week.Id;
         }
 
         public void initializeWeekdays()
@@ -152,13 +146,13 @@ namespace Clairvoyance.Data
         public void deleteWeekRange(DateTime mondayWeekDate)
         {
             int weekId = findWeekIdFromStartDate(mondayWeekDate);
-            var weekEntityToDelete = _taskCtx.tasks
+            var weekEntityToDelete = _taskCtx.weeks
                 .Where(item => item.Id == weekId)
                 .FirstOrDefault();
 
             if (weekEntityToDelete != null)
             {
-                _taskCtx.tasks.Remove(weekEntityToDelete);
+                _taskCtx.weeks.Remove(weekEntityToDelete);
                 _taskCtx.SaveChanges();
             }
         }

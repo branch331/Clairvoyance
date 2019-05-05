@@ -36,10 +36,8 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 Revamp architecture to remove business logic outside of VM (https://code.msdn.microsoft.com/windowsdesktop/Easy-MVVM-Examples-fb8c409f)
 [DONE] Weekly error: 4/28 >> monday = 4/29 and sunday = 4/28. Also results in weekday added all the time
 finish refactoring updateCurrentWeekDateTimes
-Add stub to return a 'fake' existing category to fix failed tests? OR just do set up and tear down
-to add actual db entries and remove them at the end.
-add daily category totals
-*[during unit tests] week entry keeps getting added to db 
+[DONE] Add stub to return a 'fake' existing category to fix failed tests? OR just do set up and tear down
+*[DONE] week entry keeps getting added to db during unit tests
 mockdb context?
 https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-its-dbset-properties/
 
@@ -48,7 +46,7 @@ https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-
 *Start w/ clean slate in week and days table
 Fix unit tests. Create mock database for unit tests: Separate out the 'add to database' portions so you can pass unit tests.
 [DONE]Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and. Pre-populate based on that?
-Populate task list from db
+Populate task list from db; show daily totals for each category
 
 -Databases Phase II-
 [Probably with separate window]

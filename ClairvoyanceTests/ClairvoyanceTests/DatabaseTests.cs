@@ -16,8 +16,10 @@ namespace ClairvoyanceTests
     public class DatabaseTests
     {
         private TaskDatabaseLayer taskDbLayer;
+        private TaskContext taskContext;
         private TaskItem defaultTaskItem;
         private DateTime testMondayDateTime;
+        private DateTime testSundayDateTime;
         private string defaultCategory = "defaultCategory";
         private Mock<ITaskContext> mockContext;
         private TaskDatabaseLayer mockDbLayer;
@@ -27,14 +29,17 @@ namespace ClairvoyanceTests
         [TestInitialize]
         public void setUpTaskDbLayer()
         {
+            taskContext = new TaskContext();
             defaultTaskItem = new TaskItem("defaultTask", defaultCategory, "5", "8");
             testMondayDateTime = new DateTime(1995, 5, 15);
+            testSundayDateTime = new DateTime(1995, 5, 22);
 
-            taskDbLayer = new TaskDatabaseLayer(new TaskContext());
+            taskDbLayer = new TaskDatabaseLayer(taskContext);
+            
             taskDbLayer.addNewWeekRange(new Week(testMondayDateTime, new DateTime(1995, 5, 20)));
             taskDbLayer.addNewCategory(defaultCategory);
             taskDbLayer.addTaskItem(defaultTaskItem, "Mon", testMondayDateTime);
-
+            
             var mockContext = new Mock<ITaskContext>();
             mockDbLayer = new TaskDatabaseLayer(mockContext.Object);
 
@@ -59,6 +64,15 @@ namespace ClairvoyanceTests
             fakeTaskSet.Add(taskB);
 
             mockContext.Setup(context => context.tasks).Returns(fakeTaskSet);
+
+            var fakeWeekSet = new FakeDbSet<Week>();
+
+            fakeWeekSet.Add(new Week(testMondayDateTime, testSundayDateTime)
+            {
+                Id = 59
+            });
+
+            mockContext.Setup(context => context.weeks).Returns(fakeWeekSet);
         }
 
         [TestMethod]
@@ -116,6 +130,35 @@ namespace ClairvoyanceTests
 
             Assert.IsTrue(taskList.Count == 1);
             Assert.IsTrue(taskList[0].TaskName == "Task B");
+        }
+
+        [TestMethod]
+        public void TestAddTask()
+        {
+            taskDbLayer.addTaskItem(defaultTaskItem, "Mon", testMondayDateTime);
+            var existingTaskList = taskDbLayer.getExistingTaskList();
+            int originalNumberOfTasks = existingTaskList.Count;
+            Assert.AreEqual(existingTaskList[originalNumberOfTasks - 1].TaskName, "defaultTask");
+
+            taskDbLayer.deleteTaskItem(defaultTaskItem);
+            Assert.IsTrue(taskContext.tasks.Count() == originalNumberOfTasks - 1);
+        }
+
+        [TestMethod]
+        public void TestMockFindWeekId()
+        {
+            Assert.IsTrue(mockDbLayer.findWeekIdFromStartDate(testMondayDateTime) == 59);
+        }
+
+        [TestMethod]
+        public void TestAddWeek()
+        {
+            taskDbLayer.addNewWeekRange(new Week(testMondayDateTime, testSundayDateTime));
+            int originalNumberOfWeeks = taskContext.weeks.Count();
+            Assert.AreEqual(taskDbLayer.getWeekRangeFromDate(testMondayDateTime).Item1, testMondayDateTime);
+
+            taskDbLayer.deleteWeekRange(testMondayDateTime);
+            Assert.IsTrue(taskContext.weeks.Count() == originalNumberOfWeeks - 1);
         }
 
         [TestCleanup]
