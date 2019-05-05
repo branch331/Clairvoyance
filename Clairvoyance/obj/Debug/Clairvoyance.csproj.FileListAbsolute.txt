@@ -20,3 +20,5 @@ C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\MainWindow.g.cs
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\MainWindow.baml
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\Clairvoyance.Migrations.ArchitectureRevamp.resources
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\StatisticsWindow.g.cs
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\StatisticsWindow.baml

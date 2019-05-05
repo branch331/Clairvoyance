@@ -47,7 +47,8 @@ https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-
 [DONE]Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and. Pre-populate based on that?
 [DONE] Populate task list from db
 [DONE] Populate weekly totals based on current week only
-Show daily totals for each category
+Show daily totals for each category: show in new window
+Make VM base class
 
 -Databases Phase II-
 [Probably with separate window]

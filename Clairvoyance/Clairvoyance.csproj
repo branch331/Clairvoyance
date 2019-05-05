@@ -80,12 +80,16 @@
     <Compile Include="Data\TaskContext.cs" />
     <Compile Include="Validation\EmptyValueRule.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="ViewModel\StatisticsViewModel.cs" />
     <Compile Include="ViewModel\TaskEditorViewModel.cs" />
     <Compile Include="Model\TaskItem.cs" />
     <Compile Include="Validation\TimeRangeRule.cs" />
     <Compile Include="ViewModel\WeeklyAgendaViewModel.cs" />
     <Compile Include="Model\WeeklyTotals.cs" />
     <Compile Include="Model\Week.cs" />
+    <Compile Include="View\StatisticsWindow.xaml.cs">
+      <DependentUpon>StatisticsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -99,6 +103,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\StatisticsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

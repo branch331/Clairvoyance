@@ -10,29 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Clairvoyance.ViewModel;
 
 namespace Clairvoyance.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for StatisticsWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StatisticsWindow : Window
     {
-        private WeeklyAgendaViewModel weeklyAgendaVM = new WeeklyAgendaViewModel();
+        private StatisticsViewModel statisticsVM = new StatisticsViewModel();
 
-        public MainWindow()
+        public StatisticsWindow()
         {
             InitializeComponent();
-            this.DataContext = weeklyAgendaVM;
-        }
-
-        private void Detailed_Button_Click(object sender, RoutedEventArgs e)
-        {
-            StatisticsWindow statisticsWindow = new StatisticsWindow();
-            statisticsWindow.Show();
+            this.DataContext = statisticsVM;
         }
     }
 }

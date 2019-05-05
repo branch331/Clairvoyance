@@ -82,12 +82,14 @@
             <DataGrid AutoGenerateColumns="False"
                   Width="212" 
                   IsReadOnly="True"
-                  ItemsSource="{Binding WeeklyTotalsInHours}" Height="256" Margin="4,0">
+                  ItemsSource="{Binding WeeklyTotalsInHours}" Height="220" Margin="4,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="100"/>
                     <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25" Width="160"/>
                 </DataGrid.Columns>
             </DataGrid>
+
+            <Button Content="Detailed Breakdown" HorizontalAlignment="Left" Height="25" Margin="49,0,0,0" Width="150" Click="Detailed_Button_Click"/>
 
         </StackPanel>
 
