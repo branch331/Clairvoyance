@@ -40,14 +40,14 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 *[DONE] week entry keeps getting added to db during unit tests
 [DONE] mockdb context?
 https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-its-dbset-properties/
-
+[DONE] Exception w/ adding task, 12-4 >> timespan is negative 4. Make sure to format into AM/PM
 
 -Database Specific-
 [DONE] Fix unit tests. Create mock database for unit tests: Separate out the 'add to database' portions so you can pass unit tests.
 [DONE]Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and. Pre-populate based on that?
 [DONE] Populate task list from db
-Show daily totals for each category
 [DONE] Populate weekly totals based on current week only
+Show daily totals for each category
 
 -Databases Phase II-
 [Probably with separate window]

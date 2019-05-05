@@ -724,7 +724,7 @@ namespace Clairvoyance.ViewModel
 
             foreach (Model.TaskItem task in taskList)
             {
-                taskString = string.Format("{0}\n{1}\n{2}\n{3}", task.TaskName, task.TaskCategory, task.TaskStartDateTime.TimeOfDay, task.TaskEndDateTime.TimeOfDay);
+                taskString = string.Format("{0}\n{1}\n{2}-{3}", task.TaskName, task.TaskCategory, task.TaskStartDateTime.ToString("H:mm"), task.TaskEndDateTime.ToString("H:mm"));
                 taskStringList.Add(taskString);
             }
 

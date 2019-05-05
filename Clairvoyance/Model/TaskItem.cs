@@ -54,6 +54,11 @@ namespace Clairvoyance.Model
             TaskStartDateTime = Convert.ToDateTime(startTime);
             TaskEndDateTime = Convert.ToDateTime(endTime);
             TaskTimeInterval = TaskEndDateTime - TaskStartDateTime;
+
+            if (TaskTimeInterval.Hours < 0)
+            {
+                TaskTimeInterval += TimeSpan.FromHours(12);
+            }
         }
 
         public string appendTimeMinuteDigits(string originalTime)
