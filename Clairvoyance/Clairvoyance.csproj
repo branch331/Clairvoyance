@@ -65,7 +65,6 @@
     <Compile Include="Data\FakeDbSet.cs" />
     <Compile Include="Data\ITaskContext.cs" />
     <Compile Include="Data\TaskDatabaseLayer.cs" />
-    <Compile Include="Helpers\CategoryCommand.cs" />
     <Compile Include="Migrations\201904282146552_Architecture-Revamp.cs" />
     <Compile Include="Migrations\201904282146552_Architecture-Revamp.Designer.cs">
       <DependentUpon>201904282146552_Architecture-Revamp.cs</DependentUpon>
@@ -85,7 +84,7 @@
     <Compile Include="Model\TaskItem.cs" />
     <Compile Include="Validation\TimeRangeRule.cs" />
     <Compile Include="ViewModel\WeeklyAgendaViewModel.cs" />
-    <Compile Include="Model\WeeklyTotals.cs" />
+    <Compile Include="Model\CategoryTotals.cs" />
     <Compile Include="Model\Week.cs" />
     <Compile Include="View\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>

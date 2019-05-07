@@ -19,7 +19,7 @@ In the end, I want a lightweight/simplistic version of:
 [DONE] Add "day" input field on UI >> Submit task to day
 [DONE] Display tasks in days
 [DONE] Checkbox should trigger DaysToDisplay to display work week or full week
-*Store days/task data in db 
+[DONE] *Store days/task data in db 
 *Store hourly totals by WEEK ID, and by OVERALL (week ID)
 [DONE] Category - generate and add items to list; populate drop-down
 [DONE-ish] Please fix updateTaskListStrings; add logic to decide which task string list to update
@@ -41,6 +41,7 @@ https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-wh
 [DONE] mockdb context?
 https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-its-dbset-properties/
 [DONE] Exception w/ adding task, 12-4 >> timespan is negative 4. Make sure to format into AM/PM
+[DONE] category totals does not do fractions >> fixed by using TimeSpan.TotalHours instead of just Hours
 
 -Database Specific-
 [DONE] Fix unit tests. Create mock database for unit tests: Separate out the 'add to database' portions so you can pass unit tests.
@@ -48,6 +49,8 @@ https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-
 [DONE] Populate task list from db
 [DONE] Populate weekly totals based on current week only
 Show daily totals for each category: show in new window
+*Bug where clicking 'submit' again just adds back onto existing categorytotals
+Also, if selecting new week range >> submit doesn't refresh the tables.
 Make VM base class
 
 -Databases Phase II-

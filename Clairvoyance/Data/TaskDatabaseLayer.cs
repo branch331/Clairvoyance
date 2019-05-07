@@ -172,5 +172,18 @@ namespace Clairvoyance.Data
 
             return null;
         }
+
+        public ObservableCollection<Week> getExistingWeekRanges()
+        {
+            ObservableCollection<Week> weekRanges = new ObservableCollection<Week>();
+
+            foreach (var item in _taskCtx.weeks)
+            {
+                weekRanges.Add(item);
+            }
+
+            return weekRanges;
+        }
+
     }
 }

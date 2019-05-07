@@ -7,7 +7,113 @@
         mc:Ignorable="d"
         Title="StatisticsWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Height="98" Margin="258,145,0,0" TextWrapping="Wrap" Text="{Binding TestString}" VerticalAlignment="Top" Width="178"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="Week Range: " Margin="20 0 0 0"/>
+            <ComboBox Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200" Margin="20 0 0 0" ItemsSource="{Binding AvailableWeekRangeStrings}" SelectedValue="{Binding SelectedWeekRange}"/>
+        </StackPanel>
+
+        <Button Grid.Row="0" Grid.Column="2" Content="Submit" Command="{Binding LoadWeekDataCommand}" HorizontalAlignment="Center" Height="22" VerticalAlignment="Bottom" Width="54" Margin="0 10 0 0"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Mon" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Tues" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Wed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Text="Thurs" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Text="Fri" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="5" Text="Sat" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="6" Text="Sun" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <DataGrid AutoGenerateColumns="False"
+                  Grid.Row="2"
+                  Grid.Column="0"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding MonCategoryTotals}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid AutoGenerateColumns="False"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding TuesCategoryTotals}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid AutoGenerateColumns="False"
+                  Grid.Row="2"
+                  Grid.Column="2"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding WedCategoryTotals}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid AutoGenerateColumns="False"
+                  Grid.Row="2"
+                  Grid.Column="3"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding ThursCategoryTotals}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid AutoGenerateColumns="False"
+                  Grid.Row="2"
+                  Grid.Column="4"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding FriCategoryTotals}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid AutoGenerateColumns="False"
+                  Grid.Row="2"
+                  Grid.Column="5"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding SatCategoryTotals}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid AutoGenerateColumns="False"
+                  Grid.Row="2"
+                  Grid.Column="6"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding MonCategoryTotals}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
+                <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
     </Grid>
 </Window>

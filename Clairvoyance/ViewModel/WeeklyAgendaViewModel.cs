@@ -40,7 +40,7 @@ namespace Clairvoyance.ViewModel
         private List<DayPlanner> fullWeek = new List<DayPlanner>();
         public ObservableCollection<string> daysOfWeekList = new ObservableCollection<string>();
         public ObservableCollection<string> categoryList = new ObservableCollection<string>();
-        public ObservableCollection<WeeklyTotals> weeklyTotalsInHours = new ObservableCollection<WeeklyTotals>();
+        public ObservableCollection<CategoryTotals> weeklyTotalsInHours = new ObservableCollection<CategoryTotals>();
 
         public TaskDatabaseLayer taskDbLayer = new TaskDatabaseLayer(new TaskContext());
 
@@ -302,7 +302,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public ObservableCollection<WeeklyTotals> WeeklyTotalsInHours
+        public ObservableCollection<CategoryTotals> WeeklyTotalsInHours
         {
             get { return weeklyTotalsInHours; }
         }
@@ -695,7 +695,7 @@ namespace Clairvoyance.ViewModel
                     }
                 }
 
-                weeklyTotalsInHours.Add(new WeeklyTotals(category, totalHours));
+                weeklyTotalsInHours.Add(new CategoryTotals(category, totalHours));
             }
         }
 
@@ -704,11 +704,11 @@ namespace Clairvoyance.ViewModel
             int differenceBetweenLists = CategoryList.Count - weeklyTotalsInHours.Count;
             int dayIndex = DaysToDisplay.FindIndex(x => x.NameOfDay == taskItemDay);
             var recentlyUpdatedTaskList = DaysToDisplay[dayIndex].TaskList;
-            double hoursToAdd = recentlyUpdatedTaskList[recentlyUpdatedTaskList.Count - 1].TaskTimeInterval.Hours;
+            double hoursToAdd = recentlyUpdatedTaskList[recentlyUpdatedTaskList.Count - 1].TaskTimeInterval.TotalHours;
 
             for (int i = 0; i < differenceBetweenLists; i++)
             {
-                weeklyTotalsInHours.Add(new WeeklyTotals(CategoryList[CategoryList.Count - (differenceBetweenLists - i)], 0));
+                weeklyTotalsInHours.Add(new CategoryTotals(CategoryList[CategoryList.Count - (differenceBetweenLists - i)], 0));
             }
 
             weeklyTotalsInHours
