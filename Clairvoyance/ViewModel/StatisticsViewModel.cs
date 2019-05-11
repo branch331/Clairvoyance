@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Clairvoyance.ViewModel
 {
-    class StatisticsViewModel : INotifyPropertyChanged
+    public class StatisticsViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand loadWeekDataCommand;
@@ -20,7 +20,7 @@ namespace Clairvoyance.ViewModel
         public ObservableCollection<string> availableWeekRangeStrings;
         public List<Week> availableWeekRanges;
         public string selectedWeekRange;
-        private int currentWeekId;
+        public int currentWeekId;
 
         public ObservableCollection<CategoryTotals> monCategoryTotals;
         public ObservableCollection<CategoryTotals> tuesCategoryTotals;
@@ -32,7 +32,7 @@ namespace Clairvoyance.ViewModel
 
         public TaskDatabaseLayer taskDbLayer;
 
-        public StatisticsViewModel()
+        public StatisticsViewModel(ITaskContext context)
         {
             availableWeekRanges = new List<Week>();
             AvailableWeekRangeStrings = new ObservableCollection<string>();
@@ -45,7 +45,7 @@ namespace Clairvoyance.ViewModel
             satCategoryTotals = new ObservableCollection<CategoryTotals>();
             sunCategoryTotals = new ObservableCollection<CategoryTotals>();
 
-            taskDbLayer = new TaskDatabaseLayer(new TaskContext());
+            taskDbLayer = new TaskDatabaseLayer(context);
 
             populateAvailableWeekRangesFromDb();
             setSelectedWeekRange();
@@ -54,6 +54,7 @@ namespace Clairvoyance.ViewModel
             {
                 try
                 {
+                    clearCategoryTotals();
                     loadWeekDataFromDb();
                 }
                 catch (System.ArgumentException e)
@@ -74,6 +75,29 @@ namespace Clairvoyance.ViewModel
             }
         }
 
+        public void clearCategoryTotals()
+        {
+            monCategoryTotals = removeAllElementsFromCategoryTotals(monCategoryTotals);
+            tuesCategoryTotals = removeAllElementsFromCategoryTotals(tuesCategoryTotals);
+            wedCategoryTotals = removeAllElementsFromCategoryTotals(wedCategoryTotals);
+            thursCategoryTotals = removeAllElementsFromCategoryTotals(thursCategoryTotals);
+            friCategoryTotals = removeAllElementsFromCategoryTotals(friCategoryTotals);
+            satCategoryTotals = removeAllElementsFromCategoryTotals(satCategoryTotals);
+            sunCategoryTotals = removeAllElementsFromCategoryTotals(sunCategoryTotals);
+        }
+
+        public ObservableCollection<CategoryTotals> removeAllElementsFromCategoryTotals(ObservableCollection<CategoryTotals> categoryTotals)
+        {
+            var categoryTotalsList = categoryTotals.ToList();
+
+            foreach (CategoryTotals item in categoryTotalsList)
+            {
+                categoryTotals.Remove(item);
+            }
+
+            return categoryTotals;
+        }
+
         public void loadWeekDataFromDb()
         {
             Week selectedWeek = availableWeekRanges[availableWeekRangeStrings.IndexOf(selectedWeekRange)];
@@ -89,55 +113,44 @@ namespace Clairvoyance.ViewModel
                 {
                     if (task.DayId == taskDbLayer.findDayId("Mon") && monCategoryTotals.Count != 0)
                     {
-                        monCategoryTotals
-                            .Where(item => item.Category == task.TaskCategory)
-                            .FirstOrDefault()
-                            .TotalHours += task.TaskTimeInterval.TotalHours;
+                        addTaskHoursToCategoryTotals(task, monCategoryTotals);
                     }
                     else if (task.DayId == taskDbLayer.findDayId("Tues") && tuesCategoryTotals.Count != 0)
                     {
-                        tuesCategoryTotals
-                            .Where(item => item.Category == task.TaskCategory)
-                            .FirstOrDefault()
-                            .TotalHours += task.TaskTimeInterval.TotalHours;
+                        addTaskHoursToCategoryTotals(task, tuesCategoryTotals);
                     }
                     else if (task.DayId == taskDbLayer.findDayId("Wed") && wedCategoryTotals.Count != 0)
                     {
-                        wedCategoryTotals
-                            .Where(item => item.Category == task.TaskCategory)
-                            .FirstOrDefault()
-                            .TotalHours += task.TaskTimeInterval.TotalHours;
+                        addTaskHoursToCategoryTotals(task, wedCategoryTotals);
                     }
                     else if (task.DayId == taskDbLayer.findDayId("Thurs") && thursCategoryTotals.Count != 0)
                     {
-                        thursCategoryTotals
-                            .Where(item => item.Category == task.TaskCategory)
-                            .FirstOrDefault()
-                            .TotalHours += task.TaskTimeInterval.TotalHours;
+                        addTaskHoursToCategoryTotals(task, thursCategoryTotals);
                     }
                     else if (task.DayId == taskDbLayer.findDayId("Fri") && friCategoryTotals.Count != 0)
                     {
-                        friCategoryTotals
-                            .Where(item => item.Category == task.TaskCategory)
-                            .FirstOrDefault()
-                            .TotalHours += task.TaskTimeInterval.TotalHours;
+                        addTaskHoursToCategoryTotals(task, friCategoryTotals);
                     }
                     else if (task.DayId == taskDbLayer.findDayId("Sat") && satCategoryTotals.Count != 0)
                     {
-                        satCategoryTotals
-                            .Where(item => item.Category == task.TaskCategory)
-                            .FirstOrDefault()
-                            .TotalHours += task.TaskTimeInterval.TotalHours;
+                        addTaskHoursToCategoryTotals(task, satCategoryTotals);
                     }
                     else if (task.DayId == taskDbLayer.findDayId("Sun") && sunCategoryTotals.Count != 0)
                     {
-                        sunCategoryTotals
-                            .Where(item => item.Category == task.TaskCategory)
-                            .FirstOrDefault()
-                            .TotalHours += task.TaskTimeInterval.TotalHours;
+                        addTaskHoursToCategoryTotals(task, sunCategoryTotals);
                     }
                 }
             }
+        }
+
+        public ObservableCollection<CategoryTotals> addTaskHoursToCategoryTotals(TaskItem task, ObservableCollection<CategoryTotals> categoryTotals)
+        {
+            categoryTotals
+                .Where(item => item.Category == task.TaskCategory)
+                .FirstOrDefault()
+                .TotalHours += task.TaskTimeInterval.TotalHours;
+
+            return categoryTotals;
         }
 
         public void initializeCategoryTotals()

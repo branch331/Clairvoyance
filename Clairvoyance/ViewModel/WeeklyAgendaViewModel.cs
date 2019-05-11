@@ -18,6 +18,7 @@ namespace Clairvoyance.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand categorySubmitCommand;
         private ICommand taskSubmitCommand;
+        private ICommand categoryDeleteCommand;
         
         public string taskItemName;
         public string taskItemDay;
@@ -26,6 +27,7 @@ namespace Clairvoyance.ViewModel
         public string taskItemEndTime;
         public DateTime weeklyStartDate;
         public DateTime weeklyEndDate;
+        public string weekRangeString;
         private string categoryToAdd;
 
         public List<string> monTaskListString;
@@ -79,6 +81,11 @@ namespace Clairvoyance.ViewModel
                     System.Windows.MessageBox.Show(e.Message);
                 }
             }, o => true);
+
+            categoryDeleteCommand = new RelayCommand(o =>
+            {
+                System.Windows.MessageBox.Show("test");
+            }, o => true);
         }
 
         public void WeeklyTotalsPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -129,6 +136,19 @@ namespace Clairvoyance.ViewModel
                 {
                     weeklyEndDate = value;
                     NotifyPropertyChanged("WeeklyEndDate");
+                }
+            }
+        }
+
+        public string WeekRangeString
+        {
+            get { return weekRangeString; }
+            set
+            {
+                if (weekRangeString != value)
+                {
+                    weekRangeString = value;
+                    NotifyPropertyChanged("WeekRangeString");
                 }
             }
         }
@@ -325,6 +345,15 @@ namespace Clairvoyance.ViewModel
             }
         }
 
+        public ICommand CategoryDeleteCommand
+        {
+            get { return categoryDeleteCommand; }
+            set
+            {
+                categoryDeleteCommand = value;
+            }
+        }
+
         public ObservableCollection<string> CategoryList
         {
             get { return categoryList; }
@@ -415,6 +444,8 @@ namespace Clairvoyance.ViewModel
             {
                 setNewWeekRange(currentDateTime);
             }
+
+            weekRangeString = weeklyStartDate.ToString("MM/dd/yyyy-" + weeklyEndDate.ToString("MM/dd/yyyy"));
         }
 
         public void setNewWeekRange(DateTime currentDateTime)

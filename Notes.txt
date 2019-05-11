@@ -20,7 +20,7 @@ In the end, I want a lightweight/simplistic version of:
 [DONE] Display tasks in days
 [DONE] Checkbox should trigger DaysToDisplay to display work week or full week
 [DONE] *Store days/task data in db 
-*Store hourly totals by WEEK ID, and by OVERALL (week ID)
+[DONE]*Store hourly totals by WEEK ID, and by OVERALL (week ID)
 [DONE] Category - generate and add items to list; populate drop-down
 [DONE-ish] Please fix updateTaskListStrings; add logic to decide which task string list to update
 [DONE] Add unit tests for updateTaskListStrings
@@ -48,16 +48,30 @@ https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-
 [DONE]Add variable/databinding for 'weeks': start date and end date. Maybe even check system time and. Pre-populate based on that?
 [DONE] Populate task list from db
 [DONE] Populate weekly totals based on current week only
-Show daily totals for each category: show in new window
-*Bug where clicking 'submit' again just adds back onto existing categorytotals
-Also, if selecting new week range >> submit doesn't refresh the tables.
-Make VM base class
+[DONE]Show daily totals for each category: show in new window
+[DONE] *Bug where clicking 'submit' again just adds back onto existing categorytotals
+[DONE] Also, if selecting new week range >> submit doesn't refresh the tables.
+[DONE] refactor statisticsviewmodel
+[DONE] unit tests statisticsviewmodel
 
 -Databases Phase II-
 [Probably with separate window]
 Delete tasks
 Delete categories
-View different weeks/populate weekly total. 
+
+https://www.grapecity.com/blogs/commandbinding-in-wpf-datagrid-part-ii
+
+[DONE] View different weeks/populate weekly total. 
+
+-UI-
+Layout
+Control aesthetic
+Title Name/Title/Logo?
+
+
+-Deployment-
+Figure out how to create installer
+How to include DB migrations
 
 Looks like EF created databases in Microsoft SQL Server (C:\Program Files\Microsoft SQL Server\MSSQL10.SQLEXPRESS\MSSQL\DATA) instead of the local SQL db... how to change? the local ones from asp.net core mvc are added in C:\Users\brand... and have what look like GUIDs in them.
 

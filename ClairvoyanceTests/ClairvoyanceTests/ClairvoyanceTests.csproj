@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseTests.cs" />
+    <Compile Include="StatisticsTests.cs" />
     <Compile Include="TaskItemTests.cs" />
     <Compile Include="ValidationTests.cs" />
     <Compile Include="WeeklyAgendaTests.cs" />

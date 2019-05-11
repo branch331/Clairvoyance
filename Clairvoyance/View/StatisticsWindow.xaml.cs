@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Clairvoyance.ViewModel;
+using Clairvoyance.Data;
 
 namespace Clairvoyance.View
 {
@@ -20,7 +21,7 @@ namespace Clairvoyance.View
     /// </summary>
     public partial class StatisticsWindow : Window
     {
-        private StatisticsViewModel statisticsVM = new StatisticsViewModel();
+        private StatisticsViewModel statisticsVM = new StatisticsViewModel(new TaskContext());
 
         public StatisticsWindow()
         {

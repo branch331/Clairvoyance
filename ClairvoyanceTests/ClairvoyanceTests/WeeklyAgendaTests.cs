@@ -75,11 +75,14 @@ namespace ClairvoyanceTests
         public void addMultipleTaskSameDayTest()
         {
             testAgendaVMFullWeek.TaskItemDay = "Tues";
+            int originalTaskCount = testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count;
+
             for (int i = 0; i < 5; i++)
             {
                 testAgendaVMFullWeek.addTaskToDay();
             }
-            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count == 5);
+
+            Assert.IsTrue(testAgendaVMFullWeek.DaysToDisplay[1].TaskList.Count == originalTaskCount + 5);
         }
 
         [TestMethod]

@@ -19,9 +19,8 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding WeeklyStartDate}" FontSize="12" HorizontalAlignment="Center" Width="236" Margin="213,0,213,51.333"/>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding WeeklyEndDate}" FontSize="12" HorizontalAlignment="Center" Width="250" Margin="206,49,206,0.333"/>
-
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding WeekRangeString}" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20 0 0 20" Width="250"/>
+   
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.05*"/>
@@ -84,7 +83,16 @@
                   ItemsSource="{Binding WeeklyTotalsInHours}" Height="220" Margin="4,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="100"/>
-                    <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25" Width="160"/>
+                    <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25" Width="80"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Content="X" Command="{Binding Path=DataContext.CategoryDeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
