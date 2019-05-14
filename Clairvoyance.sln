@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clairvoyance", "Clairvoyanc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClairvoyanceTests", "ClairvoyanceTests\ClairvoyanceTests\ClairvoyanceTests.csproj", "{165BCD19-9CE0-4C4D-9F96-AB7EC668F637}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Clairvoyance Installer", "ClairvoyanceInstaller\Clairvoyance Installer\Clairvoyance Installer.vdproj", "{8C04991D-E810-408A-8D34-DDDEB9A3BCFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{165BCD19-9CE0-4C4D-9F96-AB7EC668F637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{165BCD19-9CE0-4C4D-9F96-AB7EC668F637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{165BCD19-9CE0-4C4D-9F96-AB7EC668F637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C04991D-E810-408A-8D34-DDDEB9A3BCFC}.Debug|Any CPU.ActiveCfg = Debug
+		{8C04991D-E810-408A-8D34-DDDEB9A3BCFC}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
