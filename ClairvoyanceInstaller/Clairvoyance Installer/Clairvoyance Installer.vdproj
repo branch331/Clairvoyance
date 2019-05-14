@@ -22,6 +22,12 @@
         "Entry"
         {
         "MsmKey" = "8:_34AA4D870E9FAE6B2159FCA59D4F1F3C"
+        "OwnerKey" = "8:_B9CC9496AC824C77A016B3D0BDF81A62"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_34AA4D870E9FAE6B2159FCA59D4F1F3C"
         "OwnerKey" = "8:_CF3B6B6027C57C9F78E5B22BF31306A4"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -29,6 +35,12 @@
         {
         "MsmKey" = "8:_4F306797A0A8974FC1B587FCFD7A8DBA"
         "OwnerKey" = "8:_F95FF0E3D50C47F5B3CA2CA4CE4E0276"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B9CC9496AC824C77A016B3D0BDF81A62"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -47,6 +59,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4F306797A0A8974FC1B587FCFD7A8DBA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B9CC9496AC824C77A016B3D0BDF81A62"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -85,6 +103,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.SqlServer.Express.11.0"
+                    {
+                    "Name" = "8:SQL Server 2012 Express"
+                    "ProductCode" = "8:Microsoft.SqlServer.Express.11.0"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -192,6 +231,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B9CC9496AC824C77A016B3D0BDF81A62"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:migrate, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_B9CC9496AC824C77A016B3D0BDF81A62"
+                    {
+                    "Name" = "8:migrate.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:C:\\Program Files (x86)\\Entity Framework Tools\\NuGet Packages\\EntityFramework.6.2.0\\tools\\migrate.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E1C38E55C58B496D83064C9212A3AB70"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:2"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CF3B6B6027C57C9F78E5B22BF31306A4"
             {
             "AssemblyRegister" = "3:1"
@@ -253,7 +323,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_E1C38E55C58B496D83064C9212A3AB70"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -280,7 +350,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Clairvoyance Installer"
         "ProductCode" = "8:{192E4CA7-BFED-45AE-80D5-EFCC6F871B28}"
-        "PackageCode" = "8:{05457B42-F75C-40EC-814A-80CB579C7394}"
+        "PackageCode" = "8:{22819CCB-ED03-49C6-BD8F-79177E233E95}"
         "UpgradeCode" = "8:{9E25A77A-DBA0-473E-9BB6-2383C7733470}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -288,12 +358,12 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:brandonn331@gmail.com"
+        "Manufacturer" = "8:dingo"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Clairvoyance Installer"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:brandonn331@gmail.com"
+        "ARPCONTACT" = "8:dingo"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
@@ -301,7 +371,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
