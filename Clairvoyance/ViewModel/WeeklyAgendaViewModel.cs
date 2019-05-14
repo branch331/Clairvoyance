@@ -18,7 +18,6 @@ namespace Clairvoyance.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand categorySubmitCommand;
         private ICommand taskSubmitCommand;
-        private ICommand categoryDeleteCommand;
         
         public string taskItemName;
         public string taskItemDay;
@@ -80,11 +79,6 @@ namespace Clairvoyance.ViewModel
                 {
                     System.Windows.MessageBox.Show(e.Message);
                 }
-            }, o => true);
-
-            categoryDeleteCommand = new RelayCommand(o =>
-            {
-                System.Windows.MessageBox.Show("test");
             }, o => true);
         }
 
@@ -342,15 +336,6 @@ namespace Clairvoyance.ViewModel
             set
             {
                 taskSubmitCommand = value;
-            }
-        }
-
-        public ICommand CategoryDeleteCommand
-        {
-            get { return categoryDeleteCommand; }
-            set
-            {
-                categoryDeleteCommand = value;
             }
         }
 

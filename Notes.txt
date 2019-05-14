@@ -56,8 +56,10 @@ https://www.rhyous.com/2015/04/10/how-to-mock-an-entity-framework-dbcontext-and-
 
 -Databases Phase II-
 [Probably with separate window]
-Delete tasks
-Delete categories
+[DEFER] Delete categories - this can be done; just pass the command "o" and cast as CategoryTotals. But deleting this could cause a lot of issues (e.g. statistics view of weeks). 
+[DEFER]Delete tasks - can be done in same way as above, but first we need to:
+See if we can use observable collection for class instead of listbox? Issue was we didn't know if we could extract elements/metadata from "tasklist" of DayPlanner
+https://stackoverflow.com/questions/6670625/wpf-datagrid-databind-with-nested-objects-like-master-detail
 
 https://www.grapecity.com/blogs/commandbinding-in-wpf-datagrid-part-ii
 

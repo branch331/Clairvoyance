@@ -5,22 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clairvoyance"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="Clairvoyance" Height="600" Width="1000">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.1*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3.5*"/>
+            <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding WeekRangeString}" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20 0 0 20" Width="250"/>
-   
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding WeekRangeString}" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20 0 0 20" Width="300"/>
+
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.05*"/>
@@ -55,50 +56,43 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,28,9.667,-0.333">
-            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Category" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Margin="0 10 0 0"/>
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Name" FontSize="10" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Day" FontSize="10" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Category" FontSize="10" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Right" Height="24" TextWrapping="Wrap" Text="Time" FontSize="10" VerticalAlignment="Top" Margin="0 10 0 0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="0.333,0,0.333,-0.333">
             <TextBlock HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" Text="New Task Entry:" VerticalAlignment="Top" Width="85"/>
-            <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap"  Text="{Binding TaskItemName}" VerticalAlignment="Top" Width="173" RenderTransformOrigin="0.119,-1.688"/>
+            <TextBox HorizontalAlignment="Left" Height="24" TextWrapping="Wrap"  Text="{Binding TaskItemName}" VerticalAlignment="Top" Width="206" RenderTransformOrigin="0.119,-1.688" Margin="0,0,-103.333,0"/>
 
-            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.RowSpan="2" ItemsSource="{Binding DaysOfWeekList}" SelectedValue="{Binding TaskItemDay}"/>
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="206" Grid.RowSpan="2" ItemsSource="{Binding DaysOfWeekList}" SelectedValue="{Binding TaskItemDay}" Margin="0,0,-103.333,0"/>
 
-            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="173" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}"/>
+            <ComboBox HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="206" Grid.Row="1" ItemsSource="{Binding CategoryList}" SelectedValue="{Binding TaskItemCategory}" Margin="0,0,-103.333,0"/>
 
-            <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding TaskItemStartTime}" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding TaskItemStartTime}" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Margin="0,0,-0.333,0"/>
+            <TextBox HorizontalAlignment="Left" Height="22" Text="{Binding TaskItemEndTime}" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Margin="0,0,-0.333,0"/>
 
-            <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding TaskItemEndTime}" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+            <Button Content="Submit" Command="{Binding TaskSubmitCommand}" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="206" Margin="0,10,-103.333,0"/>
 
-            <Button Content="Submit" Command="{Binding TaskSubmitCommand}" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="54" Margin="0 10 0 0"/>
-            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding CategoryToAdd}" VerticalAlignment="Top" Width="70"/>
-            <Button Content="Category" Command="{Binding CategorySubmitCommand}"/>
-
-            <DataGrid AutoGenerateColumns="False"
-                  Width="212" 
+            <DataGrid AutoGenerateColumns="False" 
                   IsReadOnly="True"
-                  ItemsSource="{Binding WeeklyTotalsInHours}" Height="220" Margin="4,0">
+                  ItemsSource="{Binding WeeklyTotalsInHours}" 
+                  Height="220" 
+                  Margin="1,10,-95.333,0"
+                  Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="100"/>
                     <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25" Width="80"/>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button Content="X" Command="{Binding Path=DataContext.CategoryDeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button Content="Detailed Breakdown" HorizontalAlignment="Left" Height="25" Margin="49,0,0,0" Width="150" Click="Detailed_Button_Click"/>
+            <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding CategoryToAdd}" VerticalAlignment="Top" Width="103" Margin="0,10,-0.333,0"/>
 
         </StackPanel>
 
+        <Button Grid.Row="1" Grid.Column="3" Height="23" Width="100" Content="Add Category" Command="{Binding CategorySubmitCommand}" Margin="0,335,0,0"/>
+
+        <Button Content="Detailed Breakdown" Grid.Row="1" Grid.Column="2" Height="26" Click="Detailed_Button_Click" Grid.ColumnSpan="2" Margin="0,400,0,0"/>
     </Grid>
 </Window>
