@@ -19,11 +19,11 @@ namespace Clairvoyance.View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WeeklyAgenda : Window
     {
         private WeeklyAgendaViewModel weeklyAgendaVM = new WeeklyAgendaViewModel();
 
-        public MainWindow()
+        public WeeklyAgenda()
         {
             InitializeComponent();
             this.DataContext = weeklyAgendaVM;

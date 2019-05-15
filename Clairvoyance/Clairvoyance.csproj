@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -80,7 +83,6 @@
     <Compile Include="Validation\EmptyValueRule.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="ViewModel\StatisticsViewModel.cs" />
-    <Compile Include="ViewModel\TaskEditorViewModel.cs" />
     <Compile Include="Model\TaskItem.cs" />
     <Compile Include="Validation\TimeRangeRule.cs" />
     <Compile Include="ViewModel\WeeklyAgendaViewModel.cs" />
@@ -89,7 +91,7 @@
     <Compile Include="View\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="View\WeeklyAgenda.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -98,8 +100,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\DayPlanner.cs" />
-    <Compile Include="View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="View\WeeklyAgenda.xaml.cs">
+      <DependentUpon>WeeklyAgenda.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\StatisticsWindow.xaml">
@@ -139,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

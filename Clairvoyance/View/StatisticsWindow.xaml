@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clairvoyance.View"
         mc:Ignorable="d"
-        Title="StatisticsWindow" Height="450" Width="800">
+        Title="Statistics" Height="450" Width="800">
 
         <Window.Background>
             <SolidColorBrush Color="White" Opacity="0.8"/>
