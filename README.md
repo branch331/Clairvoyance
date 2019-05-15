@@ -2,6 +2,9 @@
 Windows desktop application to track time spent on tasks.
 
 ### Views
+
+There are two views used in this application, WeeklyAgenda and Statistics.
+
 ##### WeeklyAgenda
 
 ![Weekly Agenda View](weeklyagenda.jpg)
@@ -21,6 +24,9 @@ the ComboBox and loaded with the "Submit" button.
 
 
 ### Models
+
+This application uses six different Models classes.
+
 ##### TaskItem 
 The TaskItem contains fields to store task information. Foreign keys are used to map the TaskItem
 to the Category of the task, Day of the week that the class was completed, and the Week range information
