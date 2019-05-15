@@ -4,7 +4,7 @@ Windows desktop application to track time spent on tasks.
 ### Views
 ##### WeeklyAgenda
 
-![Weekly Agenda View](demo_weeklyagenda.jpg)
+![Weekly Agenda View](weeklyagenda.jpg)
 
 This is the main view that opens when the application is run. At the top, the current week range
 is displayed. Tasks can be added by entering the Name, Day, Category, and Time fields and clicking
@@ -14,7 +14,7 @@ button launches the Statistics view.
 
 ##### Statistics
 
-![Statistics View](demo_statistics.jpg)
+![Statistics View](statistics.jpg)
 
 The Statistics view shows daily hour totals based on category. The week range can be selected with
 the ComboBox and loaded with the "Submit" button.
