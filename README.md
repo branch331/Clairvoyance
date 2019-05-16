@@ -7,7 +7,7 @@ There are two views used in this application, WeeklyAgenda and Statistics.
 
 ##### WeeklyAgenda
 
-![Weekly Agenda View](weeklyagenda.jpg)
+![Weekly Agenda View](statistics.jpg)
 
 This is the main view that opens when the application is run. At the top, the current week range
 is displayed. Tasks can be added by entering the Name, Day, Category, and Time fields and clicking
