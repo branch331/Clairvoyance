@@ -7,6 +7,8 @@ There are two views used in this application, WeeklyAgenda and Statistics.
 
 ##### WeeklyAgenda
 
+![WeeklyAgenda View](weeklyagenda.jpg)
+
 This is the main view that opens when the application is run. At the top, the current week range
 is displayed. Tasks can be added by entering the Name, Day, Category, and Time fields and clicking
 Submit. Categories and their respective totals in the week are shown in a DataGrid on the bottom 
@@ -14,7 +16,7 @@ right, and a new Category can be added with the "Add Category" button. The "Deta
 button launches the Statistics view.
 
 ##### Statistics
-![WeeklyAgenda View](weeklyagenda.jpg)
+
 ![Statistics View](statistics.jpg)
 
 The Statistics view shows daily hour totals based on category. The week range can be selected with
