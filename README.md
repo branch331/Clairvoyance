@@ -14,7 +14,7 @@ right, and a new Category can be added with the "Add Category" button. The "Deta
 button launches the Statistics view.
 
 ##### Statistics
-![WeeklyAgenda View](statistics.jpg)
+![WeeklyAgenda View](weeklyagenda.jpg)
 ![Statistics View](statistics.jpg)
 
 The Statistics view shows daily hour totals based on category. The week range can be selected with
