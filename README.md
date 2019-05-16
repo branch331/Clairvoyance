@@ -13,10 +13,8 @@ Submit. Categories and their respective totals in the week are shown in a DataGr
 right, and a new Category can be added with the "Add Category" button. The "Detailed Breakdown"
 button launches the Statistics view.
 
-![Weekly Agenda View](weeklyagenda.jpg)
-
 ##### Statistics
-
+![Weekly Agenda View](weeklyagenda.jpg)
 ![Statistics View](statistics.jpg)
 
 The Statistics view shows daily hour totals based on category. The week range can be selected with
