@@ -113,7 +113,7 @@
                   Grid.Row="2"
                   Grid.Column="6"
                   IsReadOnly="True"
-                  ItemsSource="{Binding MonCategoryTotals}">
+                  ItemsSource="{Binding SunCategoryTotals}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Category" Binding="{Binding Category}" MinWidth="50"/>
                 <DataGridTextColumn Header="Hours" Binding="{Binding TotalHours}" MinWidth="25"/>
