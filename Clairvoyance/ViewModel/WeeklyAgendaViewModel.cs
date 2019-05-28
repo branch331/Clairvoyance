@@ -456,6 +456,7 @@ namespace Clairvoyance.ViewModel
                 if (newSundayDay > MaxDaysInMonthDict[newSundayMonth])
                 {
                     newSundayDay -= MaxDaysInMonthDict[newSundayMonth];
+                    newSundayMonth += 1;
                 }
 
                 newSundayDate = new DateTime(currentDateTime.Year, newSundayMonth, newSundayDay);
