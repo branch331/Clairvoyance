@@ -31,13 +31,13 @@ namespace Clairvoyance.ViewModel
         public string weekRangeString;
         private string categoryToAdd;
 
-        private List<TaskItem> monTaskItemList;
-        private List<TaskItem> tuesTaskItemList;
-        private List<TaskItem> wedTaskItemList;
-        private List<TaskItem> thursTaskItemList;
-        private List<TaskItem> friTaskItemList;
-        private List<TaskItem> satTaskItemList;
-        private List<TaskItem> sunTaskItemList;
+        private ObservableCollection<TaskItem> monTaskItemList;
+        private ObservableCollection<TaskItem> tuesTaskItemList;
+        private ObservableCollection<TaskItem> wedTaskItemList;
+        private ObservableCollection<TaskItem> thursTaskItemList;
+        private ObservableCollection<TaskItem> friTaskItemList;
+        private ObservableCollection<TaskItem> satTaskItemList;
+        private ObservableCollection<TaskItem> sunTaskItemList;
 
         public List<DayPlanner> daysToDisplay;
         private List<DayPlanner> fullWeek = new List<DayPlanner>();
@@ -251,7 +251,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<TaskItem> MonTaskItemList
+        public ObservableCollection<TaskItem> MonTaskItemList
         {
             get { return monTaskItemList; }
             set
@@ -264,7 +264,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<TaskItem> TuesTaskItemList
+        public ObservableCollection<TaskItem> TuesTaskItemList
         {
             get { return tuesTaskItemList; }
             set
@@ -277,7 +277,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<TaskItem> WedTaskItemList
+        public ObservableCollection<TaskItem> WedTaskItemList
         {
             get { return wedTaskItemList; }
             set
@@ -290,7 +290,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<TaskItem> ThursTaskItemList
+        public ObservableCollection<TaskItem> ThursTaskItemList
         {
             get { return thursTaskItemList; }
             set
@@ -303,7 +303,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<TaskItem> FriTaskItemList
+        public ObservableCollection<TaskItem> FriTaskItemList
         {
             get { return friTaskItemList; }
             set
@@ -316,7 +316,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<TaskItem> SatTaskItemList
+        public ObservableCollection<TaskItem> SatTaskItemList
         {
             get { return satTaskItemList; }
             set
@@ -329,7 +329,7 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<TaskItem> SunTaskItemList
+        public ObservableCollection<TaskItem> SunTaskItemList
         {
             get { return sunTaskItemList; }
             set
@@ -645,34 +645,64 @@ namespace Clairvoyance.ViewModel
 
         public void updateTaskItemLists(int dayIndex)
         {
+            ObservableCollection<TaskItem> newTaskList = new ObservableCollection<TaskItem>(); //Used to convert from list >> ObservableCollection
+
             switch (dayIndex)
             {
                 case 0:
-                    monTaskItemList = DaysToDisplay[0].TaskList;
+                    foreach (TaskItem item in DaysToDisplay[0].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    monTaskItemList = newTaskList;
                     NotifyPropertyChanged("MonTaskItemList");
                     break;
                 case 1:
-                    tuesTaskItemList = DaysToDisplay[1].TaskList;
+                    foreach (TaskItem item in DaysToDisplay[1].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    tuesTaskItemList = newTaskList;
                     NotifyPropertyChanged("TuesTaskItemList");
                     break;
                 case 2:
-                    wedTaskItemList = DaysToDisplay[2].TaskList;
+                    foreach (TaskItem item in DaysToDisplay[2].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    wedTaskItemList = newTaskList;
                     NotifyPropertyChanged("WedTaskItemList");
                     break;
                 case 3:
-                    thursTaskItemList = DaysToDisplay[3].TaskList;
+                    foreach (TaskItem item in DaysToDisplay[3].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    thursTaskItemList = newTaskList;
                     NotifyPropertyChanged("ThursTaskItemList");
                     break;
                 case 4:
-                    friTaskItemList = DaysToDisplay[4].TaskList;
+                    foreach (TaskItem item in DaysToDisplay[4].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    friTaskItemList = newTaskList;
                     NotifyPropertyChanged("FriTaskItemList");
                     break;
                 case 5:
-                    satTaskItemList = DaysToDisplay[5].TaskList;
+                    foreach (TaskItem item in DaysToDisplay[5].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    satTaskItemList = newTaskList;
                     NotifyPropertyChanged("SatTaskItemList");
                     break;
                 case 6:
-                    sunTaskItemList = DaysToDisplay[6].TaskList;
+                    foreach (TaskItem item in DaysToDisplay[6].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    sunTaskItemList = newTaskList;
                     NotifyPropertyChanged("SunTaskItemList");
                     break;
             }
@@ -737,11 +767,12 @@ namespace Clairvoyance.ViewModel
         public void deleteTaskItemFromDb(TaskItem taskItemToDelete)
         {
             taskDbLayer.deleteTaskItem(taskItemToDelete);
+
             string dayName = taskDbLayer.findDayNameFromId(taskItemToDelete.DayId);
             int dayIndex = DaysToDisplay
                 .FindIndex(x => x.NameOfDay == dayName);
+            DaysToDisplay[dayIndex].TaskList.Remove(taskItemToDelete);
             updateTaskItemLists(dayIndex);
-            //NotifyPropertyChanged(dayName + "TaskItemList");
         }
 
         public int getCurrentWeekIdFromDb()
