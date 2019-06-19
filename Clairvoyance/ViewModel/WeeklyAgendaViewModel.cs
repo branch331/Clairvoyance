@@ -18,6 +18,8 @@ namespace Clairvoyance.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand categorySubmitCommand;
         private ICommand taskSubmitCommand;
+        private ICommand taskUpdateCommand;
+        private ICommand taskDeleteCommand;
         
         public string taskItemName;
         public string taskItemDay;
@@ -29,13 +31,13 @@ namespace Clairvoyance.ViewModel
         public string weekRangeString;
         private string categoryToAdd;
 
-        public List<string> monTaskListString;
-        public List<string> tuesTaskListString;
-        public List<string> wedTaskListString;
-        public List<string> thursTaskListString;
-        public List<string> friTaskListString;
-        public List<string> satTaskListString;
-        public List<string> sunTaskListString;
+        private List<TaskItem> monTaskItemList;
+        private List<TaskItem> tuesTaskItemList;
+        private List<TaskItem> wedTaskItemList;
+        private List<TaskItem> thursTaskItemList;
+        private List<TaskItem> friTaskItemList;
+        private List<TaskItem> satTaskItemList;
+        private List<TaskItem> sunTaskItemList;
 
         public List<DayPlanner> daysToDisplay;
         private List<DayPlanner> fullWeek = new List<DayPlanner>();
@@ -74,6 +76,44 @@ namespace Clairvoyance.ViewModel
                 try
                 {
                     addTaskToDay();
+                }
+                catch (System.ArgumentException e)
+                {
+                    System.Windows.MessageBox.Show(e.Message);
+                }
+            }, o => true);
+
+            taskUpdateCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    var taskItem = o as TaskItem;
+
+                    System.Windows.MessageBox.Show("Update...\n"
+                        + taskItem.Id + "\n"
+                        + taskItem.TaskName + "\n"
+                        + taskItem.TaskCategory + "\n"
+                        + taskItem.TaskStartDateTime + "\n"
+                        + taskItem.TaskEndDateTime);
+                }
+                catch (System.ArgumentException e)
+                {
+                    System.Windows.MessageBox.Show(e.Message);
+                }
+            }, o => true);
+
+            taskDeleteCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    var taskItem = o as TaskItem;
+
+                    System.Windows.MessageBox.Show("Delete...\n" 
+                        + taskItem.Id + "\n"
+                        + taskItem.TaskName + "\n"
+                        + taskItem.TaskCategory + "\n"
+                        + taskItem.TaskStartDateTime + "\n"
+                        + taskItem.TaskEndDateTime);
                 }
                 catch (System.ArgumentException e)
                 {
@@ -225,93 +265,93 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<string> MonTaskListString
+        public List<TaskItem> MonTaskItemList
         {
-            get { return monTaskListString; }
+            get { return monTaskItemList; }
             set
             {
-                if (monTaskListString != value)
+                if (monTaskItemList != value)
                 {
-                    monTaskListString = value;
-                    NotifyPropertyChanged("MonTaskListString");
+                    monTaskItemList = value;
+                    NotifyPropertyChanged("MonTaskItemList");
                 }
             }
         }
 
-        public List<string> TuesTaskListString
+        public List<TaskItem> TuesTaskItemList
         {
-            get { return tuesTaskListString; }
+            get { return tuesTaskItemList; }
             set
             {
-                if (tuesTaskListString != value)
+                if (tuesTaskItemList != value)
                 {
-                    tuesTaskListString = value;
-                    NotifyPropertyChanged("TuesTaskListString");
+                    tuesTaskItemList = value;
+                    NotifyPropertyChanged("TuesTaskItemList");
                 }
             }
         }
 
-        public List<string> WedTaskListString
+        public List<TaskItem> WedTaskItemList
         {
-            get { return wedTaskListString; }
+            get { return wedTaskItemList; }
             set
             {
-                if (wedTaskListString != value)
+                if (wedTaskItemList != value)
                 {
-                    wedTaskListString = value;
-                    NotifyPropertyChanged("WedTaskListString");
+                    wedTaskItemList = value;
+                    NotifyPropertyChanged("WedTaskItemList");
                 }
             }
         }
 
-        public List<string> ThursTaskListString
+        public List<TaskItem> ThursTaskItemList
         {
-            get { return thursTaskListString; }
+            get { return thursTaskItemList; }
             set
             {
-                if (thursTaskListString != value)
+                if (thursTaskItemList != value)
                 {
-                    thursTaskListString = value;
-                    NotifyPropertyChanged("ThursTaskListString");
+                    thursTaskItemList = value;
+                    NotifyPropertyChanged("ThursTaskItemList");
                 }
             }
         }
 
-        public List<string> FriTaskListString
+        public List<TaskItem> FriTaskItemList
         {
-            get { return friTaskListString; }
+            get { return friTaskItemList; }
             set
             {
-                if (friTaskListString != value)
+                if (friTaskItemList != value)
                 {
-                    friTaskListString = value;
-                    NotifyPropertyChanged("FriTaskListString");
+                    friTaskItemList = value;
+                    NotifyPropertyChanged("FriTaskItemList");
                 }
             }
         }
 
-        public List<string> SatTaskListString
+        public List<TaskItem> SatTaskItemList
         {
-            get { return satTaskListString; }
+            get { return satTaskItemList; }
             set
             {
-                if (satTaskListString != value)
+                if (satTaskItemList != value)
                 {
-                    satTaskListString = value;
-                    NotifyPropertyChanged("SatTaskListString");
+                    satTaskItemList = value;
+                    NotifyPropertyChanged("SatTaskItemList");
                 }
             }
         }
 
-        public List<string> SunTaskListString
+        public List<TaskItem> SunTaskItemList
         {
-            get { return sunTaskListString; }
+            get { return sunTaskItemList; }
             set
             {
-                if (sunTaskListString != value)
+                if (sunTaskItemList != value)
                 {
-                    sunTaskListString = value;
-                    NotifyPropertyChanged("SunTaskListString");
+                    sunTaskItemList = value;
+                    NotifyPropertyChanged("SunTaskItemList");
                 }
             }
         }
@@ -336,6 +376,24 @@ namespace Clairvoyance.ViewModel
             set
             {
                 taskSubmitCommand = value;
+            }
+        }
+
+        public ICommand TaskUpdateCommand
+        {
+            get { return taskUpdateCommand; }
+            set
+            {
+                taskUpdateCommand = value;
+            }
+        }
+
+        public ICommand TaskDeleteCommand
+        {
+            get { return taskDeleteCommand; }
+            set
+            {
+                taskDeleteCommand = value;
             }
         }
 
@@ -491,7 +549,7 @@ namespace Clairvoyance.ViewModel
                 .FindIndex(x => x.NameOfDay == taskItemDay);
 
             DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
-            updateTaskListStrings(dayIndex);
+            updateTaskItemLists(dayIndex);
             updateWeeklyTotals();
 
             addTaskToDb();
@@ -599,37 +657,37 @@ namespace Clairvoyance.ViewModel
             NotifyPropertyChanged("DaysToDisplay");
         }
 
-        public void updateTaskListStrings(int dayIndex)
+        public void updateTaskItemLists(int dayIndex)
         {
             switch (dayIndex)
             {
                 case 0:
-                    monTaskListString = (convertTaskListToStrings(DaysToDisplay[0].TaskList));
-                    NotifyPropertyChanged("MonTaskListString");
+                    monTaskItemList = DaysToDisplay[0].TaskList;
+                    NotifyPropertyChanged("MonTaskItemList");
                     break;
                 case 1:
-                    tuesTaskListString = (convertTaskListToStrings(DaysToDisplay[1].TaskList));
-                    NotifyPropertyChanged("TuesTaskListString");
+                    tuesTaskItemList = DaysToDisplay[1].TaskList;
+                    NotifyPropertyChanged("TuesTaskItemList");
                     break;
                 case 2:
-                    wedTaskListString = (convertTaskListToStrings(DaysToDisplay[2].TaskList));
-                    NotifyPropertyChanged("WedTaskListString");
+                    wedTaskItemList = DaysToDisplay[2].TaskList;
+                    NotifyPropertyChanged("WedTaskItemList");
                     break;
                 case 3:
-                    thursTaskListString = (convertTaskListToStrings(DaysToDisplay[3].TaskList));
-                    NotifyPropertyChanged("ThursTaskListString");
+                    thursTaskItemList = DaysToDisplay[3].TaskList;
+                    NotifyPropertyChanged("ThursTaskItemList");
                     break;
                 case 4:
-                    friTaskListString = (convertTaskListToStrings(DaysToDisplay[4].TaskList));
-                    NotifyPropertyChanged("FriTaskListString");
+                    friTaskItemList = DaysToDisplay[4].TaskList;
+                    NotifyPropertyChanged("FriTaskItemList");
                     break;
                 case 5:
-                    satTaskListString = (convertTaskListToStrings(DaysToDisplay[5].TaskList));
-                    NotifyPropertyChanged("SatTaskListString");
+                    satTaskItemList = DaysToDisplay[5].TaskList;
+                    NotifyPropertyChanged("SatTaskItemList");
                     break;
                 case 6:
-                    sunTaskListString = (convertTaskListToStrings(DaysToDisplay[6].TaskList));
-                    NotifyPropertyChanged("SunTaskListString");
+                    sunTaskItemList = DaysToDisplay[6].TaskList;
+                    NotifyPropertyChanged("SunTaskItemList");
                     break;
             }
         }
@@ -648,37 +706,37 @@ namespace Clairvoyance.ViewModel
                         if (item.Day.DayName == DaysToDisplay[0].NameOfDay)
                         {
                             DaysToDisplay[0].TaskList.Add(item);
-                            updateTaskListStrings(0);
+                            updateTaskItemLists(0);
                         }
                         else if (item.Day.DayName == DaysToDisplay[1].NameOfDay)
                         {
                             DaysToDisplay[1].TaskList.Add(item);
-                            updateTaskListStrings(1);
+                            updateTaskItemLists(1);
                         }
                         else if (item.Day.DayName == DaysToDisplay[2].NameOfDay)
                         {
                             DaysToDisplay[2].TaskList.Add(item);
-                            updateTaskListStrings(2);
+                            updateTaskItemLists(2);
                         }
                         else if (item.Day.DayName == DaysToDisplay[3].NameOfDay)
                         {
                             DaysToDisplay[3].TaskList.Add(item);
-                            updateTaskListStrings(3);
+                            updateTaskItemLists(3);
                         }
                         else if (item.Day.DayName == DaysToDisplay[4].NameOfDay)
                         {
                             DaysToDisplay[4].TaskList.Add(item);
-                            updateTaskListStrings(4);
+                            updateTaskItemLists(4);
                         }
                         else if (item.Day.DayName == DaysToDisplay[5].NameOfDay)
                         {
                             DaysToDisplay[5].TaskList.Add(item);
-                            updateTaskListStrings(5);
+                            updateTaskItemLists(5);
                         }
                         else if (item.Day.DayName == DaysToDisplay[6].NameOfDay)
                         {
                             DaysToDisplay[6].TaskList.Add(item);
-                            updateTaskListStrings(6);
+                            updateTaskItemLists(6);
                         }
                     }
                 }

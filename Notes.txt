@@ -91,6 +91,13 @@ After 'Submit', erase all fields and place focus on the first entry
 Edit existing tasks
 Tasks should display as time blocks
 
+6/18/19:
+Add edit/delete functionality
+Replace edit/delete text w/ icons
+Overall UI overhaul
+Only show categories on bottom right if non-zero hours
+
+
 DATABASE (Relational):
 Table 1:
 [Primary] Task ID | Task Name | Task Duration | [Foreign] Cat ID | [Foreign] Day ID | [Foreign] Week ID 
