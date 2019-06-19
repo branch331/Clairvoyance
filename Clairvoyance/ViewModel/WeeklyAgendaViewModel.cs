@@ -87,14 +87,7 @@ namespace Clairvoyance.ViewModel
             {
                 try
                 {
-                    var taskItem = o as TaskItem;
-
-                    System.Windows.MessageBox.Show("Update...\n"
-                        + taskItem.Id + "\n"
-                        + taskItem.TaskName + "\n"
-                        + taskItem.TaskCategory + "\n"
-                        + taskItem.TaskStartDateTime + "\n"
-                        + taskItem.TaskEndDateTime);
+                    updateTaskItemInDb(o as TaskItem);
                 }
                 catch (System.ArgumentException e)
                 {
@@ -106,14 +99,7 @@ namespace Clairvoyance.ViewModel
             {
                 try
                 {
-                    var taskItem = o as TaskItem;
-
-                    System.Windows.MessageBox.Show("Delete...\n" 
-                        + taskItem.Id + "\n"
-                        + taskItem.TaskName + "\n"
-                        + taskItem.TaskCategory + "\n"
-                        + taskItem.TaskStartDateTime + "\n"
-                        + taskItem.TaskEndDateTime);
+                    deleteTaskItemFromDb(o as TaskItem);
                 }
                 catch (System.ArgumentException e)
                 {
@@ -741,6 +727,21 @@ namespace Clairvoyance.ViewModel
                     }
                 }
             }
+        }
+
+        public void updateTaskItemInDb(TaskItem updatedTaskItem)
+        {
+            taskDbLayer.updateTaskItem(updatedTaskItem);
+        }
+
+        public void deleteTaskItemFromDb(TaskItem taskItemToDelete)
+        {
+            taskDbLayer.deleteTaskItem(taskItemToDelete);
+            string dayName = taskDbLayer.findDayNameFromId(taskItemToDelete.DayId);
+            int dayIndex = DaysToDisplay
+                .FindIndex(x => x.NameOfDay == dayName);
+            updateTaskItemLists(dayIndex);
+            //NotifyPropertyChanged(dayName + "TaskItemList");
         }
 
         public int getCurrentWeekIdFromDb()

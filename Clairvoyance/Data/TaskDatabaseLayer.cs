@@ -69,6 +69,19 @@ namespace Clairvoyance.Data
             _taskCtx.SaveChanges();
         }
 
+        public void updateTaskItem(TaskItem updatedTaskItem)
+        {
+            var taskEntityToUpdate = _taskCtx.tasks
+                .Where(item => item.Id == updatedTaskItem.Id)
+                .FirstOrDefault();
+
+            if (taskEntityToUpdate != null)
+            {
+                taskEntityToUpdate = updatedTaskItem;
+                _taskCtx.SaveChanges();
+            }
+        }
+
         public void deleteTaskItem(TaskItem taskItemToDelete)
         {
             var taskEntityToDelete = _taskCtx.tasks
@@ -113,6 +126,13 @@ namespace Clairvoyance.Data
                 .FirstOrDefault();
 
             return day.Id;
+        }
+
+        public string findDayNameFromId(int id)
+        {
+            return _taskCtx.days
+                .Where(item => item.Id == id)
+                .FirstOrDefault().DayName;
         }
 
         public int findWeekIdFromStartDate(DateTime mondayDateTime)
