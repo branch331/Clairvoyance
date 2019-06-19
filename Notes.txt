@@ -96,7 +96,7 @@ Add edit/delete functionality - for edit, add notification. for delete, add dial
 Replace edit/delete text w/ icons 
 Overall UI overhaul
 Only show categories on bottom right if non-zero hours
-**Bug: Deleting task in same instance you created it results in _taskCtx.days = null
+**Bug: Deleting task in same instance you created it results in _taskCtx.days = null. Looks like after adding a new task, Id and DayId are 0/null...
 **During update, need to recalculate tasktimeinterval
 
 DATABASE (Relational):

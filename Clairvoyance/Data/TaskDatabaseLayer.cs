@@ -130,7 +130,9 @@ namespace Clairvoyance.Data
 
         public string findDayNameFromId(int id)
         {
-            return _taskCtx.days
+            var dayList = _taskCtx.days;
+
+            return dayList
                 .Where(item => item.Id == id)
                 .FirstOrDefault().DayName;
         }

@@ -534,7 +534,12 @@ namespace Clairvoyance.ViewModel
             int dayIndex = DaysToDisplay
                 .FindIndex(x => x.NameOfDay == taskItemDay);
 
-            DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+            var dayPlanner = DaysToDisplay[dayIndex];
+
+            dayPlanner.addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+
+            dayPlanner.TaskList[dayPlanner.TaskList.Count - 1].DayId = taskDbLayer.findDayId(TaskItemDay);
+
             updateTaskItemLists(dayIndex);
             updateWeeklyTotals();
 
@@ -766,13 +771,14 @@ namespace Clairvoyance.ViewModel
 
         public void deleteTaskItemFromDb(TaskItem taskItemToDelete)
         {
-            taskDbLayer.deleteTaskItem(taskItemToDelete);
-
             string dayName = taskDbLayer.findDayNameFromId(taskItemToDelete.DayId);
             int dayIndex = DaysToDisplay
                 .FindIndex(x => x.NameOfDay == dayName);
+
             DaysToDisplay[dayIndex].TaskList.Remove(taskItemToDelete);
             updateTaskItemLists(dayIndex);
+
+            taskDbLayer.deleteTaskItem(taskItemToDelete);
         }
 
         public int getCurrentWeekIdFromDb()
