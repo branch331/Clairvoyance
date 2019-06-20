@@ -10,6 +10,7 @@ using System.Collections.Specialized;
 using Clairvoyance.Data;
 using Clairvoyance.Helpers;
 using Clairvoyance.Model;
+using System.Windows;
 
 namespace Clairvoyance.ViewModel
 {
@@ -87,7 +88,9 @@ namespace Clairvoyance.ViewModel
             {
                 try
                 {
-                    updateTaskItemInDb(o as TaskItem);
+                    TaskItem taskItem = o as TaskItem;
+                    updateTaskItemInDb(taskItem);
+                    System.Windows.MessageBox.Show(taskItem.TaskName + " updated.");
                 }
                 catch (System.ArgumentException e)
                 {
@@ -99,7 +102,13 @@ namespace Clairvoyance.ViewModel
             {
                 try
                 {
-                    deleteTaskItemFromDb(o as TaskItem);
+                    TaskItem taskItem = o as TaskItem;
+                    MessageBoxResult continueWithDelete = MessageBox.Show("Delete " + taskItem + "?", "Confirm Delete", MessageBoxButton.OKCancel);
+
+                    if (continueWithDelete == MessageBoxResult.OK)
+                    {
+                        deleteTaskItemFromDb(taskItem);
+                    }
                 }
                 catch (System.ArgumentException e)
                 {
@@ -550,6 +559,8 @@ namespace Clairvoyance.ViewModel
         {
             TaskItem taskItem = new Model.TaskItem(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
             taskDbLayer.addTaskItem(taskItem, taskItemDay, weeklyStartDate);
+
+            populateTaskListFromDb();
         }
 
         public bool anyTaskFieldEmpty()
@@ -718,6 +729,8 @@ namespace Clairvoyance.ViewModel
             var existingTaskList = taskDbLayer.getExistingTaskList();
             int currentWeekId = getCurrentWeekIdFromDb();
 
+            resetDaysToDisplayToDefaults();
+
             if (existingTaskList != null)
             {
                 foreach (TaskItem item in existingTaskList)
@@ -764,9 +777,20 @@ namespace Clairvoyance.ViewModel
             }
         }
 
+        public void resetDaysToDisplayToDefaults()
+        {
+            foreach (DayPlanner dayPlanner in DaysToDisplay)
+            {
+                dayPlanner.TaskList.Clear();
+            }
+        }
+
         public void updateTaskItemInDb(TaskItem updatedTaskItem)
         {
+            updatedTaskItem.calculateTaskTimeInterval();
             taskDbLayer.updateTaskItem(updatedTaskItem);
+            //updateWeeklyTotals();
+            initializeWeeklyTotalsFromDb();
         }
 
         public void deleteTaskItemFromDb(TaskItem taskItemToDelete)
@@ -779,6 +803,8 @@ namespace Clairvoyance.ViewModel
             updateTaskItemLists(dayIndex);
 
             taskDbLayer.deleteTaskItem(taskItemToDelete);
+            //updateWeeklyTotals();
+            initializeWeeklyTotalsFromDb();
         }
 
         public int getCurrentWeekIdFromDb()
@@ -791,6 +817,8 @@ namespace Clairvoyance.ViewModel
 
         public void initializeWeeklyTotalsFromDb()
         {
+            weeklyTotalsInHours.Clear();
+
             var existingCategoryList = taskDbLayer.getExistingCategoryList();
             var existingTaskList = taskDbLayer.getExistingTaskList();
 
