@@ -1,8 +1,9 @@
-﻿<Window x:Class="Clairvoyance.View.WeeklyAgenda"
+﻿<Controls:MetroWindow x:Class="Clairvoyance.View.WeeklyAgenda"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Clairvoyance"
         mc:Ignorable="d"
         Title="Clairvoyance" Height="600" Width="1000">
@@ -35,12 +36,14 @@
                     <Button Grid.Row="3" Grid.Column="0" 
                         Command="{Binding Path=DataContext.TaskUpdateCommand,
                         RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-                        CommandParameter="{Binding}">U
+                        CommandParameter="{Binding}">
+                        <TextBlock Text="U"/>
                     </Button>
                     <Button Grid.Row="3" Grid.Column="1" 
                         Command="{Binding Path=DataContext.TaskDeleteCommand,
                         RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-                        CommandParameter="{Binding}">X
+                        CommandParameter="{Binding}">
+                        <TextBlock Text="X"/>
                     </Button>
 
                 </Grid>
@@ -177,4 +180,5 @@
 
         <Button Content="Detailed Breakdown" Grid.Row="1" Grid.Column="2" Height="26" Click="Detailed_Button_Click" Grid.ColumnSpan="2" Margin="0,400,0,0"/>
     </Grid>
-</Window>
+
+</Controls:MetroWindow>

@@ -789,7 +789,7 @@ namespace Clairvoyance.ViewModel
         {
             updatedTaskItem.calculateTaskTimeInterval();
             taskDbLayer.updateTaskItem(updatedTaskItem);
-            //updateWeeklyTotals();
+
             initializeWeeklyTotalsFromDb();
         }
 
@@ -803,7 +803,7 @@ namespace Clairvoyance.ViewModel
             updateTaskItemLists(dayIndex);
 
             taskDbLayer.deleteTaskItem(taskItemToDelete);
-            //updateWeeklyTotals();
+
             initializeWeeklyTotalsFromDb();
         }
 

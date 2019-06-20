@@ -22,3 +22,12 @@ C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\Statist
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\StatisticsWindow.baml
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\WeeklyAgenda.g.cs
 C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\View\WeeklyAgenda.baml
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\FontAwesome.WPF.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\FontAwesome.WPF.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\ControlzEx.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\MahApps.Metro.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\ControlzEx.pdb
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\MahApps.Metro.pdb
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\bin\Debug\MahApps.Metro.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\Clairvoyance\obj\Debug\App.baml
