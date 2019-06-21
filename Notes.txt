@@ -91,6 +91,16 @@ After 'Submit', erase all fields and place focus on the first entry
 Edit existing tasks
 Tasks should display as time blocks
 
+6/18/19:
+[DONE]Add edit/delete functionality - for edit, add notification. for delete, add dialog + notification.
+Replace edit/delete text w/ icons 
+Overall UI overhaul
+Only show categories on bottom right if non-zero hours
+[DONE] **Bug: Deleting task in same instance you created it results in _taskCtx.days = null. Looks like after adding a new task, Id and DayId are 0/null...
+[DONE] **During update, need to recalculate tasktimeinterval
+[DONE] **Update on item made in same instance doesn't go through. Also can't delete taskitem.. [DONE] Issue: no id, no dayid, no day, no categoryid, no category, no week, no weekid. Really inefficient, but by re-updating all the tasks from the database, we get past this and can update/delete fine.
+[DONE]Updating task from whole hours to half >> doesn't reflect on mainwindow hours
+
 DATABASE (Relational):
 Table 1:
 [Primary] Task ID | Task Name | Task Duration | [Foreign] Cat ID | [Foreign] Day ID | [Foreign] Week ID 

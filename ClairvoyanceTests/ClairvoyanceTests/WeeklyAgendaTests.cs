@@ -119,13 +119,13 @@ namespace ClairvoyanceTests
         }
 
         [TestMethod]
-        public void addTaskListStringMonTest()
+        public void addTaskListMonTest()
         {
             int origTaskCount = 0;
 
-            if (testAgendaVMFullWeek.monTaskListString != null)
+            if (testAgendaVMFullWeek.MonTaskItemList != null)
             {
-                origTaskCount = testAgendaVMFullWeek.monTaskListString.Count;
+                origTaskCount = testAgendaVMFullWeek.MonTaskItemList.Count;
             }
 
             testAgendaVMFullWeek.TaskItemDay = "Mon";
@@ -134,19 +134,19 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
 
-            int newTaskCount = testAgendaVMFullWeek.monTaskListString.Count;
+            int newTaskCount = testAgendaVMFullWeek.MonTaskItemList.Count;
 
             Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
-        public void addTaskListStringTuesTest()
+        public void addTaskListTuesTest()
         {
             int origTaskCount = 0;
 
-            if (testAgendaVMFullWeek.tuesTaskListString != null)
+            if (testAgendaVMFullWeek.TuesTaskItemList != null)
             {
-                origTaskCount = testAgendaVMFullWeek.tuesTaskListString.Count;
+                origTaskCount = testAgendaVMFullWeek.TuesTaskItemList.Count;
             }
 
             testAgendaVMFullWeek.TaskItemDay = "Tues";
@@ -155,19 +155,19 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
 
-            int newTaskCount = testAgendaVMFullWeek.tuesTaskListString.Count;
+            int newTaskCount = testAgendaVMFullWeek.TuesTaskItemList.Count;
 
             Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
-        public void addTaskListStringWedTest()
+        public void addTaskListWedTest()
         {
             int origTaskCount = 0;
 
-            if (testAgendaVMFullWeek.wedTaskListString != null)
+            if (testAgendaVMFullWeek.WedTaskItemList != null)
             {
-                origTaskCount = testAgendaVMFullWeek.wedTaskListString.Count;
+                origTaskCount = testAgendaVMFullWeek.WedTaskItemList.Count;
             }
 
             testAgendaVMFullWeek.TaskItemDay = "Wed";
@@ -176,19 +176,19 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
 
-            int newTaskCount = testAgendaVMFullWeek.wedTaskListString.Count;
+            int newTaskCount = testAgendaVMFullWeek.WedTaskItemList.Count;
 
             Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
-        public void addTaskListStringThursTest()
+        public void addTaskListThursTest()
         {
             int origTaskCount = 0;
 
-            if (testAgendaVMFullWeek.thursTaskListString != null)
+            if (testAgendaVMFullWeek.ThursTaskItemList != null)
             {
-                origTaskCount = testAgendaVMFullWeek.thursTaskListString.Count;
+                origTaskCount = testAgendaVMFullWeek.ThursTaskItemList.Count;
             }
 
             testAgendaVMFullWeek.TaskItemDay = "Thurs";
@@ -197,19 +197,19 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
 
-            int newTaskCount = testAgendaVMFullWeek.thursTaskListString.Count;
+            int newTaskCount = testAgendaVMFullWeek.ThursTaskItemList.Count;
 
             Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
-        public void addTaskListStringFriTest()
+        public void addTaskListFriTest()
         {
             int origTaskCount = 0;
 
-            if (testAgendaVMFullWeek.friTaskListString != null)
+            if (testAgendaVMFullWeek.FriTaskItemList != null)
             {
-                origTaskCount = testAgendaVMFullWeek.friTaskListString.Count;
+                origTaskCount = testAgendaVMFullWeek.FriTaskItemList.Count;
             }
 
             testAgendaVMFullWeek.TaskItemDay = "Fri";
@@ -218,19 +218,19 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
 
-            int newTaskCount = testAgendaVMFullWeek.friTaskListString.Count;
+            int newTaskCount = testAgendaVMFullWeek.FriTaskItemList.Count;
 
             Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
-        public void addTaskListStringSatTest()
+        public void addTaskListSatTest()
         {
             int origTaskCount = 0;
 
-            if (testAgendaVMFullWeek.satTaskListString != null)
+            if (testAgendaVMFullWeek.SatTaskItemList != null)
             {
-                origTaskCount = testAgendaVMFullWeek.satTaskListString.Count;
+                origTaskCount = testAgendaVMFullWeek.SatTaskItemList.Count;
             }
 
             testAgendaVMFullWeek.TaskItemDay = "Sat";
@@ -239,19 +239,19 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
 
-            int newTaskCount = testAgendaVMFullWeek.satTaskListString.Count;
+            int newTaskCount = testAgendaVMFullWeek.SatTaskItemList.Count;
 
             Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }
 
         [TestMethod]
-        public void addTaskListStringSunTest()
+        public void addTaskListSunTest()
         {
             int origTaskCount = 0;
 
-            if (testAgendaVMFullWeek.sunTaskListString != null)
+            if (testAgendaVMFullWeek.SunTaskItemList != null)
             {
-                origTaskCount = testAgendaVMFullWeek.sunTaskListString.Count;
+                origTaskCount = testAgendaVMFullWeek.SunTaskItemList.Count;
             }
 
             testAgendaVMFullWeek.TaskItemDay = "Sun";
@@ -260,7 +260,7 @@ namespace ClairvoyanceTests
                 testAgendaVMFullWeek.addTaskToDay();
             }
 
-            int newTaskCount = testAgendaVMFullWeek.sunTaskListString.Count;
+            int newTaskCount = testAgendaVMFullWeek.SunTaskItemList.Count;
 
             Assert.IsTrue(newTaskCount - origTaskCount == 3);
         }

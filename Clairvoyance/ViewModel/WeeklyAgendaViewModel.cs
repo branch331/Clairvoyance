@@ -10,6 +10,7 @@ using System.Collections.Specialized;
 using Clairvoyance.Data;
 using Clairvoyance.Helpers;
 using Clairvoyance.Model;
+using System.Windows;
 
 namespace Clairvoyance.ViewModel
 {
@@ -18,6 +19,8 @@ namespace Clairvoyance.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand categorySubmitCommand;
         private ICommand taskSubmitCommand;
+        private ICommand taskUpdateCommand;
+        private ICommand taskDeleteCommand;
         
         public string taskItemName;
         public string taskItemDay;
@@ -29,13 +32,13 @@ namespace Clairvoyance.ViewModel
         public string weekRangeString;
         private string categoryToAdd;
 
-        public List<string> monTaskListString;
-        public List<string> tuesTaskListString;
-        public List<string> wedTaskListString;
-        public List<string> thursTaskListString;
-        public List<string> friTaskListString;
-        public List<string> satTaskListString;
-        public List<string> sunTaskListString;
+        private ObservableCollection<TaskItem> monTaskItemList;
+        private ObservableCollection<TaskItem> tuesTaskItemList;
+        private ObservableCollection<TaskItem> wedTaskItemList;
+        private ObservableCollection<TaskItem> thursTaskItemList;
+        private ObservableCollection<TaskItem> friTaskItemList;
+        private ObservableCollection<TaskItem> satTaskItemList;
+        private ObservableCollection<TaskItem> sunTaskItemList;
 
         public List<DayPlanner> daysToDisplay;
         private List<DayPlanner> fullWeek = new List<DayPlanner>();
@@ -74,6 +77,38 @@ namespace Clairvoyance.ViewModel
                 try
                 {
                     addTaskToDay();
+                }
+                catch (System.ArgumentException e)
+                {
+                    System.Windows.MessageBox.Show(e.Message);
+                }
+            }, o => true);
+
+            taskUpdateCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    TaskItem taskItem = o as TaskItem;
+                    updateTaskItemInDb(taskItem);
+                    System.Windows.MessageBox.Show(taskItem.TaskName + " updated.");
+                }
+                catch (System.ArgumentException e)
+                {
+                    System.Windows.MessageBox.Show(e.Message);
+                }
+            }, o => true);
+
+            taskDeleteCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    TaskItem taskItem = o as TaskItem;
+                    MessageBoxResult continueWithDelete = MessageBox.Show("Delete \"" + taskItem.TaskName + "\"?", "Confirm Delete", MessageBoxButton.OKCancel);
+
+                    if (continueWithDelete == MessageBoxResult.OK)
+                    {
+                        deleteTaskItemFromDb(taskItem);
+                    }
                 }
                 catch (System.ArgumentException e)
                 {
@@ -225,93 +260,93 @@ namespace Clairvoyance.ViewModel
             }
         }
 
-        public List<string> MonTaskListString
+        public ObservableCollection<TaskItem> MonTaskItemList
         {
-            get { return monTaskListString; }
+            get { return monTaskItemList; }
             set
             {
-                if (monTaskListString != value)
+                if (monTaskItemList != value)
                 {
-                    monTaskListString = value;
-                    NotifyPropertyChanged("MonTaskListString");
+                    monTaskItemList = value;
+                    NotifyPropertyChanged("MonTaskItemList");
                 }
             }
         }
 
-        public List<string> TuesTaskListString
+        public ObservableCollection<TaskItem> TuesTaskItemList
         {
-            get { return tuesTaskListString; }
+            get { return tuesTaskItemList; }
             set
             {
-                if (tuesTaskListString != value)
+                if (tuesTaskItemList != value)
                 {
-                    tuesTaskListString = value;
-                    NotifyPropertyChanged("TuesTaskListString");
+                    tuesTaskItemList = value;
+                    NotifyPropertyChanged("TuesTaskItemList");
                 }
             }
         }
 
-        public List<string> WedTaskListString
+        public ObservableCollection<TaskItem> WedTaskItemList
         {
-            get { return wedTaskListString; }
+            get { return wedTaskItemList; }
             set
             {
-                if (wedTaskListString != value)
+                if (wedTaskItemList != value)
                 {
-                    wedTaskListString = value;
-                    NotifyPropertyChanged("WedTaskListString");
+                    wedTaskItemList = value;
+                    NotifyPropertyChanged("WedTaskItemList");
                 }
             }
         }
 
-        public List<string> ThursTaskListString
+        public ObservableCollection<TaskItem> ThursTaskItemList
         {
-            get { return thursTaskListString; }
+            get { return thursTaskItemList; }
             set
             {
-                if (thursTaskListString != value)
+                if (thursTaskItemList != value)
                 {
-                    thursTaskListString = value;
-                    NotifyPropertyChanged("ThursTaskListString");
+                    thursTaskItemList = value;
+                    NotifyPropertyChanged("ThursTaskItemList");
                 }
             }
         }
 
-        public List<string> FriTaskListString
+        public ObservableCollection<TaskItem> FriTaskItemList
         {
-            get { return friTaskListString; }
+            get { return friTaskItemList; }
             set
             {
-                if (friTaskListString != value)
+                if (friTaskItemList != value)
                 {
-                    friTaskListString = value;
-                    NotifyPropertyChanged("FriTaskListString");
+                    friTaskItemList = value;
+                    NotifyPropertyChanged("FriTaskItemList");
                 }
             }
         }
 
-        public List<string> SatTaskListString
+        public ObservableCollection<TaskItem> SatTaskItemList
         {
-            get { return satTaskListString; }
+            get { return satTaskItemList; }
             set
             {
-                if (satTaskListString != value)
+                if (satTaskItemList != value)
                 {
-                    satTaskListString = value;
-                    NotifyPropertyChanged("SatTaskListString");
+                    satTaskItemList = value;
+                    NotifyPropertyChanged("SatTaskItemList");
                 }
             }
         }
 
-        public List<string> SunTaskListString
+        public ObservableCollection<TaskItem> SunTaskItemList
         {
-            get { return sunTaskListString; }
+            get { return sunTaskItemList; }
             set
             {
-                if (sunTaskListString != value)
+                if (sunTaskItemList != value)
                 {
-                    sunTaskListString = value;
-                    NotifyPropertyChanged("SunTaskListString");
+                    sunTaskItemList = value;
+                    NotifyPropertyChanged("SunTaskItemList");
                 }
             }
         }
@@ -336,6 +371,24 @@ namespace Clairvoyance.ViewModel
             set
             {
                 taskSubmitCommand = value;
+            }
+        }
+
+        public ICommand TaskUpdateCommand
+        {
+            get { return taskUpdateCommand; }
+            set
+            {
+                taskUpdateCommand = value;
+            }
+        }
+
+        public ICommand TaskDeleteCommand
+        {
+            get { return taskDeleteCommand; }
+            set
+            {
+                taskDeleteCommand = value;
             }
         }
 
@@ -491,8 +544,13 @@ namespace Clairvoyance.ViewModel
             int dayIndex = DaysToDisplay
                 .FindIndex(x => x.NameOfDay == taskItemDay);
 
-            DaysToDisplay[dayIndex].addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
-            updateTaskListStrings(dayIndex);
+            var dayPlanner = DaysToDisplay[dayIndex];
+
+            dayPlanner.addTask(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
+
+            dayPlanner.TaskList[dayPlanner.TaskList.Count - 1].DayId = taskDbLayer.findDayId(TaskItemDay);
+
+            updateTaskItemLists(dayIndex);
             updateWeeklyTotals();
 
             addTaskToDb();
@@ -502,6 +560,8 @@ namespace Clairvoyance.ViewModel
         {
             TaskItem taskItem = new Model.TaskItem(taskItemName, taskItemCategory, taskItemStartTime, taskItemEndTime);
             taskDbLayer.addTaskItem(taskItem, taskItemDay, weeklyStartDate);
+
+            populateTaskListFromDb();
         }
 
         public bool anyTaskFieldEmpty()
@@ -600,37 +660,67 @@ namespace Clairvoyance.ViewModel
             NotifyPropertyChanged("DaysToDisplay");
         }
 
-        public void updateTaskListStrings(int dayIndex)
+        public void updateTaskItemLists(int dayIndex)
         {
+            ObservableCollection<TaskItem> newTaskList = new ObservableCollection<TaskItem>(); //Used to convert from list >> ObservableCollection
+
             switch (dayIndex)
             {
                 case 0:
-                    monTaskListString = (convertTaskListToStrings(DaysToDisplay[0].TaskList));
-                    NotifyPropertyChanged("MonTaskListString");
+                    foreach (TaskItem item in DaysToDisplay[0].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    monTaskItemList = newTaskList;
+                    NotifyPropertyChanged("MonTaskItemList");
                     break;
                 case 1:
-                    tuesTaskListString = (convertTaskListToStrings(DaysToDisplay[1].TaskList));
-                    NotifyPropertyChanged("TuesTaskListString");
+                    foreach (TaskItem item in DaysToDisplay[1].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    tuesTaskItemList = newTaskList;
+                    NotifyPropertyChanged("TuesTaskItemList");
                     break;
                 case 2:
-                    wedTaskListString = (convertTaskListToStrings(DaysToDisplay[2].TaskList));
-                    NotifyPropertyChanged("WedTaskListString");
+                    foreach (TaskItem item in DaysToDisplay[2].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    wedTaskItemList = newTaskList;
+                    NotifyPropertyChanged("WedTaskItemList");
                     break;
                 case 3:
-                    thursTaskListString = (convertTaskListToStrings(DaysToDisplay[3].TaskList));
-                    NotifyPropertyChanged("ThursTaskListString");
+                    foreach (TaskItem item in DaysToDisplay[3].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    thursTaskItemList = newTaskList;
+                    NotifyPropertyChanged("ThursTaskItemList");
                     break;
                 case 4:
-                    friTaskListString = (convertTaskListToStrings(DaysToDisplay[4].TaskList));
-                    NotifyPropertyChanged("FriTaskListString");
+                    foreach (TaskItem item in DaysToDisplay[4].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    friTaskItemList = newTaskList;
+                    NotifyPropertyChanged("FriTaskItemList");
                     break;
                 case 5:
-                    satTaskListString = (convertTaskListToStrings(DaysToDisplay[5].TaskList));
-                    NotifyPropertyChanged("SatTaskListString");
+                    foreach (TaskItem item in DaysToDisplay[5].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    satTaskItemList = newTaskList;
+                    NotifyPropertyChanged("SatTaskItemList");
                     break;
                 case 6:
-                    sunTaskListString = (convertTaskListToStrings(DaysToDisplay[6].TaskList));
-                    NotifyPropertyChanged("SunTaskListString");
+                    foreach (TaskItem item in DaysToDisplay[6].TaskList)
+                    {
+                        newTaskList.Add(item);
+                    }
+                    sunTaskItemList = newTaskList;
+                    NotifyPropertyChanged("SunTaskItemList");
                     break;
             }
         }
@@ -639,6 +729,8 @@ namespace Clairvoyance.ViewModel
         {
             var existingTaskList = taskDbLayer.getExistingTaskList();
             int currentWeekId = getCurrentWeekIdFromDb();
+
+            resetDaysToDisplayToDefaults();
 
             if (existingTaskList != null)
             {
@@ -649,41 +741,71 @@ namespace Clairvoyance.ViewModel
                         if (item.Day.DayName == DaysToDisplay[0].NameOfDay)
                         {
                             DaysToDisplay[0].TaskList.Add(item);
-                            updateTaskListStrings(0);
+                            updateTaskItemLists(0);
                         }
                         else if (item.Day.DayName == DaysToDisplay[1].NameOfDay)
                         {
                             DaysToDisplay[1].TaskList.Add(item);
-                            updateTaskListStrings(1);
+                            updateTaskItemLists(1);
                         }
                         else if (item.Day.DayName == DaysToDisplay[2].NameOfDay)
                         {
                             DaysToDisplay[2].TaskList.Add(item);
-                            updateTaskListStrings(2);
+                            updateTaskItemLists(2);
                         }
                         else if (item.Day.DayName == DaysToDisplay[3].NameOfDay)
                         {
                             DaysToDisplay[3].TaskList.Add(item);
-                            updateTaskListStrings(3);
+                            updateTaskItemLists(3);
                         }
                         else if (item.Day.DayName == DaysToDisplay[4].NameOfDay)
                         {
                             DaysToDisplay[4].TaskList.Add(item);
-                            updateTaskListStrings(4);
+                            updateTaskItemLists(4);
                         }
                         else if (item.Day.DayName == DaysToDisplay[5].NameOfDay)
                         {
                             DaysToDisplay[5].TaskList.Add(item);
-                            updateTaskListStrings(5);
+                            updateTaskItemLists(5);
                         }
                         else if (item.Day.DayName == DaysToDisplay[6].NameOfDay)
                         {
                             DaysToDisplay[6].TaskList.Add(item);
-                            updateTaskListStrings(6);
+                            updateTaskItemLists(6);
                         }
                     }
                 }
             }
+        }
+
+        public void resetDaysToDisplayToDefaults()
+        {
+            foreach (DayPlanner dayPlanner in DaysToDisplay)
+            {
+                dayPlanner.TaskList.Clear();
+            }
+        }
+
+        public void updateTaskItemInDb(TaskItem updatedTaskItem)
+        {
+            updatedTaskItem.calculateTaskTimeInterval();
+            taskDbLayer.updateTaskItem(updatedTaskItem);
+
+            initializeWeeklyTotalsFromDb();
+        }
+
+        public void deleteTaskItemFromDb(TaskItem taskItemToDelete)
+        {
+            string dayName = taskDbLayer.findDayNameFromId(taskItemToDelete.DayId);
+            int dayIndex = DaysToDisplay
+                .FindIndex(x => x.NameOfDay == dayName);
+
+            DaysToDisplay[dayIndex].TaskList.Remove(taskItemToDelete);
+            updateTaskItemLists(dayIndex);
+
+            taskDbLayer.deleteTaskItem(taskItemToDelete);
+
+            initializeWeeklyTotalsFromDb();
         }
 
         public int getCurrentWeekIdFromDb()
@@ -696,6 +818,8 @@ namespace Clairvoyance.ViewModel
 
         public void initializeWeeklyTotalsFromDb()
         {
+            weeklyTotalsInHours.Clear();
+
             var existingCategoryList = taskDbLayer.getExistingCategoryList();
             var existingTaskList = taskDbLayer.getExistingTaskList();
 
