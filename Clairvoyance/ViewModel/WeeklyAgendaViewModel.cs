@@ -103,7 +103,7 @@ namespace Clairvoyance.ViewModel
                 try
                 {
                     TaskItem taskItem = o as TaskItem;
-                    MessageBoxResult continueWithDelete = MessageBox.Show("Delete " + taskItem + "?", "Confirm Delete", MessageBoxButton.OKCancel);
+                    MessageBoxResult continueWithDelete = MessageBox.Show("Delete \"" + taskItem.TaskName + "\"?", "Confirm Delete", MessageBoxButton.OKCancel);
 
                     if (continueWithDelete == MessageBoxResult.OK)
                     {
