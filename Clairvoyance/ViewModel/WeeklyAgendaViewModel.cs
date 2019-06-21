@@ -826,12 +826,12 @@ namespace Clairvoyance.ViewModel
 
             foreach (string category in existingCategoryList)
             {
-                int totalHours = 0;
+                double totalHours = 0;
                 foreach (TaskItem item in existingTaskList)
                 {
                     if (item.Category.CategoryName == category && item.WeekId == currentWeekId)
                     {
-                        totalHours += item.TaskTimeInterval.Hours;
+                        totalHours += item.TaskTimeInterval.TotalHours;
                     }
                 }
 

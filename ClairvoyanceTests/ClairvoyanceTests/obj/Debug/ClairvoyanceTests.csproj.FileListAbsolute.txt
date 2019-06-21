@@ -29,3 +29,9 @@ C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\Moq.xml
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\MahApps.Metro.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\ControlzEx.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\MahApps.Metro.pdb
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\MahApps.Metro.xml
+C:\Users\brand\Documents\GitHub\Clairvoyance\ClairvoyanceTests\ClairvoyanceTests\bin\Debug\ControlzEx.pdb
